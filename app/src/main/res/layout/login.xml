@@ -29,24 +29,29 @@
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:backgroundTint="#38E07A"
-        app:cornerRadius="20dp"
-        app:boxBackgroundColor="#264533"
-        app:boxStrokeColor="#3A5F5F"
+        app:boxBackgroundMode="filled"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxBackgroundColor="@color/input_background"
+        app:boxStrokeColor="@color/input_stroke"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="true"
         app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="@null"
-            android:textColor="#FFFFFF"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/white"
             android:hint="Username"
-            android:inputType="text"
-            android:gravity="start" />
+            android:inputType="text" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -56,28 +61,33 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#38E07A"
         app:layout_constraintTop_toBottomOf="@id/tilUsername"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:cornerRadius="20dp"
-        app:boxBackgroundColor="#264533"
-        app:boxStrokeColor="#3A5F5F"
+        app:boxBackgroundMode="filled"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxBackgroundColor="@color/input_background"
+        app:boxStrokeColor="@color/input_stroke"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="true"
-        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6">
+        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="start"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/white"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="12dp"
-            />
+            android:inputType="textPassword" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
