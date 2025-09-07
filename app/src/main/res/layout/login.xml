@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Club Deportivo"
+        android:text="@string/club_deportivo"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -34,8 +34,6 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusBottomEnd="20dp"
-        app:boxBackgroundColor="@color/input_background"
-        app:boxStrokeColor="@color/input_stroke"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="true"
         app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6">
@@ -49,7 +47,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:textColor="@color/white"
-            android:hint="Username"
+            android:hint="@string/username"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,8 +67,6 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusBottomEnd="20dp"
-        app:boxBackgroundColor="@color/input_background"
-        app:boxStrokeColor="@color/input_stroke"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="true"
         app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
@@ -85,7 +81,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:textColor="@color/white"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -108,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Recuerdame"
+            android:text="@string/recuerdame"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +129,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#38E07A"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="#121B1B"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +145,7 @@
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="sans-serif-light"
-        android:text="Olvidaste la contraseña?"
+        android:text="@string/olvidaste_la_contrase_a"
         android:textColor="#96C4A8"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">grupoClouds</string>
+    <string name="club_deportivo">Club Deportivo</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="recuerdame">Recuerdame</string>
+    <string name="login">Login</string>
+    <string name="olvidaste_la_contrase_a">Olvidaste la contraseña?</string>
+
+
 </resources>
