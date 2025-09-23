@@ -6,6 +6,9 @@
     <string name="recuerdame">Recuerdame</string>
     <string name="login">Iniciar Sesión</string>
     <string name="olvidaste_la_contrase_a">Olvidaste la contraseña?</string>
+    <string name="recuperar_contrasena">Recuperar Contraseña</string>
+    <string name="enviar">Enviar</string>
+
 
 
 </resources>
