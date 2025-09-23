@@ -8,6 +8,13 @@
     <string name="olvidaste_la_contrase_a">Olvidaste la contraseña?</string>
     <string name="recuperar_contrasena">Recuperar Contraseña</string>
     <string name="enviar">Enviar</string>
+    <string name="entregar_carnet_socio">Entregar Carnet de Socio</string>
+    <string name="nombre">Nombre</string>
+    <string name="dni_socio">DNI Socio</string>
+    <string name="generar_pdf">Generar PDF</string>
+    <string name="enviar_por_mail">Enviar por Mail</string>
+    <string name="cambiar_socio">Cambiar Socio</string>
+
 
 
 

@@ -3,6 +3,7 @@ package com.example.grupoclouds
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -16,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
         val etUsername = findViewById<TextInputEditText>(R.id.etUsername)
         val etPassword = findViewById<TextInputEditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
+        val tvForgotPassword: TextView = findViewById(R.id.tvForgotPassword)
 
         btnLogin.setOnClickListener {
             val username = etUsername.text.toString()
@@ -33,6 +35,10 @@ class LoginActivity : AppCompatActivity() {
                 // Credenciales incorrectas
                 Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
+        }
+        tvForgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 }
