@@ -8,14 +8,25 @@
     tools:context=".DashboardActivity">
 
     <TextView
+        android:id="@+id/welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="¡Bienvenido al Dashboard!"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_component" /> <!-- MODIFICADO -->
+
+    <!-- Aquí incluimos nuestro componente reutilizable -->
+    <include
+        android:id="@+id/bottom_nav_component"
+        layout="@layout/component_botton_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" /> <!-- AÑADIDO -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
