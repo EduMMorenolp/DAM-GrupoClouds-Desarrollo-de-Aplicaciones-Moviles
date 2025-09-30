@@ -24,6 +24,9 @@
         <activity
             android:name=".EntregaCarnetSocioActivity"
             android:exported="false" />
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
