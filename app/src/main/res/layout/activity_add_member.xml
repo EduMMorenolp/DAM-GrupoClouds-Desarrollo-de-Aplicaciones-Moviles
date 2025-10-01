@@ -7,8 +7,6 @@
     android:background="@color/background_color"
     tools:context=".AddMemberActivity">
 
-    <!-- Barra de título personalizada SIN AppBarLayout -->
-
     <!-- ScrollView: empieza justo debajo de toolbar_custom -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar_custom"
