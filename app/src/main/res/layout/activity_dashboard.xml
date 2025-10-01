@@ -262,7 +262,7 @@
                 android:background="@drawable/rounded_bg"
                 android:backgroundTint="#264532"
                 android:padding="8dp"
-                android:src="@drawable/ic_basketball" 
+                android:src="@drawable/ic_basketball"
                 app:tint="@android:color/white"
                 tools:src="@drawable/ic_basketball" />
 
@@ -382,11 +382,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" +15%"
-                    android:textColor="#4CAF50" 
+                    android:textColor="#4CAF50"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
+
+        <!-- Aquí incluimos nuestro componente reutilizable -->
+        <include
+            android:id="@+id/bottom_nav_component"
+            layout="@layout/component_botton_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" /> <!-- AÑADIDO -->
+
 
     </LinearLayout>
 </ScrollView>
