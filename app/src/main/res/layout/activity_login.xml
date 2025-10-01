@@ -35,8 +35,7 @@
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxStrokeWidth="1dp"
-        app:hintEnabled="true"
-        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6">
+        app:hintEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUsername"
@@ -68,7 +67,6 @@
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="true"
-        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
