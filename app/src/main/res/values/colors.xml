@@ -12,4 +12,6 @@
     <color name="input_stroke">#3A5F5F</color>
 
     <color name="smalltext_color">#96c5a9</color>  <!-- Color Letra pequeña verde claro -->
+    <color name="radio_button_selected_background">#1A2B21</color>
+
 </resources>

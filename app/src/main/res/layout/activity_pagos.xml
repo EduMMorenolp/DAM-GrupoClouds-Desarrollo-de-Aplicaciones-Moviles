@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".PagosActivity">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_flecha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pagos"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/back_arrow" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/search_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:drawablePadding="8dp"
+                android:hint="Search"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/smalltext_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tipo_pago_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Tipo de Pago"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
+            <RadioGroup
+                android:id="@+id/payment_type_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tipo_pago_label">
+
+                <RadioButton
+                    android:id="@+id/cuota_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Cuota"
+                    android:textColor="@color/radio_button_text_selector"
+                    />
+
+                <RadioButton
+                    android:id="@+id/actividad_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Actividad"
+                    android:textColor="@color/radio_button_text_selector"
+                     />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/fecha_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Fecha"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/payment_type_group" />
+
+            <EditText
+                android:id="@+id/fecha_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:inputType="date"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fecha_label" />
+
+            <TextView
+                android:id="@+id/monto_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Monto"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fecha_input" />
+
+            <EditText
+                android:id="@+id/monto_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/smalltext_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monto_label" />
+
+            <TextView
+                android:id="@+id/metodo_pago_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Metodo de Pago"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monto_input" />
+
+            <EditText
+                android:id="@+id/metodo_pago_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/metodo_pago_label" />
+
+            <Button
+                android:id="@+id/confirmar_pago_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/button_A_background"
+                android:padding="16dp"
+                android:text="Confirma el Pago"
+                android:textColor="@color/button_A_text"
+                android:textSize="16sp"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/metodo_pago_input" />
+
+            <TextView
+                android:id="@+id/pagos_vencidos_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Pagos Vencidos"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/confirmar_pago_button" />
+
+            <HorizontalScrollView
+                android:id="@+id/filters_scroll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pagos_vencidos_title">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/filter_hoy_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radio_button_selector"
+                        android:textColor="@color/radio_button_text_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Hoy"
+                        android:textAllCaps="false"
+                        app:cornerRadius="16dp"
+                        android:checked="true" />
+
+                    <CheckBox
+                        android:id="@+id/filter_semana_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/radio_button_selector"
+                        android:textColor="@color/radio_button_text_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Ult. Semana"
+                        android:textAllCaps="false"
+                        app:cornerRadius="16dp" />
+
+                    <CheckBox
+                        android:id="@+id/filter_socio_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radio_button_selector"
+                        android:textColor="@color/radio_button_text_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Socio"
+                        android:textAllCaps="false"
+                        app:cornerRadius="16dp" />
+
+                    <CheckBox
+                        android:id="@+id/filter_actividad_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/radio_button_selector"
+                        android:textColor="@color/radio_button_text_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Actividad"
+                        android:textAllCaps="false"
+                        app:cornerRadius="16dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pagos_vencidos_recycler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filters_scroll"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_pago_vencido" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <!-- Aquí incluimos nuestro componente reutilizable -->
+    <include
+        android:id="@+id/bottom_navigation"
+        layout="@layout/component_botton_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
