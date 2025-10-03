@@ -6,19 +6,37 @@
     android:layout_height="match_parent"
     android:background="@color/background_color">
 
+    <ImageView
+        android:id="@+id/btn_close2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:clickable="true"
+        android:contentDescription="@string/cerrar"
+        android:focusable="true"
+
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.018"
+        app:srcCompat="@drawable/ic_x_cross"
+        app:tint="#FFFFFF" />
+
     <TextView
         android:id="@+id/tvEntregacarnetSocioTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
         android:text="@string/entregar_carnet_socio"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginTop="64dp" />
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEntregacarnetSocioDniInput"
@@ -118,7 +136,7 @@
         tools:text="[DNI del Socio]"
         />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btnGenerarPdf"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -134,7 +152,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvSocioDniValue"
         app:strokeWidth="0dp" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btnEnviarPorMail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -150,7 +168,7 @@
         app:layout_constraintTop_toBottomOf="@id/btnGenerarPdf"
         app:strokeWidth="0dp" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btnCambiarSocio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
