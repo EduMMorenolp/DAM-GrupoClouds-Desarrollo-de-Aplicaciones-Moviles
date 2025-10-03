@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Capa que define el tamaño de nuestra celda.
+         Es un rectángulo transparente de 20dp x 20dp. -->
+    <item>
+        <shape android:shape="rectangle">
+            <size
+                android:width="20dp"
+                android:height="20dp" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Capa que dibuja el borde (la grilla).
+         Tiene el mismo tamaño, pero con un borde de 1dp en la parte
+         superior e izquierda. -->
+    <item
+        android:left="-2dp"
+        android:bottom="-2dp"
+        android:right="-2dp">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="1dp"
+                android:color="#40FFFFFF" /> <!-- Color de la línea (blanco con 25% opacidad) -->
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+</layer-list>

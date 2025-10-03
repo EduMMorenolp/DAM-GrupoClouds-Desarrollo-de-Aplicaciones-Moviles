@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GrupoClouds">
         <activity
+            android:name=".MiembrosActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
