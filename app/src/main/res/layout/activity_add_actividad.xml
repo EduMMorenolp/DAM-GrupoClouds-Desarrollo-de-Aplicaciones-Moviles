@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    tools:context=".AddMemberActivity">
+    tools:context=".AddActividadActivity">
 
-    <!-- ScrollView: empieza justo debajo de toolbar_custom -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar_custom"
         android:layout_width="match_parent"
@@ -24,9 +24,9 @@
 
         <!-- Botón de cerrar (izquierda) -->
         <ImageView
-            android:id="@+id/btn_close_miembro"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/btn_close_actividad"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:contentDescription="@string/cerrar"
             android:clickable="true"
             android:focusable="true"
@@ -39,20 +39,20 @@
             app:srcCompat="@drawable/ic_x_cross"
             app:tint="#FFFFFF" />
 
-        <!-- Título al lado del botón -->
+        <!-- Título -->
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_nuevaActividadTitle"
             android:layout_width="307dp"
             android:layout_height="29dp"
             android:layout_marginStart="0dp"
-            android:text="@string/new_member_title"
+            android:text="@string/nuevaActividad"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_close"
+            app:layout_constraintStart_toEndOf="@id/btn_close_actividad"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -62,7 +62,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar_custom"
-        app:layout_constraintBottom_toTopOf="@id/btn_registrar"
+        app:layout_constraintBottom_toTopOf="@id/btn_guardarActividad"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -76,39 +76,11 @@
             android:paddingEnd="16dp"
             android:paddingBottom="16dp">
 
-            <!-- Nombre -->
+            <!-- Nombre de la Actividad-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0"
-                >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:textColor="#FFFFFF"
-                    android:textColorHighlight="#BB86FC"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Apellido -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/hint_lastname"
+                android:hint="@string/nombreActividad"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
@@ -118,7 +90,60 @@
                 app:hintTextColor="#B0B0B0">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_apellido"
+                    android:id="@+id/et_nombreActividad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#BB86FC"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Tipo de Actividad -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/tipoDeActividad"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="#FFFFFF"
+                app:hintTextColor="#B0B0B0">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_tipoDeActividad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:inputType="text"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Instructor -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/instructor"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="#FFFFFF"
+                app:hintTextColor="#B0B0B0">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_instructor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
@@ -129,12 +154,12 @@
                     android:paddingEnd="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- DNI -->
+            <!-- Horario -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/hint_dni"
+                android:hint="@string/horario"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
@@ -144,7 +169,7 @@
                 app:hintTextColor="#B0B0B0">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_dni"
+                    android:id="@+id/et_horario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
@@ -155,12 +180,12 @@
                     android:paddingEnd="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Fecha de Nacimiento -->
+            <!-- Capacidad -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/hint_birthdate"
+                android:hint="@string/capacidad"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
@@ -170,51 +195,23 @@
                 app:hintTextColor="#B0B0B0">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_fecha_nacimiento"
+                    android:id="@+id/et_capacidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Tipo (Socio/No Socio) - Dropdown Menu -->
+            <!-- Costo -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/hint_member_type"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
-
-                <AutoCompleteTextView
-                    android:id="@+id/actv_tipo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:inputType="none"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Fecha de Registro -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/hint_registration_date"
+                android:hint="@string/costo"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
@@ -224,41 +221,26 @@
                 app:hintTextColor="#B0B0B0">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_fecha_registro"
+                    android:id="@+id/et_costo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Ficha Médica Switch -->
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_ficha_medica"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/label_medical_record"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                app:thumbTint="#FFFFFF"
-                app:trackTint="#40FFFFFF"
-                />
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Botón Registrar -->
+    <!-- Botón Guardar Actividad -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_registrar"
+        android:id="@+id/btn_guardarActividad"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/button_register"
+        android:text="@string/guardarActividad"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
@@ -269,5 +251,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:strokeWidth="0dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

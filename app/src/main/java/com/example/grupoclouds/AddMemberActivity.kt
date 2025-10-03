@@ -11,9 +11,9 @@ class AddMemberActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_member)
 
-        val btnClose = findViewById<ImageView>(R.id.btn_close)
+        val btnClose = findViewById<ImageView>(R.id.btn_close_miembro)
         btnClose.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, MiembrosActivity::class.java))
             finish()
         }
     }

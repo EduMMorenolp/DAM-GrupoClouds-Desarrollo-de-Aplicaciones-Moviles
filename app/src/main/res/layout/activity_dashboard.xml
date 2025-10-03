@@ -274,15 +274,6 @@
                     android:src="@drawable/ic_basketball"
                     app:tint="@android:color/white"
                     tools:src="@drawable/ic_basketball" />
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/rounded_bg"
-                android:backgroundTint="#264532"
-                android:padding="8dp"
-                android:src="@drawable/ic_basketball"
-                app:tint="@android:color/white"
-                tools:src="@drawable/ic_basketball" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

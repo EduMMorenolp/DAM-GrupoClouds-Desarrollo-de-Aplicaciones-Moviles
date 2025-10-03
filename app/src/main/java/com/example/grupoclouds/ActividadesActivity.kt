@@ -2,6 +2,7 @@ package com.example.grupoclouds
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,17 @@ class ActividadesActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
+        /*
+        val ivAddMember = findViewById<ImageView>(R.id.iv_add_member)
+        ivAddMember.setOnClickListener {
+            startActivity(Intent(this, AddMemberActivity::class.java))
+        }
+*/
+
+        val ivAddActividad = findViewById<ImageView>(R.id.iv_add_actividades)
+        ivAddActividad.setOnClickListener {
+            startActivity(Intent(this, AddActividadActivity::class.java))
+        }
         // Corrección: usar el ID correcto
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_component)
         bottomNavigationView.selectedItemId = R.id.nav_actividades
