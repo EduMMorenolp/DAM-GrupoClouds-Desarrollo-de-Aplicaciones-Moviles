@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GrupoClouds">
         <activity
+            android:name=".AddActividadActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".MiembrosActivity"
             android:exported="false" />
         <activity
@@ -19,6 +23,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,10 +39,9 @@
         <activity
             android:name=".DashboardActivity"
             android:exported="false" />
-
         <activity
             android:name=".ActividadesActivity"
-            android:exported="true"/>
+            android:exported="false"/>
 
         <activity
             android:name=".AddMemberActivity"
