@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/nav_miembros"
+        android:icon="@drawable/ic_miembros"
+        android:title="Miembros" />
+
+    <item
+        android:id="@+id/nav_pagos"
+        android:icon="@drawable/ic_pagos"
+        android:title="Pagos" />
+
+    <item
+        android:id="@+id/nav_actividades"
+        android:icon="@drawable/ic_actividades"
+        android:title="Actividades" />
+</menu>

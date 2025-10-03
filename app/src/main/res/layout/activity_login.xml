@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#122117">
+    android:background="@color/background_color">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -35,8 +35,7 @@
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxStrokeWidth="1dp"
-        app:hintEnabled="true"
-        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6">
+        app:hintEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUsername"
@@ -46,8 +45,7 @@
             android:paddingBottom="12dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textColor="@color/white"
-            android:hint="@string/username"
+            android:hint="@string/email"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,7 +67,6 @@
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="true"
-        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -80,7 +77,6 @@
             android:paddingBottom="12dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textColor="@color/white"
             android:hint="@string/password"
             android:inputType="textPassword" />
 
@@ -128,9 +124,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#38E07A"
+        android:backgroundTint="@color/button_A_background"
         android:text="@string/login"
-        android:textColor="#121B1B"
+        android:textColor="@color/button_A_text"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

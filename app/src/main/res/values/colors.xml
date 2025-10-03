@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="background_color">#122117</color> <!-- Color Background verde oscuro -->
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="button_A_background">#38E07A</color>
+    <color name="button_A_text">#122117</color>
+
+    <color name="input_background">#264533</color> <!-- Color Background verde claro -->
+    <color name="input_stroke">#3A5F5F</color>
+
+    <color name="switch_track_color">#40FFFFFF</color> <!-- Blanco semitransparente apagado -->
+    <color name="switch_track_color_on">#8A2BE2</color> <!-- Morado cuando está ON -->
+
+    <color name="switch_track_on">#40FFFFFF</color>
+    <color name="switch_track_off">#2D2D2D</color>
+
+    <color name="smalltext_color">#96c5a9</color>  <!-- Color Letra pequeña verde claro -->
+    <color name="radio_button_selected_background">#1A2B21</color>
+
 </resources>

@@ -1,11 +1,34 @@
 <resources>
     <string name="app_name">grupoClouds</string>
     <string name="club_deportivo">Club Deportivo</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
     <string name="recuerdame">Recuerdame</string>
-    <string name="login">Login</string>
+    <string name="login">Iniciar Sesión</string>
     <string name="olvidaste_la_contrase_a">Olvidaste la contraseña?</string>
+    <string name="recuperar_contrasena">Recuperar Contraseña</string>
+    <string name="enviar">Enviar</string>
+    <string name="entregar_carnet_socio">Entregar Carnet de Socio</string>
+    <string name="nombre">Nombre</string>
+    <string name="dni_socio">DNI Socio</string>
+    <string name="generar_pdf">Generar PDF</string>
+    <string name="enviar_por_mail">Enviar por Mail</string>
+    <string name="cambiar_socio">Cambiar Socio</string>
+    <string name="new_member_title">Nuevo Registro</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_lastname">Apellido</string>
+    <string name="hint_dni">DNI</string>
+    <string name="hint_birthdate">Fecha de Nacimiento</string>
+    <string name="hint_member_type">Tipo</string>
+    <string name="hint_registration_date">Fecha de Registro</string>
+    <string name="label_medical_record">Ficha Médica Presentada</string>
+    <string name="button_register">Registrar</string>
+    <string name="cerrar">cerrar</string>
+
+    <string-array name="member_types">
+        <item>Socio</item>
+        <item>No Socio</item>
+    </string-array>
 
 
 </resources>
