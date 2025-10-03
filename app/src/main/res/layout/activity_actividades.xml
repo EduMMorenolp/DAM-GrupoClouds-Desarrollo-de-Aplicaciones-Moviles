@@ -27,7 +27,7 @@
 
     <!-- Icono de Añadir (+)-->
        <ImageView
-           android:id="@+id/imageView"
+           android:id="@+id/imageMas"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginEnd="16dp"
@@ -38,9 +38,10 @@
            app:tint="@android:color/white" />
 
 
-
     <!-- Busqueda -->
        <com.google.android.material.textfield.TextInputEditText
+
+
            android:id="@+id/search"
            android:layout_width="0dp"
            android:layout_height="wrap_content"
@@ -48,14 +49,19 @@
            android:layout_marginTop="20dp"
            android:layout_marginEnd="16dp"
            android:background="#264532"
+           android:textColorHint="@color/smalltext_color"
            android:hint="@string/search"
            android:inputType="text"
            android:paddingStart="12dp"
            android:paddingTop="12dp"
            android:paddingEnd="12dp"
            android:paddingBottom="12dp"
+
+           android:drawableStart="?android:attr/actionModeWebSearchDrawable"
+           android:drawablePadding="12dp"
+           app:drawableTint="@color/smalltext_color"
+
            app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintHorizontal_bias="0.0"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toBottomOf="@+id/TvactividadesTitle"
            tools:ignore="VisualLintTextFieldSize" />
@@ -104,7 +110,7 @@
            android:text="Dia de la semana"
            android:textAllCaps="false"
            app:cornerRadius="20dp"
-           app:layout_constraintBottom_toBottom="@+id/search"
+
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintTop_toBottomOf="@id/search" />
 
@@ -134,6 +140,8 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
