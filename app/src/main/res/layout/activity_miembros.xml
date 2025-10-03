@@ -80,21 +80,6 @@
         app:layout_constraintTop_toTopOf="@id/btn_socios"
         app:layout_constraintVertical_bias="0.0" />
 
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_miembros"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:paddingBottom="80dp"
-        android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_component"
-        app:layout_constraintTop_toBottomOf="@id/btn_socios"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_miembro" />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_miembros"
         android:layout_width="0dp"
@@ -106,10 +91,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_socios"
         tools:itemCount="5" />
-      <!--  tools:listitem="@layout/item_miembro"-->
-
-
-
 
     <!-- Botón Flotante de Acción (FAB) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -123,14 +104,6 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_component"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white" />
-
-    <!-- Incluimos el componente de navegación inferior que ya tienes -->
-    <!--<include
-        android:id="@+id/bottom_nav_component"
-        layout="@layout/component_botton_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent" />-->
 
     <include
         layout="@layout/component_botton_nav"

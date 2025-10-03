@@ -24,7 +24,6 @@
     <string name="label_medical_record">Ficha Médica Presentada</string>
     <string name="button_register">Registrar</string>
     <string name="cerrar">cerrar</string>
-
     <string-array name="member_types">
         <item>Socio</item>
         <item>No Socio</item>
@@ -36,22 +35,4 @@
     <string name="diaDeLaSemana">Dia de la semana</string>
     <string name="nombreActividad">Nombre de la actividad</string>
     <string name="precio">Precio</string>
-
-
-
-
-    <string name="actividades">Actividades</string>
-    <string name="search">Search</string>
-    <string name="tipoDeActividad">Tipo de actividad</string>
-    <string name="instructor">Instructor</string>
-    <string name="diaDeLaSemana">Dia de la semana</string>
-    <string name="nombreActividad">Nombre de la actividad</string>
-    <string name="precio">Precio</string>
-
-
-
-
-
-
-
 </resources>
