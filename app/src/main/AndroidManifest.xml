@@ -37,7 +37,12 @@
 
         <activity
             android:name=".ActividadesActivity"
-            android:exported="true">
+            android:exported="true"/>
+
+        <activity
+            android:name=".AddMemberActivity"
+            android:exported="false" >
+
         </activity>
     </application>
 
