@@ -24,7 +24,7 @@
 
         <!-- Botón de cerrar (izquierda) -->
         <ImageView
-            android:id="@+id/btn_close"
+            android:id="@+id/btn_close_actividad"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@string/cerrar"
@@ -52,7 +52,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_close"
+            app:layout_constraintStart_toEndOf="@id/btn_close_actividad"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

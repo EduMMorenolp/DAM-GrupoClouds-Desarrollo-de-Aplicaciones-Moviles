@@ -33,9 +33,9 @@ class ActividadesActivity : AppCompatActivity() {
         }
 */
 
-        val ivAddActividad = findViewById<ImageView>(R.id.imageMas)
+        val ivAddActividad = findViewById<ImageView>(R.id.iv_add_actividades)
         ivAddActividad.setOnClickListener {
-            startActivity(Intent(this, AddMemberActivity::class.java))
+            startActivity(Intent(this, AddActividadActivity::class.java))
         }
         // Corrección: usar el ID correcto
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_component)

@@ -27,7 +27,7 @@
 
     <!-- Icono de Añadir (+)-->
        <ImageView
-           android:id="@+id/imageMas"
+           android:id="@+id/iv_add_actividades"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginEnd="16dp"
