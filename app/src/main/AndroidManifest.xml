@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--agregado sólo para que funcionen las imagenes-->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,6 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GrupoClouds">
+        <activity
+            android:name=".AddActividadActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".MiembrosActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -31,6 +42,15 @@
         <activity
             android:name=".DashboardActivity"
             android:exported="false" />
+        <activity
+            android:name=".ActividadesActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".AddMemberActivity"
+            android:exported="false" >
+
+        </activity>
     </application>
 
 </manifest>
