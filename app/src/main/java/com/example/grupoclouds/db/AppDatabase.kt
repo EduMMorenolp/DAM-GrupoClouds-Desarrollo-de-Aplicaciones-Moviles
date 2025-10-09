@@ -23,6 +23,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     // DAOs que realizen
     abstract fun actividadDao(): ActividadDao
+    abstract fun personaDao(): PersonaDao
+    abstract fun adminDao(): AdminDao
 
     // ej : abstract fun personaDao(): PersonaDao
 
