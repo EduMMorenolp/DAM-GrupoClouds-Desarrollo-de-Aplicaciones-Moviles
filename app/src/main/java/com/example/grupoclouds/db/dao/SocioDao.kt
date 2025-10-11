@@ -10,17 +10,13 @@ interface SocioDao {
 
     /**
      * Inserta un nuevo socio en la base de datos.
-     * Room ejecutará esto en una transacción.
-     * @param socio El objeto Socio a insertar.
      * @return El rowId del socio recién insertado.
      */
     @Insert
     suspend fun insertarSocio(socio: Socio): Long
 
     /**
-     * Busca un Socio en la base de datos utilizando el DNI de la Persona asociada.
-     * Esta consulta requiere unir las tablas Socio y Persona.
-     * @param dni El DNI de la persona a buscar.
+     * Busca un Socio utilizando el DNI de la Persona asociada.
      * @return El objeto Socio correspondiente, o null si no se encuentra.
      */
     @Query("""
@@ -29,4 +25,13 @@ interface SocioDao {
         WHERE p.dni = :dni
     """)
     suspend fun obtenerSocioPorDNI(dni: String): Socio?
+
+    /**
+     * Actualiza la fecha de vencimiento de la cuota para un socio específico.
+     *
+     * @param idSocio El ID del socio que se va a actualizar.
+     * @param nuevaFechaVencimiento El nuevo valor para la columna 'cuota_hasta'.
+     */
+    @Query("UPDATE Socio SET cuota_hasta = :nuevaFechaVencimiento WHERE id_socio = :idSocio")
+    suspend fun actualizarFechaVencimiento(idSocio: Int, nuevaFechaVencimiento: String)
 }

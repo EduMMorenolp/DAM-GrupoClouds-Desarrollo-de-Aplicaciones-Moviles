@@ -1,6 +1,7 @@
 package com.example.grupoclouds
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -12,6 +13,7 @@ import com.example.grupoclouds.db.AppDatabase
 import com.example.grupoclouds.db.entity.NoSocio
 import com.example.grupoclouds.db.entity.Persona
 import com.example.grupoclouds.db.entity.Socio
+import com.example.grupoclouds.util.ConstantesPago
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
@@ -26,6 +28,12 @@ class AddMemberActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_member)
+
+        // --- PRUEBA DEL PASO 2.5 ---
+        // Llamamos a la función global para calcular una fecha y la mostramos en el Logcat.
+        val fechaVencimientoPrueba = ConstantesPago.calcularFechaVencimiento(ConstantesPago.DIAS_PAGO_30)
+        Log.d("PruebaConstantesPago", "La fecha de vencimiento para 30 días es: $fechaVencimientoPrueba")
+        // --------------------------
 
         // Inicializar la base de datos
         appDatabase = AppDatabase.getInstance(applicationContext)
@@ -94,8 +102,6 @@ class AddMemberActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 runOnUiThread {
                     Toast.makeText(this@AddMemberActivity, "Error al registrar: Es posible que el DNI ya exista.", Toast.LENGTH_LONG).show()
-                    // Opcional: limpiar solo campos incorrectos o todos, según prefieras
-                    // limpiarFormulario()
                 }
             }
         }

@@ -27,6 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun adminDao(): AdminDao
     abstract fun socioDao(): SocioDao
     abstract fun noSocioDao(): NoSocioDao
+    abstract fun cuotaDao(): CuotaDao
 
 
 
