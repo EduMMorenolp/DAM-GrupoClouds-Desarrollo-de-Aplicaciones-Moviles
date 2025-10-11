@@ -18,6 +18,9 @@ object ConstantesPago {
     const val DIAS_PAGO_15: Int = 15
     const val DIAS_PAGO_30: Int = 30
 
+    // 7.1: Constante para el umbral de alerta de vencimiento
+    const val DIAS_ALERTA_VENCIMIENTO: Int = 7
+
     /**
      * 2.4: Calcula una fecha de vencimiento sumando una cantidad de días a la fecha actual.
      *
@@ -25,16 +28,22 @@ object ConstantesPago {
      * @return Un String con la fecha de vencimiento en formato "YYYY-MM-DD".
      */
     fun calcularFechaVencimiento(diasParaSumar: Int): String {
-        // Obtiene la fecha actual usando la API moderna de Java 8
         val fechaActual = LocalDate.now()
-
-        // Suma los días especificados. plusDays devuelve un nuevo objeto LocalDate.
         val fechaVencimiento = fechaActual.plusDays(diasParaSumar.toLong())
-
-        // Define el formato de salida deseado
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
-        // Formatea y retorna la fecha como un String
         return fechaVencimiento.format(formatter)
+    }
+
+    /**
+     * 7.2: Calcula la fecha límite para el período de alerta de vencimiento.
+     *
+     * @param diasDeAlerta Los días a sumar a la fecha actual para definir el límite superior.
+     * @return Un String con la fecha límite en formato "YYYY-MM-DD".
+     */
+    fun calcularFechaLimiteAlerta(diasDeAlerta: Int): String {
+        val fechaActual = LocalDate.now()
+        val fechaLimite = fechaActual.plusDays(diasDeAlerta.toLong())
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return fechaLimite.format(formatter)
     }
 }

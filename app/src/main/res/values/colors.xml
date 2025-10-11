@@ -18,6 +18,15 @@
     <color name="switch_track_off">#2D2D2D</color>
 
     <color name="smalltext_color">#96c5a9</color>  <!-- Color Letra pequeña verde claro -->
-    <color name="radio_button_selected_background">#1A2B21</color>
+    <color name="radio_button_selected_background">#1A2B21</color> <!-- Asumo que tienes algo así -->
 
+
+    <!-- ▼▼▼ AÑADE ESTA LÍNEA ▼▼▼ -->
+    <!-- Puedes elegir el color que prefieras. #FF9800 es un naranja material design. -->
+    <color name="warning_color">#FF9800</color>
+
+
+    <!-- <color name="input_background">#2C2C2E</color> -->
+ <!-- Asumo que tienes algo así -->
+    <!-- <color name="smalltext_color">#AEAEB2</color> -->
 </resources>

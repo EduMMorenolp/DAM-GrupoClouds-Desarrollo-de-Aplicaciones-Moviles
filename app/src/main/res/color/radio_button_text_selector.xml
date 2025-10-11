@@ -2,4 +2,15 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="@color/white" android:state_checked="true" />
     <item android:color="@color/smalltext_color" />
+
+    <!-- Tus otros colores, como purple_200, teal_700, etc. -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="input_background">#2C2C2E</color> <!-- Asumo que tienes algo así -->
+    <color name="smalltext_color">#AEAEB2</color> <!-- Asumo que tienes algo así -->
+
+
+    <!-- ▼▼▼ AÑADE ESTA LÍNEA ▼▼▼ -->
+    <!-- Puedes elegir el color que prefieras. #FF9800 es un naranja material design. -->
+    <color name="warning_color">#FF9800</color>
 </selector>
