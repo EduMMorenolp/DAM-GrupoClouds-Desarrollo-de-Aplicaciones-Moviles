@@ -113,7 +113,7 @@ class PagosActivity : AppCompatActivity() {
                 val fechaVencimientoCalculada = ConstantesPago.calcularFechaVencimiento(diasParaSumar)
 
                 val nuevaCuota = Cuota(
-                    idSocio = socio.id_socio,
+                    idSocio = socio.id,
                     monto = monto,
                     fechaPago = fechaPago,
                     fechaVence = fechaVencimientoCalculada,
@@ -122,7 +122,7 @@ class PagosActivity : AppCompatActivity() {
                 )
 
                 appDatabase.cuotaDao().insertarCuota(nuevaCuota)
-                appDatabase.socioDao().actualizarFechaVencimiento(socio.id_socio, fechaVencimientoCalculada)
+                appDatabase.socioDao().actualizarFechaVencimiento(socio.id, fechaVencimientoCalculada)
 
                 runOnUiThread {
                     Toast.makeText(this@PagosActivity, "Pago registrado con éxito. Nueva fecha de vencimiento: $fechaVencimientoCalculada", Toast.LENGTH_LONG).show()
@@ -153,7 +153,7 @@ class PagosActivity : AppCompatActivity() {
 
             runOnUiThread {
                 if (socio != null) {
-                    Toast.makeText(this@PagosActivity, "Socio encontrado. ID: ${socio.id_socio}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PagosActivity, "Socio encontrado. ID: ${socio.id}", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@PagosActivity, "Socio no encontrado", Toast.LENGTH_SHORT).show()
                 }

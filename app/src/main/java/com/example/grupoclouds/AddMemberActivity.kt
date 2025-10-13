@@ -1,7 +1,6 @@
 package com.example.grupoclouds
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -13,7 +12,6 @@ import com.example.grupoclouds.db.AppDatabase
 import com.example.grupoclouds.db.entity.NoSocio
 import com.example.grupoclouds.db.entity.Persona
 import com.example.grupoclouds.db.entity.Socio
-import com.example.grupoclouds.util.ConstantesPago
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
@@ -28,12 +26,6 @@ class AddMemberActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_member)
-
-        // --- PRUEBA DEL PASO 2.5 ---
-        // Llamamos a la función global para calcular una fecha y la mostramos en el Logcat.
-        val fechaVencimientoPrueba = ConstantesPago.calcularFechaVencimiento(ConstantesPago.DIAS_PAGO_30)
-        Log.d("PruebaConstantesPago", "La fecha de vencimiento para 30 días es: $fechaVencimientoPrueba")
-        // --------------------------
 
         // Inicializar la base de datos
         appDatabase = AppDatabase.getInstance(applicationContext)
@@ -79,16 +71,18 @@ class AddMemberActivity : AppCompatActivity() {
                 when (tipoMiembro) {
                     "Socio" -> {
                         val nuevoSocio = Socio(
-                            id_persona_socio = idPersonaGenerada.toInt(),
-                            fecha_registro = fechaRegistro,
-                            estado_ficha_medica = if (tieneFichaMedica) 1 else 0
+                            idPersona = idPersonaGenerada.toInt(),
+                            fechaAlta = fechaRegistro,
+                            fichaMedica = tieneFichaMedica,
+                            // Campos que se pueden dejar nulos o con valores por defecto
+                            cuotaHasta = null,
+                            tieneCarnet = false
                         )
                         appDatabase.socioDao().insertarSocio(nuevoSocio)
                     }
                     "No Socio" -> {
                         val nuevoNoSocio = NoSocio(
-                            id_persona_no_socio = idPersonaGenerada.toInt(),
-                            fecha_registro = fechaRegistro
+                            idPersona = idPersonaGenerada.toInt()
                         )
                         appDatabase.noSocioDao().insertarNoSocio(nuevoNoSocio)
                     }
@@ -115,7 +109,6 @@ class AddMemberActivity : AppCompatActivity() {
         findViewById<AutoCompleteTextView>(R.id.actv_tipo).text?.clear()
         findViewById<SwitchMaterial>(R.id.switch_ficha_medica).isChecked = false
 
-        // Devuelve el foco al primer campo para una entrada rápida
         findViewById<TextInputEditText>(R.id.et_nombre).requestFocus()
     }
 }

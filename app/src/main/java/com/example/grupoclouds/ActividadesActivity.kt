@@ -15,29 +15,23 @@ class ActividadesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_actividades)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewActividades)
+        // Corregido: Se añaden instructores y se asegura que los parámetros coincidan con el constructor de la Entidad Actividad.
         val listaDeActividades = listOf(
-            Actividad("Yoga Matutino", "Lunes - 8:00 AM", precio = "$25"),
-            Actividad("Spinning de Alta Intensidad", "Martes - 6:00 PM", precio = "$30"),
-            Actividad("Pilates para principiantes", "Miércoles - 9:00 AM", precio = "$20"),
-            Actividad("Boxeo Fitness", "Jueves - 7:00 PM", precio = "$25"),
-            Actividad("Zumba Party", "Viernes - 5:00 PM", precio = "$15")
+            Actividad(nombre = "Yoga Matutino", instructor = "Ana Pérez", precio = "$25"),
+            Actividad(nombre = "Spinning de Alta Intensidad", instructor = "Carlos Ruiz", precio = "$30"),
+            Actividad(nombre = "Pilates para principiantes", instructor = "Sofía Gómez", precio = "$20"),
+            Actividad(nombre = "Boxeo Fitness", instructor = "David Moreno", precio = "$25"),
+            Actividad(nombre = "Zumba Party", instructor = "Laura Fernández", precio = "$15")
         )
         val adapter = ActividadesAdapter(listaDeActividades)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        /*
-        val ivAddMember = findViewById<ImageView>(R.id.iv_add_member)
-        ivAddMember.setOnClickListener {
-            startActivity(Intent(this, AddMemberActivity::class.java))
-        }
-*/
-
         val ivAddActividad = findViewById<ImageView>(R.id.iv_add_actividades)
         ivAddActividad.setOnClickListener {
             startActivity(Intent(this, AddActividadActivity::class.java))
         }
-        // Corrección: usar el ID correcto
+        
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_component)
         bottomNavigationView.selectedItemId = R.id.nav_actividades
 

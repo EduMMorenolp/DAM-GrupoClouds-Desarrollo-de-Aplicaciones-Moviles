@@ -17,25 +17,23 @@ interface CuotaDao {
     /**
      * Obtiene el historial completo de todos los pagos realizados, uniendo la información
      * de las tablas Cuota, Socio y Persona.
-     *
-     * @return Un Flow que emite la lista de detalles de pago. Room se encargará de
-     * re-ejecutar la consulta y emitir una nueva lista cada vez que los datos de las
-     * tablas subyacentes cambien.
+     * Se usan alias de columna (AS) para que los nombres de las columnas del resultado
+     * coincidan exactamente con los nombres de las propiedades de la data class DetalleHistorialPago.
      */
     @Transaction
     @Query("""
         SELECT 
-            p.nombre, 
-            p.apellido, 
-            c.monto, 
-            c.fechaPago, 
-            c.fechaVence, 
-            c.tipoPago, 
-            c.metodoPago
+            p.nombre AS nombre,
+            p.apellido AS apellido,
+            c.monto AS monto,
+            c.fecha_pago AS fechaPago,
+            c.fecha_vence AS fechaVence,
+            c.tipo_pago AS tipoPago,
+            c.metodo_pago AS metodoPago
         FROM Cuota AS c
         INNER JOIN Socio AS s ON c.id_socio = s.id_socio
-        INNER JOIN Persona AS p ON s.id_persona_socio = p.id_persona
-        ORDER BY c.fechaPago DESC
+        INNER JOIN Persona AS p ON s.id_persona = p.id_persona
+        ORDER BY c.fecha_pago DESC
     """)
     fun obtenerHistorialPagos(): Flow<List<DetalleHistorialPago>>
 }

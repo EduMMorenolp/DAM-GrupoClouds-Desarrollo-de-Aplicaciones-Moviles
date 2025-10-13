@@ -17,7 +17,7 @@ import com.example.grupoclouds.db.entity.* // Importa todas tus entidades
         Cuota::class,
         RelNoSocioActividad::class,
     ],
-    version = 1 // Si cambias el esquema, incrementa este número
+    version = 2 // << PASO 1: Se incrementa la versión de la base de datos
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -29,26 +29,19 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun noSocioDao(): NoSocioDao
     abstract fun cuotaDao(): CuotaDao
 
-
-
-
-    /**
-     * El companion object permite crear una instancia Singleton de la base de datos,
-     * asegurando que solo haya una conexión abierta a la vez en toda la app.
-     */
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase {
-            // El bloque synchronized asegura que solo un hilo pueda ejecutar este código a la vez,
-            // evitando que se creen dos instancias de la base de datos accidentalmente.
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "ClubDeportivo.db" // El nombre del archivo de la BD
+                    "ClubDeportivo.db"
                 )
+                    // << PASO 2: Se añade la estrategia de migración para desarrollo
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance
