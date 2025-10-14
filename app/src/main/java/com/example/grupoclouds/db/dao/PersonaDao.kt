@@ -8,11 +8,13 @@ import com.example.grupoclouds.db.entity.Persona
 
 @Dao
 interface PersonaDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertPersona(persona: Persona): Long
-    @Query("SELECT * FROM Persona WHERE dni = :dni LIMIT 1")
-    suspend fun getPersonaPorDNI(dni: String): Persona?
-    @Query("SELECT * FROM Persona WHERE id_persona = :id")
-    suspend fun getPersonaPorID(id: Int): Persona?
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertarPersona(persona: Persona): Long
+
+    @Query("SELECT * FROM Persona WHERE dni = :dni")
+    suspend fun obtenerPersonaPorDNI(dni: String): Persona?
+
+    @Query("SELECT * FROM Persona WHERE id_persona = :id")
+    suspend fun obtenerPersonaPorId(id: Int): Persona?
 }
