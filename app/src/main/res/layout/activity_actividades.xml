@@ -31,10 +31,11 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginEnd="16dp"
+           android:contentDescription="@string/agregar_actividad"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintTop_toTopOf="@+id/TvactividadesTitle"
            app:layout_constraintBottom_toBottomOf="@+id/TvactividadesTitle"
-           app:srcCompat="@android:drawable/ic_input_add"
+           android:src="@android:drawable/ic_input_add"
            app:tint="@android:color/white" />
 
 
@@ -48,7 +49,8 @@
            android:layout_marginStart="16dp"
            android:layout_marginTop="20dp"
            android:layout_marginEnd="16dp"
-           android:background="#264532"
+
+           android:background="@drawable/bg_search"
            android:textColorHint="@color/smalltext_color"
            android:hint="@string/search"
            android:inputType="text"
@@ -68,54 +70,67 @@
 
 
     <!-- Botones -->
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/btn_tipoDeActividad"
-           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-           android:layout_width="172dp"
-           android:layout_height="50dp"
-           android:layout_marginStart="16dp"
-           android:layout_marginTop="16dp"
-           android:backgroundTint="#264532"
-           android:text="@string/tipoDeActividad"
-           android:textAllCaps="false"
-           app:cornerRadius="20dp"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/search" />
+    <!-- Botones: ahora en una cadena horizontal para que no se solapen y se adapten al ancho -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_tipoDeActividad"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/btn_verde"
+        android:text="@string/tipoDeActividad"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_instructor"
+        app:layout_constraintTop_toBottomOf="@id/search" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_instructor"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/btn_verde"
+        android:text="@string/instructor"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="20dp"
+        app:layout_constraintStart_toEndOf="@id/btn_tipoDeActividad"
+        app:layout_constraintEnd_toStartOf="@+id/btn_diaDeLaSemana"
+        app:layout_constraintTop_toBottomOf="@id/search" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_diaDeLaSemana"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/btn_verde"
+        android:text="@string/diaDeLaSemana"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="20dp"
+        app:layout_constraintStart_toEndOf="@id/btn_instructor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search" />
 
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/btn_instructor"
-           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-           android:layout_width="172dp"
-           android:layout_height="50dp"
-           android:layout_marginTop="16dp"
-           android:backgroundTint="#264532"
-           android:text="@string/instructor"
-           android:textAllCaps="false"
-           app:cornerRadius="20dp"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/search" />
-
-
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/btn_diaDeLaSemana"
-           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-           android:layout_width="172dp"
-           android:layout_height="50dp"
-           android:layout_marginTop="16dp"
-           android:layout_marginEnd="16dp"
-           android:backgroundTint="#264532"
-           android:text="@string/diaDeLaSemana"
-           android:textAllCaps="false"
-           app:cornerRadius="20dp"
-
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/search" />
-
-
-
+    <!-- Indicamos al Chain que distribuya el espacio entre los 3 botones -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/btn_tipoDeActividad"
+        app:layout_constraintEnd_toEndOf="@id/btn_diaDeLaSemana"
+        app:layout_constraintTop_toTopOf="@id/btn_tipoDeActividad"
+        app:layout_constraintBottom_toBottomOf="@id/btn_tipoDeActividad"
+        app:layout_constraintHorizontal_chainStyle="spread" />
     <!-- Lista -->
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/recyclerViewActividades"
@@ -143,5 +158,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

@@ -1,56 +1,79 @@
 package com.example.grupoclouds
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.grupoclouds.db.entity.Actividad as ActividadEntity
+import com.google.android.material.button.MaterialButton
 
-// La solución principal está en esta línea:
-// Hereda de RecyclerView.Adapter e indica que usará 'ActividadViewHolder'
-class ActividadesAdapter(private val actividades: List<Actividad>) :
-    RecyclerView.Adapter<ActividadesAdapter.ActividadViewHolder>() {
+class ActividadesAdapter(
+    private var actividades: MutableList<ActividadEntity>,
+    private val onEdit: (ActividadEntity) -> Unit,
+    private val onDelete: (ActividadEntity) -> Unit
+) : RecyclerView.Adapter<ActividadesAdapter.ActividadViewHolder>() {
 
-    /**
-     * Esta clase interna (ViewHolder) representa una única fila de tu lista.
-     * Guarda las referencias a las vistas que están dentro de item_actividades.xml
-     * para no tener que buscarlas cada vez (es más eficiente).
-     */
     class ActividadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreTextView: TextView = itemView.findViewById(R.id.text_nombreActividad)
         val instructorTextView: TextView = itemView.findViewById(R.id.text_nombreInstructor)
         val precioTextView: TextView = itemView.findViewById(R.id.text_precio)
+        val tipoTextView: TextView = itemView.findViewById(R.id.text_tipoActividad)
+        val horarioTextView: TextView = itemView.findViewById(R.id.text_horarioActividad)
+        val capacidadTextView: TextView = itemView.findViewById(R.id.text_capacidad)
+        // botones de acción en el item
+        val btnEditar: MaterialButton? = itemView.findViewById(R.id.btn_editar_actividad)
+        val btnEliminar: MaterialButton? = itemView.findViewById(R.id.btn_eliminar_actividad)
     }
 
-    /**
-     * Este método se llama cuando el RecyclerView necesita crear una nueva "caja" (ViewHolder)
-     * para una fila. Aquí es donde se "infla" (crea) la vista a partir de tu XML.
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActividadViewHolder {
-        // Crea la vista de la fila usando tu layout item_actividad.xml
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_actividades, parent, false)
         return ActividadViewHolder(view)
     }
 
-    /**
-     * Este método se llama para rellenar los datos de una fila específica (en la posición 'position').
-     * Aquí es donde conectas tus datos (de la lista) con las vistas (del ViewHolder).
-     */
     override fun onBindViewHolder(holder: ActividadViewHolder, position: Int) {
-        // Obtiene el objeto 'Actividad' de la lista para esta posición
         val actividad = actividades[position]
 
-        // Asigna los datos del objeto a los TextViews de la fila
-        holder.nombreTextView.text = actividad.nombre
-        holder.instructorTextView.text = actividad.instructor
-        holder.precioTextView.text = actividad.precio
+        holder.nombreTextView.text = actividad.nombreActividad
+        holder.instructorTextView.text = actividad.profesorActividad
+        holder.precioTextView.text = String.format("%.2f €", actividad.costoActividad)
+
+        // Mostrar con etiquetas para coincidir con el layout
+        holder.tipoTextView.text = "Tipo: ${actividad.tipoActividad}"
+        holder.horarioTextView.text = "Horario: ${actividad.horarioActividad}"
+        holder.capacidadTextView.text = "Capacidad: ${actividad.capacidadActividad}"
+
+        // Click simple en el item -> editar (misma acción que el botón editar)
+        holder.itemView.setOnClickListener {
+            onEdit(actividad)
+        }
+
+        // Botón Editar
+        holder.btnEditar?.setOnClickListener {
+            onEdit(actividad)
+        }
+
+        // Botón Eliminar
+        holder.btnEliminar?.setOnClickListener {
+            onDelete(actividad)
+        }
+
+        // Mantengo el long click si quieres otra interacción adicional
+        holder.itemView.setOnLongClickListener {
+            // por compatibilidad antiguas, llamamos a eliminar en long click
+            onDelete(actividad)
+            true
+        }
     }
 
-    /**
-     * Este método simplemente devuelve el número total de elementos que hay en tu lista.
-     * El RecyclerView lo usa para saber cuántas filas tiene que dibujar.
-     */
     override fun getItemCount(): Int {
         return actividades.size
+    }
+
+    fun actualizarLista(nuevaLista: List<ActividadEntity>) {
+        actividades.clear()
+        actividades.addAll(nuevaLista)
+        notifyDataSetChanged()
     }
 }

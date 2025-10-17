@@ -8,7 +8,7 @@
     <color name="button_A_background">#38E07A</color>
     <color name="button_A_text">#122117</color>
 
-    <color name="input_background">#264533</color> <!-- Color Background verde claro -->
+    <color name="input_background">#FFFFFFFF</color> <!-- Color Background verde claro -->
     <color name="input_stroke">#3A5F5F</color>
 
     <color name="switch_track_color">#40FFFFFF</color> <!-- Blanco semitransparente apagado -->
@@ -19,6 +19,10 @@
 
     <color name="smalltext_color">#96c5a9</color>  <!-- Color Letra pequeña verde claro -->
     <color name="radio_button_selected_background">#1A2B21</color> <!-- Asumo que tienes algo así -->
+
+    <color name="btn_edit_background">#3F51B5</color>
+    <color name="btn_delete_background">#F44336</color>
+    <color name="btn_verde">#264533</color>
 
 
     <!-- ▼▼▼ AÑADE ESTA LÍNEA ▼▼▼ -->

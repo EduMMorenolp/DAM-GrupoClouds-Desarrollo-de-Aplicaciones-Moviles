@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:srcCompat="@drawable/ic_x_cross"
-            app:tint="#FFFFFF" />
+            app:tint="@color/white" />
 
         <!-- Título -->
         <TextView
@@ -47,7 +47,7 @@
             android:layout_marginStart="0dp"
             android:text="@string/nuevaActividad"
             android:textAlignment="center"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,8 +86,10 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/input_background"
+                app:boxStrokeColor="@color/input_stroke"
+                app:hintTextColor="@color/smalltext_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_nombreActividad"
@@ -98,8 +100,8 @@
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:textColor="#FFFFFF"
-                    android:textColorHighlight="#BB86FC"/>
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/smalltext_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Tipo de Actividad -->
@@ -113,19 +115,22 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/input_background"
+                app:boxStrokeColor="@color/input_stroke"
+                app:hintTextColor="@color/smalltext_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_tipoDeActividad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:inputType="text"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:paddingEnd="12dp"
+                    android:textColorHint="@color/smalltext_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Instructor -->
@@ -139,19 +144,22 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/input_background"
+                app:boxStrokeColor="@color/input_stroke"
+                app:hintTextColor="@color/smalltext_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_instructor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:inputType="textPersonName"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:paddingEnd="12dp"
+                    android:textColorHint="@color/smalltext_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Horario -->
@@ -165,19 +173,22 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/input_background"
+                app:boxStrokeColor="@color/input_stroke"
+                app:hintTextColor="@color/smalltext_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_horario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:inputType="text"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:paddingEnd="12dp"
+                    android:textColorHint="@color/smalltext_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Capacidad -->
@@ -191,19 +202,22 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/input_background"
+                app:boxStrokeColor="@color/input_stroke"
+                app:hintTextColor="@color/smalltext_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_capacidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:inputType="number"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:paddingEnd="12dp"
+                    android:textColorHint="@color/smalltext_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Costo -->
@@ -217,19 +231,22 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/input_background"
+                app:boxStrokeColor="@color/input_stroke"
+                app:hintTextColor="@color/smalltext_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_costo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:inputType="number"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:paddingEnd="12dp"
+                    android:textColorHint="@color/smalltext_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
