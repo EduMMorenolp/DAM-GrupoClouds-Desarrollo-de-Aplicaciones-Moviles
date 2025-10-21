@@ -9,7 +9,7 @@ import com.example.grupoclouds.db.entity.Administrador
 @Dao
 interface AdminDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertAdmin(admin: Administrador)
+    suspend fun insertarAdmin(admin: Administrador)
     @Query("""
         SELECT * FROM Administrador 
         INNER JOIN Persona ON Administrador.id_persona = Persona.id_persona
