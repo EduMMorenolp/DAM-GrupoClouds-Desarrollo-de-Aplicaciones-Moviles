@@ -51,4 +51,7 @@ interface SocioDao {
         ORDER BY s.cuota_hasta ASC
     """)
     fun obtenerSociosPorVencer(fechaHoy: String, fechaLimite: String): Flow<List<SocioConDetalles>>
+
+    @Query("SELECT * FROM Socio WHERE id_persona = :personaId")
+    suspend fun obtenerSocioPorPersonaId(personaId: Int): Socio?
 }

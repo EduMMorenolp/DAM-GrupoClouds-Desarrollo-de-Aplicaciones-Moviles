@@ -7,44 +7,149 @@
     android:background="@color/background_color"
     tools:context=".CuotasVencidasActivity">
 
-    <!-- Barra de herramientas superior -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#252525"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Cuotas Vencidas"
-        app:titleCentered="true"
-        app:navigationIcon="@drawable/ic_flecha"
-        app:titleTextColor="@android:color/white" />
-
-    <!-- RecyclerView para mostrar la lista de socios vencidos -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_cuotas_vencidas"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="8dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_pago_vencido" />
-
-    <!-- TextView que se muestra cuando la lista está vacía -->
-    <TextView
-        android:id="@+id/tv_empty_state"
+    <ImageView
+        android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No hay socios con cuotas vencidas."
-        android:textColor="@color/smalltext_color"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_flecha"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cuotas a Vencer"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="visible"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/back_arrow" />
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_bg"
+        android:backgroundTint="@color/input_background"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="8dp"
+        android:hint="Buscar por nombre o DNI"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/smalltext_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <HorizontalScrollView
+        android:id="@+id/filters_scroll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/filter_vencidas_hoy"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radio_button_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Vencen Hoy"
+                android:textAllCaps="false"
+                android:textColor="@color/radio_button_text_selector"
+                app:cornerRadius="16dp" />
+
+            <CheckBox
+                android:id="@+id/filter_vencidas_semana"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Esta Semana"
+                android:textAllCaps="false"
+                android:textColor="@color/radio_button_text_selector"
+                app:cornerRadius="16dp" />
+
+            <CheckBox
+                android:id="@+id/filter_vencidas_mes"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Este Mes"
+                android:textAllCaps="false"
+                android:textColor="@color/radio_button_text_selector"
+                app:cornerRadius="16dp" />
+
+            <CheckBox
+                android:id="@+id/filter_todas"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Todas"
+                android:textAllCaps="false"
+                android:textColor="@color/radio_button_text_selector"
+                app:cornerRadius="16dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cuotas_vencidas_recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filters_scroll"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_pago_vencido" />
+
+    <!-- Bottom Navigation -->
+    <include
+        android:id="@+id/bottom_navigation"
+        layout="@layout/component_botton_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

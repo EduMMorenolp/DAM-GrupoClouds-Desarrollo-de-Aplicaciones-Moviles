@@ -1,164 +1,336 @@
 package com.example.grupoclouds
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.Toast
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.grupoclouds.adapter.HistorialPagosAdapter
 import com.example.grupoclouds.db.AppDatabase
+import com.example.grupoclouds.db.entity.Actividad
 import com.example.grupoclouds.db.entity.Cuota
+import com.example.grupoclouds.db.entity.Persona
 import com.example.grupoclouds.db.entity.Socio
-import com.example.grupoclouds.util.ConstantesPago
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PagosActivity : AppCompatActivity() {
 
     private lateinit var appDatabase: AppDatabase
     private var socioEncontrado: Socio? = null
-    private lateinit var historialPagosAdapter: HistorialPagosAdapter
+    private var personaEncontrada: Persona? = null
+    private var actividadSeleccionada: Actividad? = null
+    private val listaActividades = mutableListOf<Actividad>()
+
+    // Views
+    private lateinit var radioGroupTipoUsuario: RadioGroup
+    private lateinit var radioSocioSi: RadioButton
+    private lateinit var radioSocioNo: RadioButton
+    private lateinit var dniLabel: TextView
+    private lateinit var dniInput: EditText
+    private lateinit var socioInfo: TextView
+    private lateinit var spinnerActividades: Spinner
+    private lateinit var montoDisplay: TextView
+    private lateinit var fechaInput: EditText
+    private lateinit var metodoPagoInput: EditText
+    private lateinit var confirmarPagoButton: Button
+    private lateinit var verCuotasVencerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pagos)
 
         appDatabase = AppDatabase.getInstance(applicationContext)
+
+        initializeViews()
         setupNavigation()
-        setupRecyclerView()
         setupListeners()
-        observeHistorialPagos()
+        loadActividades()
+        setCurrentDate()
     }
 
-    private fun setupRecyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.pagos_vencidos_recycler)
-        historialPagosAdapter = HistorialPagosAdapter(emptyList()) // Inicializa con una lista vacía
-        recyclerView.adapter = historialPagosAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-    }
+    private fun initializeViews() {
+        radioGroupTipoUsuario = findViewById(R.id.radio_group_tipo_usuario)
+        radioSocioSi = findViewById(R.id.radio_socio_si)
+        radioSocioNo = findViewById(R.id.radio_socio_no)
+        dniLabel = findViewById(R.id.dni_label)
+        dniInput = findViewById(R.id.dni_input)
+        socioInfo = findViewById(R.id.socio_info)
+        spinnerActividades = findViewById(R.id.spinner_actividades)
+        montoDisplay = findViewById(R.id.monto_display)
+        fechaInput = findViewById(R.id.fecha_input)
+        metodoPagoInput = findViewById(R.id.metodo_pago_input)
+        confirmarPagoButton = findViewById(R.id.confirmar_pago_button)
+        verCuotasVencerButton = findViewById(R.id.ver_cuotas_vencer_button)
 
-    private fun observeHistorialPagos() {
-        lifecycleScope.launch {
-            appDatabase.cuotaDao().obtenerHistorialPagos().collect { listaDePagos ->
-                runOnUiThread {
-                    historialPagosAdapter.actualizarLista(listaDePagos)
-                }
-            }
-        }
+        // Configurar fecha como clickable para DatePicker
+        fechaInput.isFocusable = false
+        fechaInput.isClickable = true
     }
 
     private fun setupListeners() {
-        val searchBar = findViewById<EditText>(R.id.search_bar)
-        val btnRegistrarPago = findViewById<Button>(R.id.confirmar_pago_button)
+        // RadioGroup para cambiar entre socio y no socio
+        radioGroupTipoUsuario.setOnCheckedChangeListener { _, checkedId ->
+            val esSocio = checkedId == R.id.radio_socio_si
+            toggleTipoUsuario(esSocio)
+        }
 
-        searchBar.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val dni = v.text.toString().trim()
-                if (dni.isNotEmpty()) {
+        // Búsqueda de DNI en tiempo real
+        dniInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val dni = s?.toString()?.trim()
+                if (!dni.isNullOrEmpty() && dni.length >= 8) {
                     buscarSocioPorDNI(dni)
+                } else {
+                    limpiarInfoSocio()
                 }
-                true
-            } else {
-                false
             }
+        })
+
+        // Selector de actividad
+        spinnerActividades.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (position > 0) { // 0 es el item "Seleccione una actividad"
+                    actividadSeleccionada = listaActividades[position - 1]
+                    montoDisplay.text = "$${actividadSeleccionada?.costoActividad ?: 0f}"
+                } else {
+                    actividadSeleccionada = null
+                    montoDisplay.text = "Seleccione una actividad"
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        btnRegistrarPago.setOnClickListener {
-            val socio = socioEncontrado
-            if (socio == null) {
-                Toast.makeText(this, "Por favor, busque y encuentre un socio válido primero", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            val monto = findViewById<EditText>(R.id.monto_input).text.toString().toFloatOrNull()
-            val fechaPago = findViewById<EditText>(R.id.fecha_input).text.toString()
-            val metodoPago = findViewById<EditText>(R.id.metodo_pago_input).text.toString()
-
-            if (monto == null || fechaPago.isBlank() || metodoPago.isBlank()) {
-                Toast.makeText(this, "Por favor, complete todos los campos del pago", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            registrarTransaccionPago(socio, monto, fechaPago, metodoPago)
+        // DatePicker para fecha
+        fechaInput.setOnClickListener {
+            showDatePicker()
         }
-    }
 
-    private fun registrarTransaccionPago(socio: Socio, monto: Float, fechaPago: String, metodoPago: String) {
-        lifecycleScope.launch {
-            try {
-                val diasParaSumar: Int
-                val tipoPago: String
+        // Confirmar pago
+        confirmarPagoButton.setOnClickListener {
+            confirmarPago()
+        }
 
-                when (monto) {
-                    ConstantesPago.VALOR_MONTO_1_MES -> {
-                        diasParaSumar = ConstantesPago.DIAS_PAGO_30
-                        tipoPago = "Plan Mensual"
-                    }
-                    ConstantesPago.VALOR_MONTO_15_DIAS -> {
-                        diasParaSumar = ConstantesPago.DIAS_PAGO_15
-                        tipoPago = "Plan 15 Días"
-                    }
-                    else -> {
-                        runOnUiThread { Toast.makeText(this@PagosActivity, "El monto no corresponde a un plan válido", Toast.LENGTH_LONG).show() }
-                        return@launch
-                    }
-                }
-                val fechaVencimientoCalculada = ConstantesPago.calcularFechaVencimiento(diasParaSumar)
+        // Ver cuotas a vencer
+        verCuotasVencerButton.setOnClickListener {
+            startActivity(Intent(this, CuotasVencidasActivity::class.java))
+        }
 
-                val nuevaCuota = Cuota(
-                    idSocio = socio.id,
-                    monto = monto,
-                    fechaPago = fechaPago,
-                    fechaVence = fechaVencimientoCalculada,
-                    tipoPago = tipoPago,
-                    metodoPago = metodoPago
-                )
-
-                appDatabase.cuotaDao().insertarCuota(nuevaCuota)
-                appDatabase.socioDao().actualizarFechaVencimiento(socio.id, fechaVencimientoCalculada)
-
-                runOnUiThread {
-                    Toast.makeText(this@PagosActivity, "Pago registrado con éxito. Nueva fecha de vencimiento: $fechaVencimientoCalculada", Toast.LENGTH_LONG).show()
-                    limpiarFormulario()
-                }
-
-            } catch (e: Exception) {
-                runOnUiThread {
-                    Toast.makeText(this@PagosActivity, "Error al registrar el pago: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
+        // Back arrow
+        findViewById<ImageView>(R.id.back_arrow).setOnClickListener {
+            finish()
         }
     }
 
-    private fun limpiarFormulario() {
-        findViewById<EditText>(R.id.search_bar).text.clear()
-        findViewById<EditText>(R.id.fecha_input).text.clear()
-        findViewById<EditText>(R.id.monto_input).text.clear()
-        findViewById<EditText>(R.id.metodo_pago_input).text.clear()
-        socioEncontrado = null
-        findViewById<EditText>(R.id.search_bar).requestFocus()
+    private fun toggleTipoUsuario(esSocio: Boolean) {
+        if (esSocio) {
+            radioSocioSi.text = "Socio"
+            dniLabel.visibility = View.VISIBLE
+            dniInput.visibility = View.VISIBLE
+            socioInfo.visibility = View.VISIBLE
+        } else {
+            radioSocioNo.text = "No Socio"
+            dniLabel.visibility = View.GONE
+            dniInput.visibility = View.GONE
+            socioInfo.visibility = View.GONE
+            limpiarInfoSocio()
+        }
     }
 
     private fun buscarSocioPorDNI(dni: String) {
         lifecycleScope.launch {
-            val socio = appDatabase.socioDao().obtenerSocioPorDNI(dni)
-            socioEncontrado = socio
+            try {
+                // Buscar persona por DNI
+                val persona = appDatabase.personaDao().obtenerPersonaPorDNI(dni)
+                if (persona != null) {
+                    // Buscar si es socio
+                    val socio = appDatabase.socioDao().obtenerSocioPorPersonaId(persona.id)
 
-            runOnUiThread {
-                if (socio != null) {
-                    Toast.makeText(this@PagosActivity, "Socio encontrado. ID: ${socio.id}", Toast.LENGTH_SHORT).show()
+                    runOnUiThread {
+                        if (socio != null) {
+                            socioEncontrado = socio
+                            personaEncontrada = persona
+                            socioInfo.text = "Socio encontrado: ${persona.nombre} ${persona.apellido ?: ""}"
+                            socioInfo.setTextColor(getColor(android.R.color.holo_green_light))
+                        } else {
+                            limpiarInfoSocio()
+                            socioInfo.text = "La persona existe pero no es socio"
+                            socioInfo.setTextColor(getColor(android.R.color.holo_orange_light))
+                        }
+                    }
                 } else {
-                    Toast.makeText(this@PagosActivity, "Socio no encontrado", Toast.LENGTH_SHORT).show()
+                    runOnUiThread {
+                        limpiarInfoSocio()
+                        socioInfo.text = "DNI no encontrado"
+                        socioInfo.setTextColor(getColor(android.R.color.holo_red_light))
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    limpiarInfoSocio()
+                    socioInfo.text = "Error al buscar DNI"
+                    socioInfo.setTextColor(getColor(android.R.color.holo_red_light))
                 }
             }
         }
+    }
+
+    private fun limpiarInfoSocio() {
+        socioEncontrado = null
+        personaEncontrada = null
+        socioInfo.text = "Ingrese DNI para buscar socio"
+        socioInfo.setTextColor(getColor(R.color.smalltext_color))
+    }
+
+    private fun loadActividades() {
+        lifecycleScope.launch {
+            try {
+                appDatabase.actividadDao().getAllActividades().collect { actividades ->
+                    listaActividades.clear()
+                    listaActividades.addAll(actividades)
+
+                    runOnUiThread {
+                        val nombresActividades = mutableListOf("Seleccione una actividad")
+                        nombresActividades.addAll(actividades.map { "${it.nombreActividad} - $${it.costoActividad}" })
+
+                        val adapter = ArrayAdapter(
+                            this@PagosActivity,
+                            android.R.layout.simple_spinner_item,
+                            nombresActividades
+                        )
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerActividades.adapter = adapter
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this@PagosActivity, "Error al cargar actividades: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setCurrentDate() {
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        fechaInput.setText(sdf.format(Date()))
+    }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            val fecha = String.format(Locale.getDefault(), "%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear)
+            fechaInput.setText(fecha)
+        }, year, month, day).show()
+    }
+
+    private fun confirmarPago() {
+        // Validaciones
+        val esSocio = radioSocioSi.isChecked
+
+        if (esSocio && socioEncontrado == null) {
+            Toast.makeText(this, "Debe buscar y seleccionar un socio válido", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (actividadSeleccionada == null) {
+            Toast.makeText(this, "Debe seleccionar una actividad", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val fecha = fechaInput.text.toString().trim()
+        val metodoPago = metodoPagoInput.text.toString().trim()
+
+        if (fecha.isEmpty()) {
+            Toast.makeText(this, "Debe ingresar una fecha de pago", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (metodoPago.isEmpty()) {
+            Toast.makeText(this, "Debe ingresar un método de pago", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Registrar pago
+        lifecycleScope.launch {
+            try {
+                if (esSocio) {
+                    registrarPagoSocio(fecha, metodoPago)
+                } else {
+                    registrarPagoNoSocio(fecha, metodoPago)
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this@PagosActivity, "Error al registrar pago: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private suspend fun registrarPagoSocio(fecha: String, metodoPago: String) {
+        val socio = socioEncontrado!!
+        val actividad = actividadSeleccionada!!
+
+        // Calcular fecha de vencimiento (30 días desde el pago)
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val fechaPago = sdf.parse(fecha)
+        val calendar = Calendar.getInstance()
+        calendar.time = fechaPago
+        calendar.add(Calendar.DAY_OF_MONTH, 30)
+        val fechaVencimiento = sdf.format(calendar.time)
+
+        val cuota = Cuota(
+            idSocio = socio.id,
+            monto = actividad.costoActividad,
+            fechaPago = fecha,
+            fechaVence = fechaVencimiento,
+            tipoPago = actividad.nombreActividad,
+            metodoPago = metodoPago
+        )
+
+        appDatabase.cuotaDao().insertarCuota(cuota)
+
+        // Actualizar fecha de vencimiento del socio
+        appDatabase.socioDao().actualizarFechaVencimiento(socio.id, fechaVencimiento)
+
+        runOnUiThread {
+            Toast.makeText(this@PagosActivity, "Pago registrado exitosamente para ${personaEncontrada?.nombre}", Toast.LENGTH_LONG).show()
+            limpiarFormulario()
+        }
+    }
+
+    private suspend fun registrarPagoNoSocio(fecha: String, metodoPago: String) {
+        val actividad = actividadSeleccionada!!
+
+        // Para no socios, registramos en la tabla de relación NoSocio-Actividad
+        // (Esto depende de tu estructura de base de datos para no socios)
+
+        runOnUiThread {
+            Toast.makeText(this@PagosActivity, "Pago registrado exitosamente para no socio", Toast.LENGTH_LONG).show()
+            limpiarFormulario()
+        }
+    }
+
+    private fun limpiarFormulario() {
+        dniInput.text.clear()
+        limpiarInfoSocio()
+        spinnerActividades.setSelection(0)
+        actividadSeleccionada = null
+        montoDisplay.text = "Seleccione una actividad"
+        metodoPagoInput.text.clear()
+        setCurrentDate()
+        socioEncontrado = null
+        personaEncontrada = null
     }
 
     private fun setupNavigation() {
