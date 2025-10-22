@@ -99,7 +99,7 @@
                     android:paddingBottom="12dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:textColorHighlight="#BB86FC"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +121,7 @@
                     android:id="@+id/et_apellido"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:inputType="textPersonName"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
@@ -147,7 +147,7 @@
                     android:id="@+id/et_dni"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:inputType="number"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
@@ -173,14 +173,15 @@
                     android:id="@+id/et_fecha_nacimiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
                     android:clickable="true"
-                    android:focusable="false"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:inputType="none"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:paddingTop="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Tipo (Socio/No Socio) - Dropdown Menu -->
@@ -189,6 +190,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/hint_member_type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
@@ -201,12 +203,15 @@
                     android:id="@+id/actv_tipo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
                     android:inputType="none"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:paddingTop="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Fecha de Registro -->
@@ -227,9 +232,10 @@
                     android:id="@+id/et_fecha_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:clickable="true"
-                    android:focusable="false"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:inputType="none"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
