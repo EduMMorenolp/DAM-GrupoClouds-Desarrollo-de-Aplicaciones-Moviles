@@ -19,4 +19,7 @@ interface AdminDao {
 
     @Query("SELECT * FROM Administrador WHERE nombre_usuario = :username")
     suspend fun getAdminPorUsuario(username: String): Administrador?
+
+    @Query("SELECT COUNT(id_persona) FROM administrador")
+    suspend fun contarAdmins(): Int
 }
