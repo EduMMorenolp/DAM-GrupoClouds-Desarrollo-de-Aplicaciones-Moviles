@@ -404,39 +404,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- SECCIÓN DE PRUEBAS -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="24dp"
-                android:text="Gestión y Reportes"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btn_ver_cuotas_vencidas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="@color/warning_color"
-                android:text="Ver Cuotas Vencidas"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/btn_ver_alertas_vencimiento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="#FFC107"
-                android:text="Ver Alertas de Vencimiento"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-
         </LinearLayout>
     </ScrollView>
 

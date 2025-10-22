@@ -13,9 +13,6 @@ class DashboardActivity : AppCompatActivity() {
 
         // Configurar la navegación inferior
         setupBottomNavigation()
-
-        // Configurar los botones de prueba para las nuevas pantallas
-        setupTestButtons()
     }
 
     private fun setupBottomNavigation() {
@@ -39,21 +36,6 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 else -> false
             }
-        }
-    }
-
-    private fun setupTestButtons() {
-        val btnCuotasVencidas = findViewById<Button>(R.id.btn_ver_cuotas_vencidas)
-        val btnAlertasVencimiento = findViewById<Button>(R.id.btn_ver_alertas_vencimiento)
-
-        btnCuotasVencidas.setOnClickListener {
-            val intent = Intent(this, CuotasVencidasActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnAlertasVencimiento.setOnClickListener {
-            val intent = Intent(this, AlertaVencimientoActivity::class.java)
-            startActivity(intent)
         }
     }
 }

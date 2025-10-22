@@ -54,9 +54,6 @@
         <activity
             android:name=".CuotasVencidasActivity"
             android:exported="false" />
-        <activity
-            android:name=".AlertaVencimientoActivity"
-            android:exported="false" />
 
     </application>
 
