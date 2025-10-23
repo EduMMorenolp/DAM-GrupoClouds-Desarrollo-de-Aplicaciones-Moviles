@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.grupoclouds.db.entity.Socio
 import com.example.grupoclouds.db.model.SocioConDetalles
+import com.example.grupoclouds.Miembro
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -54,4 +55,20 @@ interface SocioDao {
 
     @Query("SELECT * FROM Socio WHERE id_persona = :personaId")
     suspend fun obtenerSocioPorPersonaId(personaId: Int): Socio?
+
+    // Nueva consulta para obtener todos los socios como objetos Miembro
+    @Transaction
+    @Query("""
+        SELECT 
+            CASE 
+                WHEN p.apellido IS NOT NULL THEN p.nombre || ' ' || p.apellido 
+                ELSE p.nombre 
+            END as nombre,
+            CAST(s.id_socio AS TEXT) as idSocio,
+            'https://randomuser.me/api/portraits/men/32.jpg' as urlImagen
+        FROM Socio s
+        INNER JOIN Persona p ON s.id_persona = p.id_persona
+        ORDER BY p.nombre, p.apellido
+    """)
+    suspend fun obtenerTodosSociosComoMiembros(): List<Miembro>
 }
