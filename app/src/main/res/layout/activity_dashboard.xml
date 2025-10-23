@@ -123,11 +123,12 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_ver_cuotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:backgroundTint="#264532"
-                android:text="Ver Pagos"
+                android:text="Ver Cuotas"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
