@@ -23,6 +23,7 @@ class MiembrosCompletoAdapter(private val listaMiembros: List<MiembroCompleto>) 
         val textoFechaNacimiento: TextView = itemView.findViewById(R.id.tv_fecha_nacimiento)
         val textoEstadoInfo: TextView = itemView.findViewById(R.id.tv_estado_info)
         val textoFichaMedica: TextView = itemView.findViewById(R.id.tv_ficha_medica)
+        val textoEstadoCarnet: TextView = itemView.findViewById(R.id.tv_estado_carnet)
     }
 
     /**
@@ -87,5 +88,22 @@ class MiembrosCompletoAdapter(private val listaMiembros: List<MiembroCompleto>) 
             android.graphics.Color.parseColor("#F44336") // Rojo si no tiene ficha
         }
         holder.textoFichaMedica.setTextColor(colorFichaMedica)
+
+        // Mostramos el estado del carnet solo para socios
+        val estadoCarnet = miembroActual.getEstadoCarnet()
+        if (estadoCarnet != null && miembroActual.esSocio) {
+            holder.textoEstadoCarnet.text = estadoCarnet
+            holder.textoEstadoCarnet.visibility = View.VISIBLE
+
+            // Configuramos el color según si tiene o no carnet
+            val colorCarnet = if (miembroActual.tieneCarnet) {
+                android.graphics.Color.parseColor("#4CAF50") // Verde si tiene carnet
+            } else {
+                android.graphics.Color.parseColor("#FF9800") // Naranja si no tiene carnet
+            }
+            holder.textoEstadoCarnet.setTextColor(colorCarnet)
+        } else {
+            holder.textoEstadoCarnet.visibility = View.GONE // Ocultar para no-socios
+        }
     }
 }

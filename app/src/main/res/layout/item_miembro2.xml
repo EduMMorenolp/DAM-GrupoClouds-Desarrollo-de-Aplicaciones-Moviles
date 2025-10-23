@@ -85,22 +85,25 @@
         tools:text="Nacido: 1990-01-01" />
 
     <!-- TextView para información adicional (cuota, carnet, etc.) -->
+
+    <!-- TextView para el estado de la ficha médica -->
+
     <TextView
         android:id="@+id/tv_estado_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:textColor="@color/smalltext_color"
-        android:textSize="11sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_edittext_bg"
         android:backgroundTint="@color/background_color"
         android:paddingHorizontal="6dp"
         android:paddingVertical="2dp"
+        android:textColor="@color/smalltext_color"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tipo_miembro"
         tools:text="Cuota: 2025-12-31" />
 
-    <!-- TextView para el estado de la ficha médica -->
     <TextView
         android:id="@+id/tv_ficha_medica"
         android:layout_width="0dp"
@@ -115,7 +118,24 @@
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintEnd_toStartOf="@id/tv_estado_info"
         app:layout_constraintTop_toBottomOf="@id/tv_fecha_nacimiento"
+        tools:text="Ficha médica" />
+
+    <!-- TextView para el estado del carnet (solo para socios) -->
+    <TextView
+        android:id="@+id/tv_estado_carnet"
+        android:layout_width="159dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:textSize="11sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="✓ Ficha médica" />
+        app:layout_constraintEnd_toStartOf="@id/tv_estado_info"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_ficha_medica"
+        tools:text="Con carnet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

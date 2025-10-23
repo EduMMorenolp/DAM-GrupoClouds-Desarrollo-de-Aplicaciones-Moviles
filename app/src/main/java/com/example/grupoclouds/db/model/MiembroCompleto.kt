@@ -40,8 +40,17 @@ data class MiembroCompleto(
         return if (tijoFichaMedica) "Ficha médica" else "Sin ficha médica"
     }
 
-    // Función para obtener el color del estado de ficha médica
-    fun getColorFichaMedica(): String {
-        return if (tijoFichaMedica) "#4CAF50" else "#F44336" // Verde si tiene, rojo si no tiene
+    // Función para obtener el estado del carnet (solo para socios)
+    fun getEstadoCarnet(): String? {
+        return if (esSocio) {
+            if (tieneCarnet) "Con carnet" else "Sin carnet"
+        } else {
+            null // Los no-socios no tienen carnet
+        }
+    }
+
+    // Función para obtener el color del estado del carnet
+    fun getColorCarnet(): String {
+        return if (tieneCarnet) "#4CAF50" else "#FF9800" // Verde si tiene, naranja si no tiene
     }
 }
