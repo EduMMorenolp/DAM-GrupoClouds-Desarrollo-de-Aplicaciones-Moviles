@@ -55,7 +55,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 
 class MiembrosAdapter(private val listaMiembros: List<Miembro>) :
     RecyclerView.Adapter<MiembrosAdapter.MiembroViewHolder>() {
@@ -64,10 +63,11 @@ class MiembrosAdapter(private val listaMiembros: List<Miembro>) :
      * El ViewHolder describe una vista de un ítem y sus metadatos dentro del RecyclerView.
      */
     inner class MiembroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // Obtenemos las referencias a las vistas dentro de item_miembro.xml
+        // Obtenemos las referencias a las vistas dentro de item_miembro2.xml
         val imagenPerfil: ImageView = itemView.findViewById(R.id.iv_profile)
         val textoNombre: TextView = itemView.findViewById(R.id.tv_nombre_miembro)
         val textoId: TextView = itemView.findViewById(R.id.tv_id_miembro)
+        val textoTipoMiembro: TextView = itemView.findViewById(R.id.tv_tipo_miembro)
     }
 
     /**
@@ -96,13 +96,19 @@ class MiembrosAdapter(private val listaMiembros: List<Miembro>) :
 
         // Asignamos los datos del miembro a las vistas
         holder.textoNombre.text = miembroActual.nombre
-        holder.textoId.text = "ID: ${miembroActual.idSocio}"
 
-        // Usamos la librería Glide para cargar la imagen desde la URL de forma eficiente
-        Glide.with(holder.itemView.context)
-            .load(miembroActual.urlImagen)
-            .circleCrop() // Aplica una máscara circular a la imagen
-            .into(holder.imagenPerfil)
+        // Determinamos si es socio o no-socio basado en el ID
+        val esSocio = miembroActual.idSocio.all { it.isDigit() } // Si el ID es solo números, es socio
+
+        if (esSocio) {
+            holder.textoId.text = "Socio N°: ${miembroActual.idSocio}"
+            holder.textoTipoMiembro.text = "SOCIO"
+        } else {
+            holder.textoId.text = "DNI: ${miembroActual.idSocio}"
+            holder.textoTipoMiembro.text = "NO-SOCIO"
+        }
+
+        // Ya no necesitamos cargar imágenes, el icono está fijo en el XML
     }
 }
 

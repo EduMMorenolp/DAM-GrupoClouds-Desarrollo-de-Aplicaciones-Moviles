@@ -61,19 +61,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.example.grupoclouds.db.AppDatabase
+import com.example.grupoclouds.db.model.MiembroCompleto
 import kotlinx.coroutines.launch
 
 class MiembrosActivity : AppCompatActivity() {
 
     private lateinit var recyclerViewMiembros: RecyclerView
-    private lateinit var adapter: MiembrosAdapter
+    private lateinit var adapter: MiembrosCompletoAdapter
     private lateinit var btnTodos: MaterialButton
     private lateinit var btnSocios: MaterialButton
     private lateinit var btnNoSocios: MaterialButton
 
-    private var todosMiembros: List<Miembro> = emptyList()
-    private var socios: List<Miembro> = emptyList()
-    private var noSocios: List<Miembro> = emptyList()
+    private var todosMiembros: List<MiembroCompleto> = emptyList()
+    private var socios: List<MiembroCompleto> = emptyList()
+    private var noSocios: List<MiembroCompleto> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +104,7 @@ class MiembrosActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         // Inicializar con lista vacía
-        adapter = MiembrosAdapter(emptyList())
+        adapter = MiembrosCompletoAdapter(emptyList())
         recyclerViewMiembros.adapter = adapter
         recyclerViewMiembros.layoutManager = LinearLayoutManager(this)
     }
@@ -114,14 +115,14 @@ class MiembrosActivity : AppCompatActivity() {
                 // Obtener instancia de la base de datos
                 val database = AppDatabase.getInstance(this@MiembrosActivity)
 
-                // Cargar TODAS las personas como miembros (esto incluye tanto socios como no-socios)
-                todosMiembros = database.personaDao().obtenerTodasLasPersonasComoMiembros()
+                // Cargar TODAS las personas con información completa
+                todosMiembros = database.personaDao().obtenerTodasLasPersonasCompletas()
 
-                // Cargar solo los socios
-                socios = database.personaDao().obtenerSociosComoMiembros()
+                // Cargar solo los socios con información completa
+                socios = database.personaDao().obtenerSociosCompletos()
 
-                // Cargar solo los no-socios (personas que no están en la tabla Socio)
-                noSocios = database.personaDao().obtenerNoSociosComoMiembros()
+                // Cargar solo los no-socios
+                noSocios = database.personaDao().obtenerNoSociosCompletos()
 
                 // Mostrar todos los miembros por defecto
                 actualizarRecyclerView(todosMiembros)
@@ -130,6 +131,11 @@ class MiembrosActivity : AppCompatActivity() {
                 println("DEBUG: Total miembros: ${todosMiembros.size}")
                 println("DEBUG: Socios: ${socios.size}")
                 println("DEBUG: No-socios: ${noSocios.size}")
+
+                // Log de datos para verificar
+                todosMiembros.forEach { miembro ->
+                    println("DEBUG: ${miembro.nombreCompleto()} - ${if(miembro.esSocio) "SOCIO" else "NO-SOCIO"} - Fecha nac: ${miembro.fechaNacimiento}")
+                }
 
             } catch (e: Exception) {
                 // En caso de error, mostrar el error y usar datos de ejemplo
@@ -141,24 +147,46 @@ class MiembrosActivity : AppCompatActivity() {
     }
 
     private fun cargarDatosDeEjemplo() {
-        // Datos de respaldo en caso de que no haya datos en la base de datos
+        // Datos de respaldo con información completa
         val datosEjemplo = listOf(
-            Miembro("Ethan Carter", "123456", "https://randomuser.me/api/portraits/men/32.jpg"),
-            Miembro("Olivia Bennett", "789012", "https://randomuser.me/api/portraits/women/44.jpg"),
-            Miembro("Noah Thompson", "345678", "https://randomuser.me/api/portraits/men/3.jpg"),
-            Miembro("Ava Harper", "901234", "https://randomuser.me/api/portraits/women/65.jpg"),
-            Miembro("Liam Foster", "567890", "https://randomuser.me/api/portraits/men/11.jpg")
+            MiembroCompleto(
+                nombre = "Eduardo",
+                apellido = "Moreno",
+                dni = "12345678Z",
+                fechaNacimiento = "1990-01-01",
+                esSocio = true,
+                idSocio = "1",
+                fechaAlta = "2025-01-01",
+                cuotaHasta = "2025-12-31",
+                tieneCarnet = true
+            ),
+            MiembroCompleto(
+                nombre = "Jack",
+                apellido = "Herman",
+                dni = "87654321A",
+                fechaNacimiento = "1992-05-20",
+                esSocio = false,
+                idSocio = "87654321A"
+            ),
+            MiembroCompleto(
+                nombre = "Marcelo",
+                apellido = "Moreno",
+                dni = "32123456",
+                fechaNacimiento = "1985-03-15",
+                esSocio = false,
+                idSocio = "32123456"
+            )
         )
 
         todosMiembros = datosEjemplo
-        socios = datosEjemplo.take(3) // Primeros 3 como socios
-        noSocios = datosEjemplo.drop(3) // Últimos 2 como no-socios
+        socios = datosEjemplo.filter { it.esSocio }
+        noSocios = datosEjemplo.filter { !it.esSocio }
 
         actualizarRecyclerView(todosMiembros)
     }
 
-    private fun actualizarRecyclerView(miembros: List<Miembro>) {
-        adapter = MiembrosAdapter(miembros)
+    private fun actualizarRecyclerView(miembros: List<MiembroCompleto>) {
+        adapter = MiembrosCompletoAdapter(miembros)
         recyclerViewMiembros.adapter = adapter
     }
 

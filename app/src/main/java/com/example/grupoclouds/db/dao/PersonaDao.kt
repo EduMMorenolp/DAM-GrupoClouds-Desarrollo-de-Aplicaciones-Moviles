@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.grupoclouds.db.entity.Persona
-import com.example.grupoclouds.Miembro
+import com.example.grupoclouds.db.model.MiembroCompleto
 
 @Dao
 interface PersonaDao {
@@ -16,58 +16,64 @@ interface PersonaDao {
     @Query("SELECT * FROM Persona WHERE dni = :dni")
     suspend fun obtenerPersonaPorDNI(dni: String): Persona?
 
-    // Nueva consulta para obtener todas las personas como miembros
+    // Consulta completa para obtener todas las personas con toda su información
     @Transaction
     @Query("""
         SELECT 
-            CASE 
-                WHEN p.apellido IS NOT NULL THEN p.nombre || ' ' || p.apellido 
-                ELSE p.nombre 
-            END as nombre,
+            p.nombre,
+            p.apellido,
+            p.dni,
+            p.fecha_nacimiento as fechaNacimiento,
+            CASE WHEN s.id_socio IS NOT NULL THEN 1 ELSE 0 END as esSocio,
             CASE 
                 WHEN s.id_socio IS NOT NULL THEN CAST(s.id_socio AS TEXT)
                 ELSE p.dni 
             END as idSocio,
-            CASE 
-                WHEN s.id_socio IS NOT NULL THEN 'https://randomuser.me/api/portraits/men/32.jpg'
-                ELSE 'https://randomuser.me/api/portraits/women/44.jpg'
-            END as urlImagen
+            s.fecha_alta as fechaAlta,
+            s.cuota_hasta as cuotaHasta,
+            CASE WHEN s.tiene_carnet IS NOT NULL THEN s.tiene_carnet ELSE 0 END as tieneCarnet
         FROM Persona p
         LEFT JOIN Socio s ON p.id_persona = s.id_persona
         ORDER BY p.nombre, p.apellido
     """)
-    suspend fun obtenerTodasLasPersonasComoMiembros(): List<Miembro>
+    suspend fun obtenerTodasLasPersonasCompletas(): List<MiembroCompleto>
 
-    // Consulta para obtener solo los socios
+    // Consulta para obtener solo los socios con información completa
     @Transaction
     @Query("""
         SELECT 
-            CASE 
-                WHEN p.apellido IS NOT NULL THEN p.nombre || ' ' || p.apellido 
-                ELSE p.nombre 
-            END as nombre,
+            p.nombre,
+            p.apellido,
+            p.dni,
+            p.fecha_nacimiento as fechaNacimiento,
+            1 as esSocio,
             CAST(s.id_socio AS TEXT) as idSocio,
-            'https://randomuser.me/api/portraits/men/32.jpg' as urlImagen
+            s.fecha_alta as fechaAlta,
+            s.cuota_hasta as cuotaHasta,
+            s.tiene_carnet as tieneCarnet
         FROM Persona p
         INNER JOIN Socio s ON p.id_persona = s.id_persona
         ORDER BY p.nombre, p.apellido
     """)
-    suspend fun obtenerSociosComoMiembros(): List<Miembro>
+    suspend fun obtenerSociosCompletos(): List<MiembroCompleto>
 
-    // Consulta para obtener solo los no-socios (personas sin registro en tabla Socio)
+    // Consulta para obtener solo los no-socios
     @Transaction
     @Query("""
         SELECT 
-            CASE 
-                WHEN p.apellido IS NOT NULL THEN p.nombre || ' ' || p.apellido 
-                ELSE p.nombre 
-            END as nombre,
+            p.nombre,
+            p.apellido,
+            p.dni,
+            p.fecha_nacimiento as fechaNacimiento,
+            0 as esSocio,
             p.dni as idSocio,
-            'https://randomuser.me/api/portraits/women/44.jpg' as urlImagen
+            null as fechaAlta,
+            null as cuotaHasta,
+            0 as tieneCarnet
         FROM Persona p
         LEFT JOIN Socio s ON p.id_persona = s.id_persona
         WHERE s.id_socio IS NULL
         ORDER BY p.nombre, p.apellido
     """)
-    suspend fun obtenerNoSociosComoMiembros(): List<Miembro>
+    suspend fun obtenerNoSociosCompletos(): List<MiembroCompleto>
 }
