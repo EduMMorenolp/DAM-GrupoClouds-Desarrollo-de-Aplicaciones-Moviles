@@ -95,6 +95,12 @@ class MiembrosActivity : AppCompatActivity() {
         setupFilterButtons()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Recargar datos cuando se vuelve a la actividad (por ejemplo, después de agregar un miembro)
+        cargarMiembrosDesdeBaseDeDatos()
+    }
+
     private fun initializeViews() {
         recyclerViewMiembros = findViewById(R.id.rv_miembros)
         btnTodos = findViewById(R.id.btn_todos)

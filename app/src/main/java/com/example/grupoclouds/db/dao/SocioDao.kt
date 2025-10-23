@@ -25,6 +25,9 @@ interface SocioDao {
     @Query("UPDATE Socio SET cuota_hasta = :nuevaFechaVencimiento WHERE id_socio = :idSocio")
     suspend fun actualizarFechaVencimiento(idSocio: Int, nuevaFechaVencimiento: String)
 
+    @Query("UPDATE Socio SET tiene_carnet = :tieneCarnet WHERE id_socio = :idSocio")
+    suspend fun actualizarEstadoCarnet(idSocio: Int, tieneCarnet: Boolean)
+
     @Transaction
     @Query("""
         SELECT
