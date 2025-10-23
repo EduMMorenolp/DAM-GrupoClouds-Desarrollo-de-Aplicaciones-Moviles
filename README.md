@@ -10,40 +10,53 @@ El objetivo es migrar la funcionalidad principal del sistema de escritorio preex
 
 ### 💻 Tecnología y Stack
 
-  * **Plataforma de Desarrollo:** Android
-  * **Lenguaje de Programación:** **Kotlin**
-  * **IDE:** **Android Studio**
-  * **Gestión de Dependencias:** Gradle
-  * **Base de Datos (Backend):** MySQL (a través de una futura API RESTful)
-  * **Control de Versiones:** Git / GitHub
-
------
-
-### ✨ Funcionalidades Clave
-
-La aplicación está diseñada para automatizar y gestionar las operaciones esenciales del club, enfocándose en la administración del staff.
-
-| Módulo | Descripción | Estado (Etapa Actual: Diseño UI) |
+| Componente | Tecnología | Propósito |
 | :--- | :--- | :--- |
-| **Autenticación** | Login para el personal administrativo y de recepción. | 🏗️ En Desarrollo (Diseño de pantallas) |
-| **Gestión de Socios** | Registro de nuevas personas (socios/no socios) y consulta de fichas. | 🏗️ En Desarrollo |
-| **Cuotas y Pagos** | Registro de pagos de cuotas mensuales y actividades; consulta de cuotas vencidas. | 🏗️ En Desarrollo |
-| **Actividades** | Alta, baja y modificación de actividades deportivas y sus costos. | 🏗️ En Desarrollo |
-| **Carnet Digital** | Generación y visualización del carnet de socio (digital). | 💡 Planificado |
+| **Plataforma** | Android | Desarrollo nativo. |
+| **Lenguaje** | **Kotlin** | Lenguaje moderno, seguro y recomendado por Google. |
+| **IDE** | **Android Studio** | Entorno de desarrollo. |
+| **Persistencia Local** | **Room** | Librería de persistencia para DB local, integrada con MVVM. |
+| **Asincronía** | Kotlin Coroutines & Flow | Manejo de operaciones en segundo plano sin bloquear la UI. |
+| **Backend (Futuro)** | MySQL / API RESTful | Base de datos principal para el sistema de producción. |
+| **Control de Versiones** | Git / GitHub | Gestión de ramas y colaboración del equipo. |
 
 -----
 
-### 🚀 Estructura del Proyecto (Etapa de Desarrollo)
+### ✨ Avance y Estado de Funcionalidades
 
-La etapa actual se centra en la implementación del diseño UI/UX. La estructura del proyecto en Android Studio incluye varias `Activity`s, cada una representando una pantalla única en la aplicación.
+**El diseño UI/UX está completado.** La fase actual se centra en la implementación de la lógica de negocio (Backend/Persistencia). El estado del desarrollo es el siguiente:
 
-  * `MainActivity` (o **Entry Point**): [Indicar la pantalla de inicio, ej: SplashScreen o LoginActivity]
-  * `LoginActivity`: Pantalla de autenticación de administradores.
-  * `DashboardActivity`: Dashboard principal después del login.
-  * `SocioRegistroActivity`: Formulario para el alta de nuevos socios/personas.
-  * `PagosActivity`: Pantalla para registrar pagos de cuotas.
-  * `CuotasVencidasActivity`: Listado de socios con pagos pendientes.
-  * *y las demás Activities necesarias según el diseño...*
+| Módulo | Descripción | Estado |
+| :--- | :--- | :--- |
+| **Diseño UI/UX** | Todas las Activities y Vistas diseñadas en XML. | **✅ COMPLETADO** |
+| **Autenticación** | Login para el personal administrativo y de recepción. | **✅ COMPLETADO** |
+| **Cuotas y Pagos** | Lógica de registro de pagos y consulta de vencimientos. | **✅ COMPLETADO** |
+| **Actividades** | Lógica de Alta, Baja y Modificación (CRUD) de actividades. | **✅ COMPLETADO** |
+| **Gestión de Socios** | **Registro** de nuevas personas (socios/no socios). | **✅ COMPLETADO** |
+| **Gestión de Socios** | **Consulta de Fichas** de socios existentes. | ⏳ **PENDIENTE** |
+| **Carnet Digital** | Generación y visualización del carnet de socio. | ⏳ **PENDIENTE** |
+
+-----
+
+### 🚀 Estructura del Proyecto (MVVM & Room)
+
+El proyecto sigue la arquitectura MVVM para una separación de responsabilidades limpia.
+
+| Componente | Rol en el Proyecto |
+| :--- | :--- |
+| **DAO** (Data Access Object) | Interfaces de Room con las consultas SQL para la DB. |
+| **Entidades** | *Data Classes* que representan las tablas de la DB (`Socio`, `Administrador`, `Cuota`). |
+| **ViewModel** | Contiene la lógica de negocio y prepara los datos para la UI. |
+| **Activities** | Contiene la Vista (UI) y observa los datos del ViewModel. |
+
+#### Activities Principales Implementadas:
+
+  * `LoginActivity`
+  * `DashboardActivity`
+  * `SocioRegistroActivity`
+  * `PagosActivity`
+  * `ActividadesActivity`
+  * `CuotasVencidasActivity`
 
 -----
 
@@ -51,16 +64,15 @@ La etapa actual se centra en la implementación del diseño UI/UX. La estructura
 
 Para clonar y ejecutar este proyecto en tu entorno local, necesitarás:
 
-1.  Tener instalado **Git**.
-2.  Tener instalado **Android Studio** (versión recomendada: la más reciente) con el SDK de Android configurado.
+1.  Tener instalado **Git**.
+2.  Tener instalado **Android Studio** (versión recomendada: la más reciente) con el SDK de Android configurado.
 
 #### 1\. Clonar el Repositorio
 
 Abre tu terminal o Git Bash y ejecuta:
 
-```bash
-git clone https://github.com/EduMMorenolp/DAM-GrupoClouds-Desarrollo-de-Aplicaciones-Moviles.git
-```
+bash
+git clone [https://github.com/EduMMorenolp/DAM-GrupoClouds-Desarrollo-de-Aplicaciones-Moviles.git](https://github.com/EduMMorenolp/DAM-GrupoClouds-Desarrollo-de-Aplicaciones-Moviles.git)
 
 #### 2\. Abrir en Android Studio
 
@@ -89,6 +101,10 @@ Este proyecto es desarrollado por el **Grupo Clouds**.
 
 ### 📌 Estado Actual y Próximos Pasos
 
-El enfoque actual es la **Etapa Desarrollo (Diseño UI/UX)**, asegurando que todas las pantallas estén correctamente diseñadas en XML y el flujo de navegación entre `Activities` esté definido.
+📌 Próximos Pasos (Foco Inmediato)
 
-  * **Siguiente Etapa:** Implementación de la **Lógica de Negocio** y la integración con el **Backend (API REST)** para la gestión de datos.
+El enfoque actual es completar las funcionalidades que dependen de consultas avanzadas:
+
+Implementar la Consulta de Fichas de socios (búsqueda y visualización completa de datos).
+
+Implementar la lógica completa del Carnet Digital (visualización, generación de PDF y envío por email).
