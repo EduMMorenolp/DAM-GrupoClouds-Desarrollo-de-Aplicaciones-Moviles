@@ -4,9 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.grupoclouds.db.entity.Socio
 import com.example.grupoclouds.db.model.SocioConDetalles
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SocioDao {
@@ -29,8 +29,6 @@ interface SocioDao {
     """)
     suspend fun obtenerSocioPorDNI(dni: String): Socio?
 
-    @Query("UPDATE Socio SET cuota_hasta = :nuevaFechaVencimiento WHERE id_socio = :idSocio")
-    suspend fun actualizarFechaVencimiento(idSocio: Int, nuevaFechaVencimiento: String)
 
     @Query("UPDATE Socio SET tiene_carnet = :tieneCarnet WHERE id_socio = :idSocio")
     suspend fun actualizarEstadoCarnet(idSocio: Int, tieneCarnet: Boolean)
@@ -65,23 +63,4 @@ interface SocioDao {
 
     @Query("UPDATE Socio SET cuota_hasta = :nuevaFecha WHERE id_socio = :socioId")
     suspend fun actualizarCuotaHasta(socioId: Int, nuevaFecha: String)
-
-    @Query("SELECT * FROM Socio WHERE id_persona = :personaId")
-    suspend fun obtenerSocioPorPersonaId(personaId: Int): Socio?
-
-    // Nueva consulta para obtener todos los socios como objetos Miembro
-    @Transaction
-    @Query("""
-        SELECT 
-            CASE 
-                WHEN p.apellido IS NOT NULL THEN p.nombre || ' ' || p.apellido 
-                ELSE p.nombre 
-            END as nombre,
-            CAST(s.id_socio AS TEXT) as idSocio,
-            'https://randomuser.me/api/portraits/men/32.jpg' as urlImagen
-        FROM Socio s
-        INNER JOIN Persona p ON s.id_persona = p.id_persona
-        ORDER BY p.nombre, p.apellido
-    """)
-    suspend fun obtenerTodosSociosComoMiembros(): List<Miembro>
 }
