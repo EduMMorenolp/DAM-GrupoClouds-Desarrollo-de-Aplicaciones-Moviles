@@ -54,4 +54,8 @@ interface SocioDao {
         ORDER BY s.cuota_hasta ASC
     """)
     suspend fun getTodosLosSociosPorBusqueda(query: String): List<SocioConDetalles>
+
+    @Query("UPDATE Socio SET cuota_hasta = :nuevaFecha WHERE id_socio = :socioId")
+    suspend fun actualizarCuotaHasta(socioId: Int, nuevaFecha: String)
+
 }

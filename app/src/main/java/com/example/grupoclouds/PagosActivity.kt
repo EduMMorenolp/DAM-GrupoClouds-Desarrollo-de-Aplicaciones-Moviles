@@ -14,6 +14,7 @@ import com.example.grupoclouds.db.entity.Actividad
 import com.example.grupoclouds.db.entity.Cuota
 import com.example.grupoclouds.db.entity.Persona
 import com.example.grupoclouds.db.entity.Socio
+import com.example.grupoclouds.util.ConstantesPago
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -281,13 +282,7 @@ class PagosActivity : AppCompatActivity() {
         val socio = socioEncontrado!!
         val actividad = actividadSeleccionada!!
 
-        // Calcular fecha de vencimiento (30 días desde el pago)
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val fechaPago = sdf.parse(fecha)
-        val calendar = Calendar.getInstance()
-        calendar.time = fechaPago
-        calendar.add(Calendar.DAY_OF_MONTH, 30)
-        val fechaVencimiento = sdf.format(calendar.time)
+        val fechaVencimiento = ConstantesPago.calcularFechaVencimiento(ConstantesPago.DIAS_PAGO_30)
 
         val cuota = Cuota(
             idSocio = socio.id,
@@ -300,8 +295,7 @@ class PagosActivity : AppCompatActivity() {
 
         appDatabase.cuotaDao().insertarCuota(cuota)
 
-        // Actualizar fecha de vencimiento del socio
-        appDatabase.socioDao().actualizarFechaVencimiento(socio.id, fechaVencimiento)
+        appDatabase.socioDao().actualizarCuotaHasta(socio.id, fechaVencimiento)
 
         runOnUiThread {
             Toast.makeText(this@PagosActivity, "Pago registrado exitosamente para ${personaEncontrada?.nombre}", Toast.LENGTH_LONG).show()
