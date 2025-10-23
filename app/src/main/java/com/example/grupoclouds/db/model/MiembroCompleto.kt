@@ -13,7 +13,7 @@ data class MiembroCompleto(
     val fechaAlta: String? = null, // Solo para socios
     val cuotaHasta: String? = null, // Solo para socios
     val tieneCarnet: Boolean = false, // Solo para socios
-    val tijoFichaMedica: Boolean = false // Campo para indicar si trajo ficha médica
+    val fichaMedica: Boolean = false // Campo para indicar si trajo ficha médica
 ) {
     // Función para obtener el nombre completo
     fun nombreCompleto(): String {
@@ -37,7 +37,7 @@ data class MiembroCompleto(
 
     // Función para obtener el estado de la ficha médica
     fun getEstadoFichaMedica(): String {
-        return if (tijoFichaMedica) "Ficha médica" else "Sin ficha médica"
+        return if (fichaMedica) "Ficha médica" else "Sin ficha médica"
     }
 
     // Función para obtener el estado del carnet (solo para socios)

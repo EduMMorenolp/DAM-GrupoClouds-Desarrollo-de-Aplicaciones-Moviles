@@ -82,7 +82,7 @@ class MiembrosCompletoAdapter(private val listaMiembros: List<MiembroCompleto>) 
         holder.textoFichaMedica.text = miembroActual.getEstadoFichaMedica()
 
         // Configuramos el color según si tiene o no la ficha médica
-        val colorFichaMedica = if (miembroActual.tijoFichaMedica) {
+        val colorFichaMedica = if (miembroActual.fichaMedica) {
             android.graphics.Color.parseColor("#4CAF50") // Verde si tiene ficha
         } else {
             android.graphics.Color.parseColor("#F44336") // Rojo si no tiene ficha

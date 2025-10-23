@@ -165,6 +165,7 @@ class AddMemberActivity : AppCompatActivity() {
                             fechaAlta = etFechaRegistro.text?.toString()?.trim(),
                             cuotaHasta = null, // Se puede configurar después
                             tieneCarnet = false, // Inicialmente no tiene carnet
+                            fichaMedica = switchFichaMedica.isChecked, // estado ficha médica
                             idPersona = personaId.toInt()
                         )
                         database.socioDao().insertarSocio(socio)
