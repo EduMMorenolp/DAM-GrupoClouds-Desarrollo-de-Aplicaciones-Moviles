@@ -24,6 +24,7 @@ class AddMemberActivity : AppCompatActivity() {
     private lateinit var etNombre: TextInputEditText
     private lateinit var etApellido: TextInputEditText
     private lateinit var etDni: TextInputEditText
+    private lateinit var etEmail: TextInputEditText
     private lateinit var etFechaNacimiento: TextInputEditText
     private lateinit var actvTipo: AutoCompleteTextView
     private lateinit var etFechaRegistro: TextInputEditText
@@ -54,6 +55,7 @@ class AddMemberActivity : AppCompatActivity() {
         etNombre = findViewById(R.id.et_nombre)
         etApellido = findViewById(R.id.et_apellido)
         etDni = findViewById(R.id.et_dni)
+        etEmail = findViewById(R.id.et_email)
         etFechaNacimiento = findViewById(R.id.et_fecha_nacimiento)
         actvTipo = findViewById(R.id.actv_tipo)
         etFechaRegistro = findViewById(R.id.et_fecha_registro)
@@ -114,6 +116,7 @@ class AddMemberActivity : AppCompatActivity() {
         // Validar campos obligatorios
         val nombre = etNombre.text?.toString()?.trim()
         val dni = etDni.text?.toString()?.trim()
+        val email = etEmail.text?.toString()?.trim()
         val tipo = actvTipo.text?.toString()?.trim()
 
         if (nombre.isNullOrEmpty()) {
@@ -125,6 +128,13 @@ class AddMemberActivity : AppCompatActivity() {
         if (dni.isNullOrEmpty()) {
             Toast.makeText(this, "El DNI es obligatorio", Toast.LENGTH_SHORT).show()
             etDni.requestFocus()
+            return
+        }
+
+        // Validar email si se proporciona
+        if (!email.isNullOrEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "El formato del email no es válido", Toast.LENGTH_SHORT).show()
+            etEmail.requestFocus()
             return
         }
 
@@ -151,6 +161,7 @@ class AddMemberActivity : AppCompatActivity() {
                     nombre = nombre,
                     apellido = etApellido.text?.toString()?.trim()?.takeIf { it.isNotEmpty() },
                     dni = dni,
+                    email = email.takeIf { !it.isNullOrEmpty() },
                     fechaNacimiento = etFechaNacimiento.text?.toString()?.trim()?.takeIf { it.isNotEmpty() }
                 )
 

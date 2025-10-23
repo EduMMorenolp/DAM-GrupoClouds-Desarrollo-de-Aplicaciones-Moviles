@@ -24,6 +24,7 @@ interface PersonaDao {
             p.nombre,
             p.apellido,
             p.dni,
+            p.email,
             p.fecha_nacimiento as fechaNacimiento,
             CASE WHEN s.id_socio IS NOT NULL THEN 1 ELSE 0 END as esSocio,
             CASE 
@@ -49,6 +50,7 @@ interface PersonaDao {
             p.nombre,
             p.apellido,
             p.dni,
+            p.email,
             p.fecha_nacimiento as fechaNacimiento,
             1 as esSocio,
             CAST(s.id_socio AS TEXT) as idSocio,
@@ -71,6 +73,7 @@ interface PersonaDao {
             p.nombre,
             p.apellido,
             p.dni,
+            p.email,
             p.fecha_nacimiento as fechaNacimiento,
             0 as esSocio,
             p.dni as idSocio,

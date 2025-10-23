@@ -7,6 +7,7 @@ data class MiembroCompleto(
     val nombre: String,
     val apellido: String?,
     val dni: String,
+    val email: String?,
     val fechaNacimiento: String?,
     val esSocio: Boolean,
     val idSocio: String?, // ID del socio o DNI si es no-socio

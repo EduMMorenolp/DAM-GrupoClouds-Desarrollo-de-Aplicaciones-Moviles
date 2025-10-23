@@ -19,6 +19,7 @@ class MiembrosCompletoAdapter(private val listaMiembros: List<MiembroCompleto>) 
         val imagenPerfil: ImageView = itemView.findViewById(R.id.iv_profile)
         val textoNombre: TextView = itemView.findViewById(R.id.tv_nombre_miembro)
         val textoId: TextView = itemView.findViewById(R.id.tv_id_miembro)
+        val textoEmail: TextView = itemView.findViewById(R.id.tv_email)
         val textoTipoMiembro: TextView = itemView.findViewById(R.id.tv_tipo_miembro)
         val textoFechaNacimiento: TextView = itemView.findViewById(R.id.tv_fecha_nacimiento)
         val textoEstadoInfo: TextView = itemView.findViewById(R.id.tv_estado_info)
@@ -58,6 +59,14 @@ class MiembrosCompletoAdapter(private val listaMiembros: List<MiembroCompleto>) 
         } else {
             holder.textoId.text = "DNI: ${miembroActual.dni}"
             holder.textoTipoMiembro.text = "NO-SOCIO"
+        }
+
+        // Mostramos email si está disponible
+        if (!miembroActual.email.isNullOrEmpty()) {
+            holder.textoEmail.text = miembroActual.email
+            holder.textoEmail.visibility = View.VISIBLE
+        } else {
+            holder.textoEmail.visibility = View.GONE
         }
 
         // Mostramos fecha de nacimiento si está disponible

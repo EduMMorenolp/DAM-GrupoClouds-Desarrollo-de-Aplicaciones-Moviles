@@ -159,31 +159,34 @@ class MiembrosActivity : AppCompatActivity() {
                 nombre = "Eduardo",
                 apellido = "Moreno",
                 dni = "12345678Z",
+                email = "eduardo.moreno@email.com",
                 fechaNacimiento = "1990-01-01",
                 esSocio = true,
                 idSocio = "1",
                 fechaAlta = "2025-01-01",
                 cuotaHasta = "2025-12-31",
                 tieneCarnet = true,
-                tijoFichaMedica = true // Eduardo SÍ trajo su ficha médica
+                fichaMedica = true // Eduardo SÍ trajo su ficha médica
             ),
             MiembroCompleto(
                 nombre = "Jack",
                 apellido = "Herman",
                 dni = "87654321A",
+                email = "jack.herman@email.com",
                 fechaNacimiento = "1992-05-20",
                 esSocio = false,
                 idSocio = "87654321A",
-                tijoFichaMedica = false // Jack NO trajo su ficha médica
+                fichaMedica = false // Jack NO trajo su ficha médica
             ),
             MiembroCompleto(
                 nombre = "Marcelo",
                 apellido = "Moreno",
                 dni = "32123456",
+                email = "marcelo.moreno@email.com",
                 fechaNacimiento = "1985-03-15",
                 esSocio = false,
                 idSocio = "32123456",
-                tijoFichaMedica = true // Marcelo SÍ trajo su ficha médica
+                fichaMedica = true // Marcelo SÍ trajo su ficha médica
             )
         )
 

@@ -18,6 +18,7 @@
     <string name="hint_name">Nombre</string>
     <string name="hint_lastname">Apellido</string>
     <string name="hint_dni">DNI</string>
+    <string name="hint_email">Email</string>
     <string name="hint_birthdate">Fecha de Nacimiento</string>
     <string name="hint_member_type">Tipo</string>
     <string name="hint_registration_date">Fecha de Registro</string>

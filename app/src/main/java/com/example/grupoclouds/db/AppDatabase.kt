@@ -1,7 +1,6 @@
 package com.example.grupoclouds.db
 
 import android.content.Context
-import androidx.activity.result.launch
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -22,7 +21,7 @@ import kotlinx.coroutines.launch
         Cuota::class,
         RelNoSocioActividad::class,
     ],
-    version = 2 // << PASO 1: Se incrementa la versión de la base de datos
+    version = 3 // << PASO 1: Se incrementa la versión de la base de datos para el nuevo campo email
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -56,7 +55,7 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     // LÓGICA DEL CALLBACK
-    private class DatabaseCallback(private val context: Context) : RoomDatabase.Callback() {
+    private class DatabaseCallback(private val context: Context) : Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             // Usamos una coroutine para que la inserción de datos no bloquee el hilo principal.
@@ -67,11 +66,11 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private suspend fun poblarBaseDeDatos(db: AppDatabase) {
-            val personaAdmin = Persona(0, "Eduardo", "Moreno", "12345678Z", "1990-01-01")
+            val personaAdmin = Persona(0, "Eduardo", "Moreno", "12345678", "eduardo.admin@email.com", "1990-01-01")
             val adminEdu = Administrador(0, "admin", "12345", "2025-10-26", 0)
             insertarAdmin(db, personaAdmin, adminEdu)
 
-            val personaJack = Persona(0, "Jack", "Herman", "87654321A", "1992-05-20")
+            val personaJack = Persona(1, "Marcelo", "Moreno", "87654321", "marcelo.admin@email.com", "1992-05-20")
             val adminJack = Administrador(0, "jack", "1234", "2025-10-26", 0)
             insertarAdmin(db, personaJack, adminJack)
         }
