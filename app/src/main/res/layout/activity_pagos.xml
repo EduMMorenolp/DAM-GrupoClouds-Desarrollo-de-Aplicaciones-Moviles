@@ -46,18 +46,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Tipo de usuario con radio buttons -->
-            <TextView
-                android:id="@+id/tipo_usuario_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Socio"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <RadioGroup
                 android:id="@+id/radio_group_tipo_usuario"
                 android:layout_width="wrap_content"
@@ -65,23 +53,25 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tipo_usuario_label">
+                app:layout_constraintTop_toTopOf="parent">
 
+                <!-- CORRECCIÓN 1: Texto cambiado a "Socio" -->
                 <RadioButton
                     android:id="@+id/radio_socio_si"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Sí"
+                    android:text="Socio"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:layout_marginEnd="24dp" />
 
+                <!-- CORRECCIÓN 2: Texto cambiado a "No Socio" -->
                 <RadioButton
                     android:id="@+id/radio_socio_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No"
+                    android:text="No Socio"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -99,6 +89,7 @@
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radio_group_tipo_usuario" />
+
 
             <EditText
                 android:id="@+id/dni_input"
