@@ -11,7 +11,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        // Configurar la navegación inferior
+        setupDashboardNavigation()
         setupBottomNavigation()
     }
 
@@ -36,6 +36,14 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+    }
+
+    private fun setupDashboardNavigation() {
+        val btnVerCuotas = findViewById<Button>(R.id.btn_ver_cuotas)
+
+        btnVerCuotas.setOnClickListener {
+            startActivity(Intent(this, CuotasVencidasActivity::class.java))
         }
     }
 }
