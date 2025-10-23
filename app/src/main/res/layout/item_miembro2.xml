@@ -98,7 +98,24 @@
         android:paddingVertical="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tipo_miembro"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="Cuota: 2025-12-31" />
+
+    <!-- TextView para el estado de la ficha médica -->
+    <TextView
+        android:id="@+id/tv_ficha_medica"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintEnd_toStartOf="@id/tv_estado_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_fecha_nacimiento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="✓ Ficha médica" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

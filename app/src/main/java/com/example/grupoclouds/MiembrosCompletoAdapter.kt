@@ -22,6 +22,7 @@ class MiembrosCompletoAdapter(private val listaMiembros: List<MiembroCompleto>) 
         val textoTipoMiembro: TextView = itemView.findViewById(R.id.tv_tipo_miembro)
         val textoFechaNacimiento: TextView = itemView.findViewById(R.id.tv_fecha_nacimiento)
         val textoEstadoInfo: TextView = itemView.findViewById(R.id.tv_estado_info)
+        val textoFichaMedica: TextView = itemView.findViewById(R.id.tv_ficha_medica)
     }
 
     /**
@@ -75,5 +76,16 @@ class MiembrosCompletoAdapter(private val listaMiembros: List<MiembroCompleto>) 
         } else {
             holder.textoEstadoInfo.visibility = View.GONE
         }
+
+        // Mostramos el estado de la ficha médica con color dinámico
+        holder.textoFichaMedica.text = miembroActual.getEstadoFichaMedica()
+
+        // Configuramos el color según si tiene o no la ficha médica
+        val colorFichaMedica = if (miembroActual.tijoFichaMedica) {
+            android.graphics.Color.parseColor("#4CAF50") // Verde si tiene ficha
+        } else {
+            android.graphics.Color.parseColor("#F44336") // Rojo si no tiene ficha
+        }
+        holder.textoFichaMedica.setTextColor(colorFichaMedica)
     }
 }

@@ -31,7 +31,8 @@ interface PersonaDao {
             END as idSocio,
             s.fecha_alta as fechaAlta,
             s.cuota_hasta as cuotaHasta,
-            CASE WHEN s.tiene_carnet IS NOT NULL THEN s.tiene_carnet ELSE 0 END as tieneCarnet
+            CASE WHEN s.tiene_carnet IS NOT NULL THEN s.tiene_carnet ELSE 0 END as tieneCarnet,
+            0 as tijoFichaMedica
         FROM Persona p
         LEFT JOIN Socio s ON p.id_persona = s.id_persona
         ORDER BY p.nombre, p.apellido
@@ -50,7 +51,8 @@ interface PersonaDao {
             CAST(s.id_socio AS TEXT) as idSocio,
             s.fecha_alta as fechaAlta,
             s.cuota_hasta as cuotaHasta,
-            s.tiene_carnet as tieneCarnet
+            s.tiene_carnet as tieneCarnet,
+            0 as tijoFichaMedica
         FROM Persona p
         INNER JOIN Socio s ON p.id_persona = s.id_persona
         ORDER BY p.nombre, p.apellido
@@ -69,7 +71,8 @@ interface PersonaDao {
             p.dni as idSocio,
             null as fechaAlta,
             null as cuotaHasta,
-            0 as tieneCarnet
+            0 as tieneCarnet,
+            0 as tijoFichaMedica
         FROM Persona p
         LEFT JOIN Socio s ON p.id_persona = s.id_persona
         WHERE s.id_socio IS NULL

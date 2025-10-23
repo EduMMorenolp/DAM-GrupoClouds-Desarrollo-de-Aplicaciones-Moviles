@@ -158,7 +158,8 @@ class MiembrosActivity : AppCompatActivity() {
                 idSocio = "1",
                 fechaAlta = "2025-01-01",
                 cuotaHasta = "2025-12-31",
-                tieneCarnet = true
+                tieneCarnet = true,
+                tijoFichaMedica = true // Eduardo SÍ trajo su ficha médica
             ),
             MiembroCompleto(
                 nombre = "Jack",
@@ -166,7 +167,8 @@ class MiembrosActivity : AppCompatActivity() {
                 dni = "87654321A",
                 fechaNacimiento = "1992-05-20",
                 esSocio = false,
-                idSocio = "87654321A"
+                idSocio = "87654321A",
+                tijoFichaMedica = false // Jack NO trajo su ficha médica
             ),
             MiembroCompleto(
                 nombre = "Marcelo",
@@ -174,7 +176,8 @@ class MiembrosActivity : AppCompatActivity() {
                 dni = "32123456",
                 fechaNacimiento = "1985-03-15",
                 esSocio = false,
-                idSocio = "32123456"
+                idSocio = "32123456",
+                tijoFichaMedica = true // Marcelo SÍ trajo su ficha médica
             )
         )
 
