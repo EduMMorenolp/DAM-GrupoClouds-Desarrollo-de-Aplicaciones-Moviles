@@ -67,7 +67,7 @@ import kotlinx.coroutines.launch
 class MiembrosActivity : AppCompatActivity() {
 
     private lateinit var recyclerViewMiembros: RecyclerView
-    private lateinit var adapter: MiembrosCompletoAdapter
+    private lateinit var adapter: MiembrosAdapter
     private lateinit var btnTodos: MaterialButton
     private lateinit var btnSocios: MaterialButton
     private lateinit var btnNoSocios: MaterialButton
@@ -110,7 +110,7 @@ class MiembrosActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         // Inicializar con lista vacía
-        adapter = MiembrosCompletoAdapter(emptyList())
+        adapter = MiembrosAdapter(emptyList())
         recyclerViewMiembros.adapter = adapter
         recyclerViewMiembros.layoutManager = LinearLayoutManager(this)
     }
@@ -198,7 +198,7 @@ class MiembrosActivity : AppCompatActivity() {
     }
 
     private fun actualizarRecyclerView(miembros: List<MiembroCompleto>) {
-        adapter = MiembrosCompletoAdapter(miembros)
+        adapter = MiembrosAdapter(miembros)
         recyclerViewMiembros.adapter = adapter
     }
 

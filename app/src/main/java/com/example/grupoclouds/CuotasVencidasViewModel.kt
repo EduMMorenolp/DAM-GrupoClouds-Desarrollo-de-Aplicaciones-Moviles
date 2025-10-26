@@ -8,9 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.grupoclouds.db.AppDatabase
 import com.example.grupoclouds.db.model.SocioConDetalles
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.WeekFields
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 // La definición del enum es correcta.
@@ -25,7 +24,7 @@ class CuotasVencidasViewModel(application: Application) : AndroidViewModel(appli
 
     // He usado AppDatabase.getInstance() que es más estándar, pero getDatabase() también funciona.
     private val socioDao = AppDatabase.getInstance(application).socioDao()
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     // CAMBIO 2: El LiveData ahora contendrá una lista de SocioConDetalles.
     private val _socios = MutableLiveData<List<SocioConDetalles>>()
@@ -55,24 +54,29 @@ class CuotasVencidasViewModel(application: Application) : AndroidViewModel(appli
     private fun cargarSocios() {
         _cargando.value = true
         viewModelScope.launch {
-            val hoy = LocalDate.now()
+            val hoyCal = Calendar.getInstance()
+            val hoyStr = formatter.format(hoyCal.time)
 
             // CAMBIO 3: La variable 'resultado' ahora es de tipo List<SocioConDetalles>.
-            // El resto de la lógica es PERFECTA, ya que los métodos del DAO que llamas
-            // son los correctos y devuelven el tipo que ahora esperamos.
             val resultado: List<SocioConDetalles> = when (filtroActual) {
                 FiltroCuota.TODAS -> {
                     socioDao.getTodosLosSociosPorBusqueda(busquedaActual)
                 }
                 FiltroCuota.VENCIDAS -> {
-                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, "1900-01-01", hoy.minusDays(1).format(formatter))
+                    // fecha hasta ayer
+                    val ayerCal = Calendar.getInstance()
+                    ayerCal.add(Calendar.DAY_OF_YEAR, -1)
+                    val ayerStr = formatter.format(ayerCal.time)
+                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, "1900-01-01", ayerStr)
                 }
                 FiltroCuota.VENCEN_HOY -> {
-                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, hoy.format(formatter), hoy.format(formatter))
+                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, hoyStr, hoyStr)
                 }
                 FiltroCuota.VENCEN_SEMANA -> {
-                    val finDeSemana = hoy.with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 7)
-                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, hoy.format(formatter), finDeSemana.format(formatter))
+                    val finDeSemanaCal = Calendar.getInstance()
+                    finDeSemanaCal.add(Calendar.DAY_OF_YEAR, 7) // 7 días a partir de hoy
+                    val finDeSemanaStr = formatter.format(finDeSemanaCal.time)
+                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, hoyStr, finDeSemanaStr)
                 }
             }
             _socios.postValue(resultado)
@@ -80,4 +84,3 @@ class CuotasVencidasViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 }
-

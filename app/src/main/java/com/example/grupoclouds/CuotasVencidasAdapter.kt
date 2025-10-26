@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grupoclouds.db.model.SocioConDetalles
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class CuotasVencidasAdapter(private var items: List<SocioConDetalles>) : RecyclerView.Adapter<CuotasVencidasAdapter.ViewHolder>() {
 
@@ -40,28 +40,49 @@ class CuotasVencidasAdapter(private var items: List<SocioConDetalles>) : Recycle
             holder.estadoCuota.text = "Sin pago registrado"
             holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black)) // Un color neutro
         } else {
-            // Si la fecha SÍ tiene un valor, ejecutamos la lógica que ya tenías.
-            val fechaVencimientoSocio = LocalDate.parse(socioInfo.cuota_hasta)
-            val hoy = LocalDate.now()
-            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            try {
+                val sdfInput = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val sdfOutput = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val fechaVencimientoDate = sdfInput.parse(socioInfo.cuota_hasta)
 
-            holder.fechaVencimiento.text = "Vence: ${fechaVencimientoSocio.format(formatter)}"
+                if (fechaVencimientoDate == null) {
+                    holder.fechaVencimiento.text = "Vence: -"
+                    holder.estadoCuota.text = "Sin pago registrado"
+                    holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))
+                } else {
+                    val fechaVencCal = Calendar.getInstance().apply { time = fechaVencimientoDate }
+                    val hoyCal = Calendar.getInstance()
+                    // Normalizar horas a 0 para comparar solo fechas
+                    listOf(hoyCal, fechaVencCal).forEach { cal ->
+                        cal.set(Calendar.HOUR_OF_DAY, 0)
+                        cal.set(Calendar.MINUTE, 0)
+                        cal.set(Calendar.SECOND, 0)
+                        cal.set(Calendar.MILLISECOND, 0)
+                    }
 
-            when {
-                fechaVencimientoSocio.isBefore(hoy) -> {
-                    val diasVencido = ChronoUnit.DAYS.between(fechaVencimientoSocio, hoy)
-                    holder.estadoCuota.text = if (diasVencido == 1L) "Vencida hace 1 día" else "Vencida hace $diasVencido días"
-                    holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+                    holder.fechaVencimiento.text = "Vence: ${sdfOutput.format(fechaVencimientoDate)}"
+
+                    when {
+                        fechaVencCal.before(hoyCal) -> {
+                            val diasVencido = ((hoyCal.timeInMillis - fechaVencCal.timeInMillis) / (1000 * 60 * 60 * 24)).toInt()
+                            holder.estadoCuota.text = if (diasVencido == 1) "Vencida hace 1 día" else "Vencida hace $diasVencido días"
+                            holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+                        }
+                        fechaVencCal.equals(hoyCal) -> {
+                            holder.estadoCuota.text = "Vence Hoy"
+                            holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.orange))
+                        }
+                        else -> {
+                            val diasParaVencer = ((fechaVencCal.timeInMillis - hoyCal.timeInMillis) / (1000 * 60 * 60 * 24)).toInt()
+                            holder.estadoCuota.text = if (diasParaVencer == 1) "Vence en 1 día" else "Vence en $diasParaVencer días"
+                            holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
+                        }
+                    }
                 }
-                fechaVencimientoSocio.isEqual(hoy) -> {
-                    holder.estadoCuota.text = "Vence Hoy"
-                    holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.orange))
-                }
-                else -> {
-                    val diasParaVencer = ChronoUnit.DAYS.between(hoy, fechaVencimientoSocio)
-                    holder.estadoCuota.text = if (diasParaVencer == 1L) "Vence en 1 día" else "Vence en $diasParaVencer días"
-                    holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
-                }
+            } catch (e: Exception) {
+                holder.fechaVencimiento.text = "Vence: -"
+                holder.estadoCuota.text = "Sin pago registrado"
+                holder.estadoCuota.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))
             }
         }
     }
@@ -75,5 +96,3 @@ class CuotasVencidasAdapter(private var items: List<SocioConDetalles>) : Recycle
         notifyDataSetChanged()
     }
 }
-
-

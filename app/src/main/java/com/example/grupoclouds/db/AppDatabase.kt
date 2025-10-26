@@ -10,7 +10,9 @@ import com.example.grupoclouds.db.entity.* // Importa todas tus entidades
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDate
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 @Database(
     entities = [
@@ -77,9 +79,14 @@ abstract class AppDatabase : RoomDatabase() {
 
             // --- INICIO DE LA CORRECCIÓN DE INYECCIÓN DE SOCIOS ---
             // 1. Socio con CUOTA VENCIDA
-            val personaSocioVencido = Persona(0, "Ana", "García", "87654321B", "1985-11-20")
-            val cuotaVencida = LocalDate.now().minusMonths(1).toString()
-            val fechaAltaVencido = LocalDate.now().minusMonths(6).toString()
+            val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val personaSocioVencido = Persona(0, "Ana", "García", "87654321B", "ana.garcia@email.com", "1985-11-20")
+            val calVenc = Calendar.getInstance()
+            calVenc.add(Calendar.MONTH, -1)
+            val cuotaVencida = formatter.format(calVenc.time)
+            val calAltaVenc = Calendar.getInstance()
+            calAltaVenc.add(Calendar.MONTH, -6)
+            val fechaAltaVencido = formatter.format(calAltaVenc.time)
 
             // CORRECCIÓN: Se usan parámetros con nombre para mayor claridad y se pasan todos los argumentos requeridos.
             val socioVencido = Socio(
@@ -93,8 +100,8 @@ abstract class AppDatabase : RoomDatabase() {
             insertarSocioDePrueba(db, personaSocioVencido, socioVencido, "Socio Vencido")
 
             // 2. Socio NUEVO (sin pago registrado)
-            val personaSocioNuevo = Persona(0, "Juan", "Pérez", "12345678C", "1990-05-15")
-            val fechaAltaNuevo = LocalDate.now().toString()
+            val personaSocioNuevo = Persona(0, "Juan", "Pérez", "12345678C", "juan.perez@email.com", "1990-05-15")
+            val fechaAltaNuevo = formatter.format(Calendar.getInstance().time)
 
             // CORRECCIÓN: Se usan parámetros con nombre y se asignan los valores correctos a cada campo.
             val socioNuevo = Socio(
