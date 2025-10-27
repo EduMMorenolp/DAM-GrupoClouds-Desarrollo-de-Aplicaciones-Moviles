@@ -11,33 +11,21 @@
     android:paddingVertical="16dp">
 
     <!-- Icono de persona como reemplazo de la foto -->
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_person"
-        android:background="@drawable/circle_background"
-        android:backgroundTint="@color/button_A_background"
-        android:padding="10dp"
-        app:tint="@color/button_A_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- TextView para el nombre del miembro -->
     <TextView
         android:id="@+id/tv_nombre_miembro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintEnd_toStartOf="@id/tv_tipo_miembro"
-        app:layout_constraintTop_toTopOf="@id/iv_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Eduardo Moreno" />
 
     <!-- TextView para mostrar si es Socio o No-Socio -->
@@ -61,13 +49,11 @@
         android:id="@+id/tv_id_miembro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
         android:textColor="@color/smalltext_color"
         android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_nombre_miembro"
+
+        app:layout_constraintStart_toStartOf="@+id/tv_nombre_miembro"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nombre_miembro"
         tools:text="DNI: 12345678Z" />
 
     <!-- TextView para el email -->
@@ -75,13 +61,12 @@
         android:id="@+id/tv_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="1dp"
         android:textColor="@color/smalltext_color"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_id_miembro"
+
+        app:layout_constraintStart_toStartOf="@+id/tv_id_miembro"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id_miembro"
         tools:text="email@ejemplo.com" />
 
     <!-- TextView para fecha de nacimiento -->
@@ -89,13 +74,10 @@
         android:id="@+id/tv_fecha_nacimiento"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
         android:textColor="@color/smalltext_color"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintEnd_toStartOf="@id/tv_estado_info"
-        app:layout_constraintTop_toBottomOf="@id/tv_email"
+        app:layout_constraintStart_toStartOf="@+id/tv_email"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email"
         tools:text="Nacido: 1990-01-01" />
 
     <!-- TextView para información adicional (cuota, carnet, etc.) -->
@@ -106,8 +88,7 @@
         android:id="@+id/tv_estado_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/rounded_edittext_bg"
         android:backgroundTint="@color/background_color"
         android:paddingHorizontal="6dp"
@@ -115,41 +96,33 @@
         android:textColor="@color/smalltext_color"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tipo_miembro"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tipo_miembro"
         tools:text="Cuota: 2025-12-31" />
 
     <TextView
         android:id="@+id/tv_ficha_medica"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="4dp"
         android:textSize="11sp"
         android:textStyle="bold"
-        android:paddingHorizontal="4dp"
-        android:paddingVertical="2dp"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintEnd_toStartOf="@id/tv_estado_info"
+        app:layout_constraintStart_toStartOf="@+id/tv_fecha_nacimiento"
         app:layout_constraintTop_toBottomOf="@id/tv_fecha_nacimiento"
         tools:text="Ficha médica" />
 
     <!-- TextView para el estado del carnet (solo para socios) -->
     <TextView
         android:id="@+id/tv_estado_carnet"
-        android:layout_width="159dp"
+        android:layout_width="0dp"
         android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="4dp"
         android:paddingHorizontal="4dp"
         android:paddingVertical="2dp"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_estado_info"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_ficha_medica"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tipo_miembro"
         tools:text="Con carnet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
