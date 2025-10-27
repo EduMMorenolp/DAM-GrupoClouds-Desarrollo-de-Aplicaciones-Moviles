@@ -1,7 +1,8 @@
 package com.example.grupoclouds.util
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 /**
  * Objeto Singleton para centralizar las constantes y la lógica de negocio relacionadas con los pagos.
@@ -21,6 +22,8 @@ object ConstantesPago {
     // 7.1: Constante para el umbral de alerta de vencimiento
     const val DIAS_ALERTA_VENCIMIENTO: Int = 7
 
+    private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
     /**
      * 2.4: Calcula una fecha de vencimiento sumando una cantidad de días a la fecha actual.
      *
@@ -28,10 +31,9 @@ object ConstantesPago {
      * @return Un String con la fecha de vencimiento en formato "YYYY-MM-DD".
      */
     fun calcularFechaVencimiento(diasParaSumar: Int): String {
-        val fechaActual = LocalDate.now()
-        val fechaVencimiento = fechaActual.plusDays(diasParaSumar.toLong())
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        return fechaVencimiento.format(formatter)
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DAY_OF_YEAR, diasParaSumar)
+        return formatter.format(cal.time)
     }
 
     /**
@@ -41,9 +43,8 @@ object ConstantesPago {
      * @return Un String con la fecha límite en formato "YYYY-MM-DD".
      */
     fun calcularFechaLimiteAlerta(diasDeAlerta: Int): String {
-        val fechaActual = LocalDate.now()
-        val fechaLimite = fechaActual.plusDays(diasDeAlerta.toLong())
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        return fechaLimite.format(formatter)
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DAY_OF_YEAR, diasDeAlerta)
+        return formatter.format(cal.time)
     }
 }

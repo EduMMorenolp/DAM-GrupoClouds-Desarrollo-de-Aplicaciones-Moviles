@@ -22,6 +22,9 @@ data class Persona(
     @ColumnInfo(name = "dni")
     val dni: String,
 
+    @ColumnInfo(name = "email")
+    val email: String?,
+
     @ColumnInfo(name = "fecha_nacimiento")
     val fechaNacimiento: String?
 )

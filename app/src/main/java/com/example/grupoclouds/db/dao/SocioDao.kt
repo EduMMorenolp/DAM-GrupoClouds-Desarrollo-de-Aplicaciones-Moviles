@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.grupoclouds.db.entity.Socio
 import com.example.grupoclouds.db.model.SocioConDetalles
 
@@ -28,6 +29,11 @@ interface SocioDao {
     """)
     suspend fun obtenerSocioPorDNI(dni: String): Socio?
 
+
+    @Query("UPDATE Socio SET tiene_carnet = :tieneCarnet WHERE id_socio = :idSocio")
+    suspend fun actualizarEstadoCarnet(idSocio: Int, tieneCarnet: Boolean)
+
+    @Transaction
     @Query("""
         SELECT
             p.nombre,
@@ -57,5 +63,4 @@ interface SocioDao {
 
     @Query("UPDATE Socio SET cuota_hasta = :nuevaFecha WHERE id_socio = :socioId")
     suspend fun actualizarCuotaHasta(socioId: Int, nuevaFecha: String)
-
 }
