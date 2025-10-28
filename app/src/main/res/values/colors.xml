@@ -6,7 +6,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="button_A_background">#38E07A</color>
+    <color name="button_A_background">#264532</color> <!-- #264532 //  #38E07A-->
     <color name="button_A_text">#122117</color>
 
     <color name="input_background">#FFFFFFFF</color> <!-- Color Background verde claro -->
