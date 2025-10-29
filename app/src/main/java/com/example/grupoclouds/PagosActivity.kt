@@ -38,8 +38,8 @@ class PagosActivity : AppCompatActivity() {
     private lateinit var actividadLabel: TextView
     private lateinit var spinnerActividades: Spinner
     private lateinit var cuotaMensualLabel: TextView
-    private lateinit var cuotaMensualInfo: TextView
-    private lateinit var montoDisplay: TextView
+    private lateinit var spinnerTipoPago: Spinner
+    private lateinit var montoInput: EditText
     private lateinit var fechaInput: EditText
     private lateinit var metodoPagoInput: EditText
     private lateinit var confirmarPagoButton: Button
@@ -71,8 +71,8 @@ class PagosActivity : AppCompatActivity() {
         actividadLabel = findViewById(R.id.actividad_label)
         spinnerActividades = findViewById(R.id.spinner_actividades)
         cuotaMensualLabel = findViewById(R.id.cuota_mensual_label)
-        cuotaMensualInfo = findViewById(R.id.cuota_mensual_info)
-        montoDisplay = findViewById(R.id.monto_display)
+        spinnerTipoPago = findViewById(R.id.spinner_tipo_pago)
+        montoInput = findViewById(R.id.monto_input)
         fechaInput = findViewById(R.id.fecha_input)
         metodoPagoInput = findViewById(R.id.metodo_pago_input)
         confirmarPagoButton = findViewById(R.id.confirmar_pago_button)
@@ -84,6 +84,27 @@ class PagosActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+        // Configurar Spinner de Tipo de Pago
+        val tiposPago = arrayOf("Cuota Mensual", "Cuota Anual")
+        val adapterTipoPago = ArrayAdapter(this, android.R.layout.simple_spinner_item, tiposPago)
+        adapterTipoPago.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerTipoPago.adapter = adapterTipoPago
+
+        // Listener para actualizar el monto cuando cambia el tipo de pago
+        spinnerTipoPago.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (radioSocioSi.isChecked) {
+                    val monto = when (position) {
+                        0 -> CUOTA_MENSUAL // Cuota Mensual
+                        1 -> CUOTA_MENSUAL * 12 // Cuota Anual
+                        else -> CUOTA_MENSUAL
+                    }
+                    montoInput.setText(monto.toString())
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
         // RadioGroup para cambiar entre socio y no socio
         radioGroupTipoUsuario.setOnCheckedChangeListener { _, checkedId ->
             val esSocio = checkedId == R.id.radio_socio_si
@@ -109,10 +130,10 @@ class PagosActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position > 0) { // 0 es el item "Seleccione una actividad"
                     actividadSeleccionada = listaActividades[position - 1]
-                    montoDisplay.text = "$${actividadSeleccionada?.costoActividad ?: 0f}"
+                    montoInput.setText(actividadSeleccionada?.costoActividad.toString())
                 } else {
                     actividadSeleccionada = null
-                    montoDisplay.text = "Seleccione una actividad"
+                    montoInput.setText("0.00")
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -146,14 +167,15 @@ class PagosActivity : AppCompatActivity() {
             dniInput.visibility = View.VISIBLE
             socioInfo.visibility = View.VISIBLE
             cuotaMensualLabel.visibility = View.VISIBLE
-            cuotaMensualInfo.visibility = View.VISIBLE
+            spinnerTipoPago.visibility = View.VISIBLE
 
             // Oculta campos de actividad
             actividadLabel.visibility = View.GONE
             spinnerActividades.visibility = View.GONE
 
-            // Mostrar monto de cuota mensual
-            montoDisplay.text = "$$CUOTA_MENSUAL"
+            // Mostrar monto de cuota mensual (seleccionar por defecto Cuota Mensual)
+            spinnerTipoPago.setSelection(0)
+            montoInput.setText(CUOTA_MENSUAL.toString())
 
             limpiarInfoSocio()
         } else {
@@ -162,14 +184,14 @@ class PagosActivity : AppCompatActivity() {
             dniInput.visibility = View.GONE
             socioInfo.visibility = View.GONE
             cuotaMensualLabel.visibility = View.GONE
-            cuotaMensualInfo.visibility = View.GONE
+            spinnerTipoPago.visibility = View.GONE
 
             // Muestra campos de actividad
             actividadLabel.visibility = View.VISIBLE
             spinnerActividades.visibility = View.VISIBLE
 
             // Resetear monto
-            montoDisplay.text = "$0.00"
+            montoInput.setText("0.00")
             actividadSeleccionada = null
 
             limpiarInfoSocio()
@@ -315,15 +337,22 @@ class PagosActivity : AppCompatActivity() {
 
     private suspend fun registrarPagoSocio(fecha: String, metodoPago: String) {
         val socio = socioEncontrado!!
+        val tipoPago = spinnerTipoPago.selectedItem.toString()
+        val monto = montoInput.text.toString().toFloatOrNull() ?: CUOTA_MENSUAL
 
-        val fechaVencimiento = ConstantesPago.calcularFechaVencimiento(ConstantesPago.DIAS_PAGO_30)
+        val diasVencimiento = when (tipoPago) {
+            "Cuota Anual" -> ConstantesPago.DIAS_PAGO_365
+            else -> ConstantesPago.DIAS_PAGO_30
+        }
+
+        val fechaVencimiento = ConstantesPago.calcularFechaVencimiento(diasVencimiento)
 
         val cuota = Cuota(
             idSocio = socio.id,
-            monto = CUOTA_MENSUAL,
+            monto = monto,
             fechaPago = fecha,
             fechaVence = fechaVencimiento,
-            tipoPago = "Cuota Mensual",
+            tipoPago = tipoPago,
             metodoPago = metodoPago
         )
 
@@ -332,7 +361,7 @@ class PagosActivity : AppCompatActivity() {
         appDatabase.socioDao().actualizarCuotaHasta(socio.id, fechaVencimiento)
 
         runOnUiThread {
-            Toast.makeText(this@PagosActivity, "Pago de cuota mensual registrado exitosamente para ${personaEncontrada?.nombre}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@PagosActivity, "Pago de $tipoPago registrado exitosamente para ${personaEncontrada?.nombre}", Toast.LENGTH_LONG).show()
             limpiarFormulario()
         }
     }
@@ -369,9 +398,10 @@ class PagosActivity : AppCompatActivity() {
         // Actualizar el monto según el tipo de usuario seleccionado
         val esSocio = radioSocioSi.isChecked
         if (esSocio) {
-            montoDisplay.text = "$$CUOTA_MENSUAL"
+            spinnerTipoPago.setSelection(0)
+            montoInput.setText(CUOTA_MENSUAL.toString())
         } else {
-            montoDisplay.text = "$0.00"
+            montoInput.setText("0.00")
         }
     }
 
