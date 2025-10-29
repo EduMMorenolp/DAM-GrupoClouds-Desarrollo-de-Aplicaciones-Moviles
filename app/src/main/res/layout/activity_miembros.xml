@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <!-- Botones de Filtro (Todos / Socios / No-Socios) -->
+    <!-- Botones de Filtro (Todos / Socios) -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_todos"
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#32CD32"
+        android:backgroundTint="#2E5A2E"
         android:text="Todos"
         android:textAllCaps="false"
         app:cornerRadius="20dp"
@@ -79,20 +79,6 @@
         app:layout_constraintTop_toTopOf="@id/btn_todos" />
 
     <!-- Lista para mostrar los miembros -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_no_socios"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="#2E5A2E"
-        android:text="No-Socios"
-        android:textAllCaps="false"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/btn_socios"
-        app:layout_constraintStart_toEndOf="@id/btn_socios"
-        app:layout_constraintTop_toTopOf="@id/btn_socios" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_miembros"
         android:layout_width="0dp"

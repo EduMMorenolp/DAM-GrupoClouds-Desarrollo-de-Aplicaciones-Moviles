@@ -67,7 +67,8 @@ class EntregaCarnetSocioActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 val dni = s.toString().trim()
-                if (dni.length >= 8) { // Buscar cuando tenga al menos 8 caracteres
+                // Buscar solo cuando el DNI tenga el formato correcto (7-8 dígitos numéricos)
+                if (dni.matches(Regex("^\\d{7,8}$"))) {
                     buscarSocioPorDNI(dni)
                 } else {
                     ocultarInformacionSocio()

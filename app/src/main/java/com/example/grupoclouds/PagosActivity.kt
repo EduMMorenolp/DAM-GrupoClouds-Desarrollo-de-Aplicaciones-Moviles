@@ -117,7 +117,8 @@ class PagosActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val dni = s?.toString()?.trim()
-                if (!dni.isNullOrEmpty() && dni.length >= 8) {
+                // Validar que el DNI tenga entre 7 y 8 dígitos y solo contenga números
+                if (!dni.isNullOrEmpty() && dni.matches(Regex("^\\d{7,8}$"))) {
                     buscarSocioPorDNI(dni)
                 } else {
                     limpiarInfoSocio()

@@ -210,35 +210,6 @@
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Tipo (Socio/No Socio) - Dropdown Menu -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/hint_member_type"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="#FFFFFF"
-                app:hintTextColor="#B0B0B0">
-
-                <AutoCompleteTextView
-                    android:id="@+id/actv_tipo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="false"
-                    android:paddingStart="12dp"
-                    android:paddingTop="12dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="12dp"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Fecha de Registro -->
             <com.google.android.material.textfield.TextInputLayout

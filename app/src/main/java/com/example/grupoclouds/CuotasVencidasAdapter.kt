@@ -29,7 +29,7 @@ class CuotasVencidasAdapter(private var items: List<SocioConDetalles>) : Recycle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val socioInfo = items[position]
 
-        holder.nombreSocio.text = "${socioInfo.nombre} ${socioInfo.apellido}"
+        holder.nombreSocio.text = "${socioInfo.nombre} ${socioInfo.apellido ?: ""}"
         holder.dniSocio.text = "DNI: ${socioInfo.dni}"
 
         // --- INICIO DE LA CORRECCIÓN ---

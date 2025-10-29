@@ -70,7 +70,9 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private suspend fun poblarBaseDeDatos(db: AppDatabase) {
-
+            val personaAdmin = Persona(0, "admin", "admin", "ACBD", "admin@email.com", "1990-01-01")
+            val admin = Administrador(0, "admin", "12345", "2025-10-26", 0)
+            insertarAdmin(db, personaAdmin, admin)
 
             // --- INICIO DE LA CORRECCIÓN DE INYECCIÓN DE SOCIOS ---
             // 1. Socio con CUOTA VENCIDA

@@ -3,15 +3,12 @@ package com.example.grupoclouds
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.grupoclouds.db.AppDatabase
 import com.example.grupoclouds.db.entity.Persona
 import com.example.grupoclouds.db.entity.Socio
-import com.example.grupoclouds.db.entity.NoSocio
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
@@ -26,7 +23,6 @@ class AddMemberActivity : AppCompatActivity() {
     private lateinit var etDni: TextInputEditText
     private lateinit var etEmail: TextInputEditText
     private lateinit var etFechaNacimiento: TextInputEditText
-    private lateinit var actvTipo: AutoCompleteTextView
     private lateinit var etFechaRegistro: TextInputEditText
     private lateinit var switchFichaMedica: SwitchMaterial
     private lateinit var btnRegistrar: MaterialButton
@@ -47,7 +43,6 @@ class AddMemberActivity : AppCompatActivity() {
 
         // Configurar componentes
         setupDatePickers()
-        setupDropdown()
         setupListeners()
     }
 
@@ -57,7 +52,6 @@ class AddMemberActivity : AppCompatActivity() {
         etDni = findViewById(R.id.et_dni)
         etEmail = findViewById(R.id.et_email)
         etFechaNacimiento = findViewById(R.id.et_fecha_nacimiento)
-        actvTipo = findViewById(R.id.actv_tipo)
         etFechaRegistro = findViewById(R.id.et_fecha_registro)
         switchFichaMedica = findViewById(R.id.switch_ficha_medica)
         btnRegistrar = findViewById(R.id.btn_registrar)
@@ -65,12 +59,6 @@ class AddMemberActivity : AppCompatActivity() {
 
         // Configurar fecha de registro con la fecha actual
         etFechaRegistro.setText(dateFormat.format(Date()))
-    }
-
-    private fun setupDropdown() {
-        val tiposMiembro = arrayOf("Socio", "No Socio")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, tiposMiembro)
-        actvTipo.setAdapter(adapter)
     }
 
     private fun setupDatePickers() {
@@ -117,7 +105,6 @@ class AddMemberActivity : AppCompatActivity() {
         val nombre = etNombre.text?.toString()?.trim()
         val dni = etDni.text?.toString()?.trim()
         val email = etEmail.text?.toString()?.trim()
-        val tipo = actvTipo.text?.toString()?.trim()
 
         if (nombre.isNullOrEmpty()) {
             Toast.makeText(this, "El nombre es obligatorio", Toast.LENGTH_SHORT).show()
@@ -131,16 +118,17 @@ class AddMemberActivity : AppCompatActivity() {
             return
         }
 
+        // Validar formato del DNI (solo números, 7-8 dígitos)
+        if (!dni.matches(Regex("^\\d{7,8}$"))) {
+            Toast.makeText(this, "El DNI debe contener entre 7 y 8 dígitos numéricos", Toast.LENGTH_SHORT).show()
+            etDni.requestFocus()
+            return
+        }
+
         // Validar email si se proporciona
         if (!email.isNullOrEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "El formato del email no es válido", Toast.LENGTH_SHORT).show()
             etEmail.requestFocus()
-            return
-        }
-
-        if (tipo.isNullOrEmpty()) {
-            Toast.makeText(this, "Debe seleccionar el tipo de miembro", Toast.LENGTH_SHORT).show()
-            actvTipo.requestFocus()
             return
         }
 
@@ -174,31 +162,20 @@ class AddMemberActivity : AppCompatActivity() {
                 // Insertar persona en la base de datos
                 val personaId = database.personaDao().insertarPersona(persona)
 
-                // Según el tipo, crear Socio o NoSocio
-                when (tipo) {
-                    "Socio" -> {
-                        val socio = Socio(
-                            id = 0, // Se autogenera
-                            fechaAlta = etFechaRegistro.text?.toString()?.trim(),
-                            cuotaHasta = null, // Se puede configurar después
-                            tieneCarnet = false, // Inicialmente no tiene carnet
-                            fichaMedica = switchFichaMedica.isChecked, // estado ficha médica
-                            idPersona = personaId.toInt()
-                        )
-                        database.socioDao().insertarSocio(socio)
-                    }
-                    "No Socio" -> {
-                        val noSocio = NoSocio(
-                            id = 0, // Se autogenera
-                            idPersona = personaId.toInt()
-                        )
-                        database.noSocioDao().insertarNoSocio(noSocio)
-                    }
-                }
+                // Crear Socio (todos los registros son socios)
+                val socio = Socio(
+                    id = 0, // Se autogenera
+                    fechaAlta = etFechaRegistro.text?.toString()?.trim(),
+                    cuotaHasta = null, // Se puede configurar después
+                    tieneCarnet = false, // Inicialmente no tiene carnet
+                    fichaMedica = switchFichaMedica.isChecked, // estado ficha médica
+                    idPersona = personaId.toInt()
+                )
+                database.socioDao().insertarSocio(socio)
 
                 // Mostrar mensaje de éxito
                 Toast.makeText(this@AddMemberActivity,
-                    "Miembro registrado correctamente", Toast.LENGTH_SHORT).show()
+                    "Socio registrado correctamente", Toast.LENGTH_SHORT).show()
 
                 // Volver a la pantalla de miembros
                 val intent = Intent(this@AddMemberActivity, MiembrosActivity::class.java)

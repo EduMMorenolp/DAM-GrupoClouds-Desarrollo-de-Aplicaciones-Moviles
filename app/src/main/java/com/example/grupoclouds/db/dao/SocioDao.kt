@@ -42,12 +42,18 @@ interface SocioDao {
             s.cuota_hasta
         FROM Socio AS s
         INNER JOIN Persona AS p ON s.id_persona = p.id_persona
-        WHERE (p.nombre LIKE '%' || :query || '%' OR p.apellido LIKE '%' || :query || '%' OR p.dni LIKE '%' || :query || '%')
-        AND s.cuota_hasta BETWEEN :fechaInicio AND :fechaFin
+        WHERE s.cuota_hasta BETWEEN :fechaInicio AND :fechaFin
+        AND (
+            CASE 
+                WHEN :query = '' THEN 1
+                ELSE (p.nombre LIKE '%' || :query || '%' OR p.apellido LIKE '%' || :query || '%' OR p.dni LIKE '%' || :query || '%')
+            END
+        )
         ORDER BY s.cuota_hasta ASC
     """)
     suspend fun getSociosPorVencimientoYBusqueda(query: String, fechaInicio: String, fechaFin: String): List<SocioConDetalles>
 
+    @Transaction
     @Query("""
         SELECT
             p.nombre,
@@ -56,7 +62,11 @@ interface SocioDao {
             s.cuota_hasta
         FROM Socio AS s
         INNER JOIN Persona AS p ON s.id_persona = p.id_persona
-        WHERE p.nombre LIKE '%' || :query || '%' OR p.apellido LIKE '%' || :query || '%' OR p.dni LIKE '%' || :query || '%'
+        WHERE 
+            CASE 
+                WHEN :query = '' THEN 1
+                ELSE (p.nombre LIKE '%' || :query || '%' OR p.apellido LIKE '%' || :query || '%' OR p.dni LIKE '%' || :query || '%')
+            END
         ORDER BY s.cuota_hasta ASC
     """)
     suspend fun getTodosLosSociosPorBusqueda(query: String): List<SocioConDetalles>

@@ -70,11 +70,9 @@ class MiembrosActivity : AppCompatActivity() {
     private lateinit var adapter: MiembrosAdapter
     private lateinit var btnTodos: MaterialButton
     private lateinit var btnSocios: MaterialButton
-    private lateinit var btnNoSocios: MaterialButton
 
     private var todosMiembros: List<MiembroCompleto> = emptyList()
     private var socios: List<MiembroCompleto> = emptyList()
-    private var noSocios: List<MiembroCompleto> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,7 +103,6 @@ class MiembrosActivity : AppCompatActivity() {
         recyclerViewMiembros = findViewById(R.id.rv_miembros)
         btnTodos = findViewById(R.id.btn_todos)
         btnSocios = findViewById(R.id.btn_socios)
-        btnNoSocios = findViewById(R.id.btn_no_socios)
     }
 
     private fun setupRecyclerView() {
@@ -127,16 +124,12 @@ class MiembrosActivity : AppCompatActivity() {
                 // Cargar solo los socios con información completa
                 socios = database.personaDao().obtenerSociosCompletos()
 
-                // Cargar solo los no-socios
-                noSocios = database.personaDao().obtenerNoSociosCompletos()
-
                 // Mostrar todos los miembros por defecto
                 actualizarRecyclerView(todosMiembros)
 
                 // Log para debugging
                 println("DEBUG: Total miembros: ${todosMiembros.size}")
                 println("DEBUG: Socios: ${socios.size}")
-                println("DEBUG: No-socios: ${noSocios.size}")
 
                 // Log de datos para verificar
                 todosMiembros.forEach { miembro ->
@@ -192,7 +185,6 @@ class MiembrosActivity : AppCompatActivity() {
 
         todosMiembros = datosEjemplo
         socios = datosEjemplo.filter { it.esSocio }
-        noSocios = datosEjemplo.filter { !it.esSocio }
 
         actualizarRecyclerView(todosMiembros)
     }
@@ -216,19 +208,11 @@ class MiembrosActivity : AppCompatActivity() {
             resetButtonColors()
             btnSocios.setBackgroundColor(getColor(R.color.button_A_background))
         }
-
-        // Configurar botón de No-Socios
-        btnNoSocios.setOnClickListener {
-            actualizarRecyclerView(noSocios)
-            resetButtonColors()
-            btnNoSocios.setBackgroundColor(getColor(R.color.button_A_background))
-        }
     }
 
     private fun resetButtonColors() {
         btnTodos.setBackgroundColor(getColor(R.color.btn_verde))
         btnSocios.setBackgroundColor(getColor(R.color.btn_verde))
-        btnNoSocios.setBackgroundColor(getColor(R.color.btn_verde))
     }
 
     private fun setupNavigation() {

@@ -126,6 +126,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dni_input" />
 
+            <!-- Información de cuota mensual (solo para SOCIOS) -->
+            <TextView
+                android:id="@+id/cuota_mensual_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Tipo de Pago"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/socio_info" />
+
             <!-- Selector de actividad (solo para NO SOCIOS) -->
             <TextView
                 android:id="@+id/actividad_label"
@@ -152,18 +165,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/actividad_label" />
 
-            <!-- Información de cuota mensual (solo para SOCIOS) -->
-            <TextView
-                android:id="@+id/cuota_mensual_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Tipo de Pago"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/socio_info" />
 
             <Spinner
                 android:id="@+id/spinner_tipo_pago"
