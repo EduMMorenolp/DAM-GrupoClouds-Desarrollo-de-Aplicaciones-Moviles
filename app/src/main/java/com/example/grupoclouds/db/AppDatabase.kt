@@ -35,6 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun socioDao(): SocioDao
     abstract fun noSocioDao(): NoSocioDao
     abstract fun cuotaDao(): CuotaDao
+    abstract fun relNoSocioActividadDao(): RelNoSocioActividadDao
 
     companion object {
         @Volatile

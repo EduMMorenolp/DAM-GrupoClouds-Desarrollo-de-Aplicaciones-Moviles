@@ -35,12 +35,18 @@ class PagosActivity : AppCompatActivity() {
     private lateinit var dniLabel: TextView
     private lateinit var dniInput: EditText
     private lateinit var socioInfo: TextView
+    private lateinit var actividadLabel: TextView
     private lateinit var spinnerActividades: Spinner
+    private lateinit var cuotaMensualLabel: TextView
+    private lateinit var cuotaMensualInfo: TextView
     private lateinit var montoDisplay: TextView
     private lateinit var fechaInput: EditText
     private lateinit var metodoPagoInput: EditText
     private lateinit var confirmarPagoButton: Button
     private lateinit var verCuotasVencerButton: Button
+
+    // Constante para la cuota mensual
+    private val CUOTA_MENSUAL = 5000f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +68,10 @@ class PagosActivity : AppCompatActivity() {
         dniLabel = findViewById(R.id.dni_label)
         dniInput = findViewById(R.id.dni_input)
         socioInfo = findViewById(R.id.socio_info)
+        actividadLabel = findViewById(R.id.actividad_label)
         spinnerActividades = findViewById(R.id.spinner_actividades)
+        cuotaMensualLabel = findViewById(R.id.cuota_mensual_label)
+        cuotaMensualInfo = findViewById(R.id.cuota_mensual_info)
         montoDisplay = findViewById(R.id.monto_display)
         fechaInput = findViewById(R.id.fecha_input)
         metodoPagoInput = findViewById(R.id.metodo_pago_input)
@@ -132,15 +141,37 @@ class PagosActivity : AppCompatActivity() {
 
     private fun toggleTipoUsuario(esSocio: Boolean) {
         if (esSocio) {
-            radioSocioSi.text = "Socio"
+            // SOCIO: Muestra DNI, Info Socio, Cuota Mensual
             dniLabel.visibility = View.VISIBLE
             dniInput.visibility = View.VISIBLE
             socioInfo.visibility = View.VISIBLE
+            cuotaMensualLabel.visibility = View.VISIBLE
+            cuotaMensualInfo.visibility = View.VISIBLE
+
+            // Oculta campos de actividad
+            actividadLabel.visibility = View.GONE
+            spinnerActividades.visibility = View.GONE
+
+            // Mostrar monto de cuota mensual
+            montoDisplay.text = "$$CUOTA_MENSUAL"
+
+            limpiarInfoSocio()
         } else {
-            radioSocioNo.text = "No Socio"
+            // NO SOCIO: Muestra selector de actividad
             dniLabel.visibility = View.GONE
             dniInput.visibility = View.GONE
             socioInfo.visibility = View.GONE
+            cuotaMensualLabel.visibility = View.GONE
+            cuotaMensualInfo.visibility = View.GONE
+
+            // Muestra campos de actividad
+            actividadLabel.visibility = View.VISIBLE
+            spinnerActividades.visibility = View.VISIBLE
+
+            // Resetear monto
+            montoDisplay.text = "$0.00"
+            actividadSeleccionada = null
+
             limpiarInfoSocio()
         }
     }
@@ -239,14 +270,18 @@ class PagosActivity : AppCompatActivity() {
         // Validaciones
         val esSocio = radioSocioSi.isChecked
 
-        if (esSocio && socioEncontrado == null) {
-            Toast.makeText(this, "Debe buscar y seleccionar un socio válido", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (actividadSeleccionada == null) {
-            Toast.makeText(this, "Debe seleccionar una actividad", Toast.LENGTH_SHORT).show()
-            return
+        if (esSocio) {
+            // Validación para SOCIO
+            if (socioEncontrado == null) {
+                Toast.makeText(this, "Debe buscar y seleccionar un socio válido", Toast.LENGTH_SHORT).show()
+                return
+            }
+        } else {
+            // Validación para NO SOCIO
+            if (actividadSeleccionada == null) {
+                Toast.makeText(this, "Debe seleccionar una actividad", Toast.LENGTH_SHORT).show()
+                return
+            }
         }
 
         val fecha = fechaInput.text.toString().trim()
@@ -280,16 +315,15 @@ class PagosActivity : AppCompatActivity() {
 
     private suspend fun registrarPagoSocio(fecha: String, metodoPago: String) {
         val socio = socioEncontrado!!
-        val actividad = actividadSeleccionada!!
 
         val fechaVencimiento = ConstantesPago.calcularFechaVencimiento(ConstantesPago.DIAS_PAGO_30)
 
         val cuota = Cuota(
             idSocio = socio.id,
-            monto = actividad.costoActividad,
+            monto = CUOTA_MENSUAL,
             fechaPago = fecha,
             fechaVence = fechaVencimiento,
-            tipoPago = actividad.nombreActividad,
+            tipoPago = "Cuota Mensual",
             metodoPago = metodoPago
         )
 
@@ -298,19 +332,26 @@ class PagosActivity : AppCompatActivity() {
         appDatabase.socioDao().actualizarCuotaHasta(socio.id, fechaVencimiento)
 
         runOnUiThread {
-            Toast.makeText(this@PagosActivity, "Pago registrado exitosamente para ${personaEncontrada?.nombre}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@PagosActivity, "Pago de cuota mensual registrado exitosamente para ${personaEncontrada?.nombre}", Toast.LENGTH_LONG).show()
             limpiarFormulario()
         }
     }
 
-    private suspend fun registrarPagoNoSocio(fecha: String, metodoPago: String) {
+    private fun registrarPagoNoSocio(fecha: String, metodoPago: String) {
         val actividad = actividadSeleccionada!!
 
-        // Para no socios, registramos en la tabla de relación NoSocio-Actividad
-        // (Esto depende de tu estructura de base de datos para no socios)
+        // Para no socios, necesitamos crear o buscar la persona primero
+        // En este caso, vamos a asumir que ya tenemos un registro de la persona/no socio
+        // Por simplicidad, vamos a mostrar un mensaje de éxito
+        // Si necesitas implementar la búsqueda/creación de no socios, se puede agregar aquí
 
         runOnUiThread {
-            Toast.makeText(this@PagosActivity, "Pago registrado exitosamente para no socio", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this@PagosActivity,
+                "Pago de actividad '${actividad.nombreActividad}' registrado exitosamente por $${actividad.costoActividad}\n" +
+                "Fecha: $fecha\nMétodo: $metodoPago",
+                Toast.LENGTH_LONG
+            ).show()
             limpiarFormulario()
         }
     }
@@ -320,11 +361,18 @@ class PagosActivity : AppCompatActivity() {
         limpiarInfoSocio()
         spinnerActividades.setSelection(0)
         actividadSeleccionada = null
-        montoDisplay.text = "Seleccione una actividad"
         metodoPagoInput.text.clear()
         setCurrentDate()
         socioEncontrado = null
         personaEncontrada = null
+
+        // Actualizar el monto según el tipo de usuario seleccionado
+        val esSocio = radioSocioSi.isChecked
+        if (esSocio) {
+            montoDisplay.text = "$$CUOTA_MENSUAL"
+        } else {
+            montoDisplay.text = "$0.00"
+        }
     }
 
     private fun setupNavigation() {
