@@ -7,66 +7,63 @@
     android:background="@color/background_color"
     tools:context=".CuotasVencidasActivity">
 
-    <ImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_flecha"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
-
-    <TextView
+    <!-- Barra de herramientas superior (AppBar) -->
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:title="Control de Cuotas"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
+
+<ImageView
+    android:id="@+id/back_arrow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:src="@drawable/ic_flecha"
+    app:layout_constraintBottom_toBottomOf="@+id/title"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/title"
+    app:tint="@color/white" />
+
+<EditText
+    android:id="@+id/search_bar"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/rounded_edittext_bg"
+    android:drawableStart="@drawable/ic_search"
+    android:drawablePadding="12dp"
+    android:hint="Buscar por nombre, apellido o DNI"
+    android:inputType="text"
+    android:padding="12dp"
+    android:textColor="@android:color/white"
+    android:textColorHint="#A0A0A0"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+<HorizontalScrollView
+    android:id="@+id/filters_scroll"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="16dp"
+    android:scrollbars="none"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Control de Cuotas"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/back_arrow" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_bg"
-        android:backgroundTint="@color/input_background"
-        android:drawableStart="@android:drawable/ic_menu_search"
-        android:drawablePadding="8dp"
-        android:hint="Buscar por nombre, apellido o DNI"
-        android:inputType="text"
-        android:padding="12dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/smalltext_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <HorizontalScrollView
-        android:id="@+id/filters_scroll"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <!-- Filtro "Todas" -->
+        <!-- Filtro "Todas" -->
             <CheckBox
                 android:id="@+id/filter_todas"
                 style="?android:attr/borderlessButtonStyle"
