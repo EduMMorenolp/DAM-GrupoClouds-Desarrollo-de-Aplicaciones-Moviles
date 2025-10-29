@@ -25,8 +25,7 @@ data class MiembroCompleto(
     fun getEstadoInfo(): String? {
         return when {
             esSocio && cuotaHasta != null -> "Cuota: $cuotaHasta"
-            esSocio && tieneCarnet -> "Con carnet"
-            esSocio -> "Sin carnet"
+            esSocio -> "Sin pago"
             else -> null
         }
     }
