@@ -30,20 +30,20 @@
         <item>Socio</item>
         <item>No Socio</item>
     </string-array>
-    <string name="actividades">Actividades</string>
+    <string name="actividades">Actividades Y Servicios</string>
     <string name="search">Buscar</string>
-    <string name="tipoDeActividad">Tipo de actividad</string>
+    <string name="tipoDeActividad">Tipo de actividad o serivcio</string>
     <string name="instructor">Instructor</string>
     <string name="diaDeLaSemana">Dia de la semana</string>
-    <string name="nombreActividad">Nombre de la actividad</string>
+    <string name="nombreActividad">Nombre de la actividad o servicio</string>
     <string name="precio">Precio</string>
 
-    <string name="nuevaActividad">Nueva Actividad</string>
+    <string name="nuevaActividad">Nueva Actividad Y Servicio</string>
     <string name="horario">Horario</string>
     <string name="capacidad">Capacidad</string>
     <string name="costo">Costo</string>
-    <string name="guardarActividad">Guardar Actividad</string>
-    <string name="agregar_actividad">Agregar actividad</string>
+    <string name="guardarActividad">Guardar Actividad o Servicio</string>
+    <string name="agregar_actividad">Agregar actividad o Servicio</string>
 
     <string name="ejemplo_nombre_actividad">Yoga Flow</string>
     <string name="ejemplo_instructor">Instructor: Ezequiel Rodriguez</string>
