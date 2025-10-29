@@ -8,22 +8,22 @@
     android:background="@color/background_color"
     tools:context=".AddActividadActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/toolbar_custom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background_color"
-        android:paddingStart="16dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Botón de cerrar (izquierda) -->
-        <ImageView
+        <!-- Barra de herramientas superior (AppBar) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tv_nuevaActividadTitle"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:title="@string/nuevaActividad"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
+
+    <!-- Botón de cerrar (izquierda) -->
+    <ImageView
             android:id="@+id/btn_close_actividad"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -31,41 +31,20 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="8dp"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
+            app:layout_constraintTop_toTopOf="@+id/tv_nuevaActividadTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_nuevaActividadTitle"
             app:srcCompat="@drawable/ic_x_cross"
             app:tint="@color/white" />
-
-        <!-- Título -->
-        <TextView
-            android:id="@+id/tv_nuevaActividadTitle"
-            android:layout_width="307dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="0dp"
-            android:text="@string/nuevaActividad"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_close_actividad"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_custom"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nuevaActividadTitle"
         app:layout_constraintBottom_toTopOf="@id/btn_guardarActividad"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -262,8 +241,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/button_A_background"
-        android:textColor="@color/button_A_text"
-        app:cornerRadius="5dp"
+        android:textColor="@android:color/white"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

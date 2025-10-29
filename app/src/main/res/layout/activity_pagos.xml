@@ -8,29 +8,29 @@
     android:background="@color/background_color"
     tools:context=".PagosActivity">
 
+
+    <!-- Barra de herramientas superior (AppBar) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Registrar Pago"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
+
     <ImageView
         android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:src="@drawable/ic_flecha"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
         app:tint="@color/white" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registrar Pago"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/back_arrow" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -285,9 +285,8 @@
                 android:id="@+id/ver_cuotas_vencer_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/rounded_bg"
-                android:backgroundTint="@color/input_background"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/lightgreenbg_color"
                 android:padding="16dp"
                 android:text="Ver Cuotas a Vencer"
                 android:textColor="@color/white"

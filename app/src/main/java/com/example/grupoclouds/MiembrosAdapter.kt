@@ -16,7 +16,6 @@ class MiembrosAdapter(private val listaMiembros: List<MiembroCompleto>) :
      */
     inner class MiembroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Obtenemos las referencias a las vistas dentro de item_miembro2.xml
-        val imagenPerfil: ImageView = itemView.findViewById(R.id.iv_profile)
         val textoNombre: TextView = itemView.findViewById(R.id.tv_nombre_miembro)
         val textoId: TextView = itemView.findViewById(R.id.tv_id_miembro)
         val textoEmail: TextView = itemView.findViewById(R.id.tv_email)
