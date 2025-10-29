@@ -70,9 +70,6 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private suspend fun poblarBaseDeDatos(db: AppDatabase) {
-            val personaAdmin = Persona(0, "Eduardo", "Moreno", "12345678", "eduardo.admin@email.com", "1990-01-01")
-            val adminEdu = Administrador(0, "admin", "12345", "2025-10-26", 0)
-            insertarAdmin(db, personaAdmin, adminEdu)
 
             val personaJack = Persona(1, "Marcelo", "Moreno", "87654321", "marcelo.admin@email.com", "1992-05-20")
             val adminJack = Administrador(0, "jack", "1234", "2025-10-26", 0)
@@ -109,9 +106,9 @@ abstract class AppDatabase : RoomDatabase() {
                 id = 0,
                 idPersona = 0, // Se asignará correctamente en `insertarSocioDePrueba`
                 fechaAlta = fechaAltaNuevo,
-                cuotaHasta = "", // Cadena vacía para un socio nuevo sin pago.
-                tieneCarnet = true,
-                fichaMedica = false // Ajustado para tener variedad
+                cuotaHasta = "",
+                tieneCarnet = false,
+                fichaMedica = true
             )
             insertarSocioDePrueba(db, personaSocioNuevo, socioNuevo, "Socio Nuevo")
 
