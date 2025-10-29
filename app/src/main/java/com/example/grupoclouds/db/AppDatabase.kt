@@ -71,14 +71,11 @@ abstract class AppDatabase : RoomDatabase() {
 
         private suspend fun poblarBaseDeDatos(db: AppDatabase) {
 
-            val personaJack = Persona(1, "Marcelo", "Moreno", "87654321", "marcelo.admin@email.com", "1992-05-20")
-            val adminJack = Administrador(0, "jack", "1234", "2025-10-26", 0)
-            insertarAdmin(db, personaJack, adminJack)
 
             // --- INICIO DE LA CORRECCIÓN DE INYECCIÓN DE SOCIOS ---
             // 1. Socio con CUOTA VENCIDA
             val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val personaSocioVencido = Persona(0, "Ana", "García", "87654321B", "ana.garcia@email.com", "1985-11-20")
+            val personaSocioVencido = Persona(0, "Test", "Uno", "87654321B", "test.uno@email.com", "1985-11-20")
             val calVenc = Calendar.getInstance()
             calVenc.add(Calendar.MONTH, -1)
             val cuotaVencida = formatter.format(calVenc.time)
@@ -98,7 +95,7 @@ abstract class AppDatabase : RoomDatabase() {
             insertarSocioDePrueba(db, personaSocioVencido, socioVencido, "Socio Vencido")
 
             // 2. Socio NUEVO (sin pago registrado)
-            val personaSocioNuevo = Persona(0, "Juan", "Pérez", "12345678C", "juan.perez@email.com", "1990-05-15")
+            val personaSocioNuevo = Persona(0, "Test", "Dos", "12345678", "test.dos@email.com", "1990-05-15")
             val fechaAltaNuevo = formatter.format(Calendar.getInstance().time)
 
             // CORRECCIÓN: Se usan parámetros con nombre y se asignan los valores correctos a cada campo.
