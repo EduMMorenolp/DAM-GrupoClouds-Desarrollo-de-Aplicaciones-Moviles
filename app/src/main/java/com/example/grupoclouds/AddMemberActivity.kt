@@ -144,6 +144,12 @@ class AddMemberActivity : AppCompatActivity() {
             return
         }
 
+        // Validar que la ficha médica esté activada (obligatoria)
+        if (!switchFichaMedica.isChecked) {
+            Toast.makeText(this, "La ficha médica es obligatoria para registrar un miembro", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         // Procesar registro
         lifecycleScope.launch {
             try {
