@@ -180,7 +180,7 @@ class AddMemberActivity : AppCompatActivity() {
                         val socio = Socio(
                             id = 0, // Se autogenera
                             fechaAlta = etFechaRegistro.text?.toString()?.trim(),
-                            cuotaHasta = "", // Se puede configurar después
+                            cuotaHasta = null, // Se puede configurar después
                             tieneCarnet = false, // Inicialmente no tiene carnet
                             fichaMedica = switchFichaMedica.isChecked, // estado ficha médica
                             idPersona = personaId.toInt()

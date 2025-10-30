@@ -22,5 +22,5 @@ data class SocioConDetalles(
     val dni: String,
 
     @ColumnInfo(name = "cuota_hasta")
-    val cuota_hasta: String
+    val cuota_hasta: String?
 )

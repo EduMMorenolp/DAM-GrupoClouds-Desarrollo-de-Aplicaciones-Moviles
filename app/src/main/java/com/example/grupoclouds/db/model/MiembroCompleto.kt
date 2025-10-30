@@ -23,11 +23,13 @@ data class MiembroCompleto(
 
     // Función para obtener información del estado (para socios)
     fun getEstadoInfo(): String? {
-        return when {
-            esSocio && cuotaHasta != null -> "Cuota: $cuotaHasta"
-            esSocio && tieneCarnet -> "Con carnet"
-            esSocio -> "Sin carnet"
-            else -> null
+        if (!esSocio) {
+            return null
+        }
+        return if (cuotaHasta != null) {
+            "Cuota: $cuotaHasta"
+        } else {
+            "Cuota: Pago pendiente"
         }
     }
 
