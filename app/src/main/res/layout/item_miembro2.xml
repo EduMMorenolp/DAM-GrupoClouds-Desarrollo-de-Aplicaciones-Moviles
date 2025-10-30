@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_edittext_bg"
         android:backgroundTint="@color/button_A_background"
-        android:textColor="@color/button_A_text"
+        android:textColor="@color/white"
         android:textSize="12sp"
         android:textStyle="bold"
         android:paddingHorizontal="8dp"

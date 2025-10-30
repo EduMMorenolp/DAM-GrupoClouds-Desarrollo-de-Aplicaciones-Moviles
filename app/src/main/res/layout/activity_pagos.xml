@@ -178,6 +178,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cuota_mensual_label" />
 
+            <!-- Barrier para que monto_label se ancle correctamente a cualquier spinner visible -->
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_spinners"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="spinner_tipo_pago,spinner_actividades" />
+
             <!-- Monto (editable) -->
             <TextView
                 android:id="@+id/monto_label"
@@ -188,7 +196,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_tipo_pago" />
+                app:layout_constraintTop_toBottomOf="@+id/barrier_spinners" />
 
             <EditText
                 android:id="@+id/monto_input"

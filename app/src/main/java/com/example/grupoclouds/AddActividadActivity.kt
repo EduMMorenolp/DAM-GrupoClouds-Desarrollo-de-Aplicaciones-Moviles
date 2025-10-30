@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.grupoclouds.db.AppDatabase
+import com.google.android.material.appbar.MaterialToolbar
 import com.example.grupoclouds.db.entity.Actividad as ActividadEntity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -34,10 +35,9 @@ class AddActividadActivity : AppCompatActivity() {
             insets
         }
 
-        val tvTitle = findViewById<TextView>(R.id.tv_nuevaActividadTitle)
+        val toolbar = findViewById<MaterialToolbar>(R.id.tv_nuevaActividadTitle)
         val btnClose = findViewById<ImageView>(R.id.btn_close_actividad)
         btnClose.setOnClickListener {
-            startActivity(Intent(this, ActividadesActivity::class.java))
             finish()
         }
 
@@ -54,7 +54,7 @@ class AddActividadActivity : AppCompatActivity() {
         if (idFromIntent != 0) {
             editingId = idFromIntent
             // Cambiar título a modo edición
-            tvTitle.text = getString(R.string.editar_actividad)
+            toolbar.title = getString(R.string.editar_actividad)
 
             lifecycleScope.launch {
                 val actividad = appDatabase.actividadDao().getActividadById(idFromIntent)
@@ -69,7 +69,7 @@ class AddActividadActivity : AppCompatActivity() {
             }
         } else {
             // Modo crear: aseguramos título por defecto
-            tvTitle.text = getString(R.string.nuevaActividad)
+            toolbar.title = getString(R.string.nuevaActividad)
         }
 
         btnGuardar.setOnClickListener {
