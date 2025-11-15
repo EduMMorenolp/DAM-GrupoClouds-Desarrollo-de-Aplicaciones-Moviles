@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.grupoclouds.db.AppDatabase
 import com.example.grupoclouds.db.model.SocioConDetalles
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 // La definición del enum es correcta.
 enum class FiltroCuota {
@@ -22,65 +22,94 @@ enum class FiltroCuota {
 
 class CuotasVencidasViewModel(application: Application) : AndroidViewModel(application) {
 
-    // He usado AppDatabase.getInstance() que es más estándar, pero getDatabase() también funciona.
     private val socioDao = AppDatabase.getInstance(application).socioDao()
-    private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-    // CAMBIO 2: El LiveData ahora contendrá una lista de SocioConDetalles.
     private val _socios = MutableLiveData<List<SocioConDetalles>>()
     val socios: LiveData<List<SocioConDetalles>> = _socios
 
-    // El LiveData para el estado de carga es correcto.
     private val _cargando = MutableLiveData<Boolean>()
     val cargando: LiveData<Boolean> = _cargando
 
     private var filtroActual = FiltroCuota.TODAS
     private var busquedaActual = ""
 
+    // Almacenamos la lista completa de la BD para filtrar en memoria
+    private var listaCompletaDeSocios = listOf<SocioConDetalles>()
+
     init {
-        cargarSocios()
+        cargarSociosDesdeDB()
+    }
+
+    private fun cargarSociosDesdeDB() {
+        _cargando.value = true
+        viewModelScope.launch {
+            // Obtenemos la lista una sola vez usando la nueva función optimizada
+            listaCompletaDeSocios = socioDao.getSociosConCuotasVencidasOProximas()
+            // Una vez cargada, aplicamos el filtro y búsqueda inicial
+            aplicarFiltrosYBusqueda()
+            _cargando.postValue(false)
+        }
     }
 
     fun aplicarFiltro(filtro: FiltroCuota) {
         filtroActual = filtro
-        cargarSocios()
+        aplicarFiltrosYBusqueda()
     }
 
     fun aplicarBusqueda(query: String) {
-        busquedaActual = query
-        cargarSocios()
+        busquedaActual = query.trim()
+        aplicarFiltrosYBusqueda()
     }
 
-    private fun cargarSocios() {
-        _cargando.value = true
-        viewModelScope.launch {
-            val hoyCal = Calendar.getInstance()
-            val hoyStr = formatter.format(hoyCal.time)
+    private fun aplicarFiltrosYBusqueda() {
+        // 1. Aplicamos la búsqueda sobre la lista completa
+        val sociosBuscados = if (busquedaActual.isBlank()) {
+            listaCompletaDeSocios
+        } else {
+            listaCompletaDeSocios.filter {
+                it.nombre.contains(busquedaActual, ignoreCase = true) ||
+                        it.apellido?.contains(busquedaActual, ignoreCase = true) == true ||
+                        it.dni.contains(busquedaActual, ignoreCase = true)
+            }
+        }
 
-            // CAMBIO 3: La variable 'resultado' ahora es de tipo List<SocioConDetalles>.
-            val resultado: List<SocioConDetalles> = when (filtroActual) {
-                FiltroCuota.TODAS -> {
-                    socioDao.getTodosLosSociosPorBusqueda(busquedaActual)
-                }
-                FiltroCuota.VENCIDAS -> {
-                    // fecha hasta ayer
-                    val ayerCal = Calendar.getInstance()
-                    ayerCal.add(Calendar.DAY_OF_YEAR, -1)
-                    val ayerStr = formatter.format(ayerCal.time)
-                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, "1900-01-01", ayerStr)
-                }
-                FiltroCuota.VENCEN_HOY -> {
-                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, hoyStr, hoyStr)
-                }
-                FiltroCuota.VENCEN_SEMANA -> {
-                    val finDeSemanaCal = Calendar.getInstance()
-                    finDeSemanaCal.add(Calendar.DAY_OF_YEAR, 7) // 7 días a partir de hoy
-                    val finDeSemanaStr = formatter.format(finDeSemanaCal.time)
-                    socioDao.getSociosPorVencimientoYBusqueda(busquedaActual, hoyStr, finDeSemanaStr)
+        // 2. Aplicamos el filtro sobre el resultado de la búsqueda
+        val hoy = LocalDate.now()
+        val resultadoFinal = when (filtroActual) {
+            FiltroCuota.TODAS -> {
+                sociosBuscados
+            }
+            FiltroCuota.VENCIDAS -> {
+                sociosBuscados.filter {
+                    it.cuota_hasta == null || tryParseDate(it.cuota_hasta)?.isBefore(hoy) == true
                 }
             }
-            _socios.postValue(resultado)
-            _cargando.postValue(false)
+            FiltroCuota.VENCEN_HOY -> {
+                sociosBuscados.filter {
+                    tryParseDate(it.cuota_hasta)?.isEqual(hoy) == true
+                }
+            }
+            FiltroCuota.VENCEN_SEMANA -> {
+                val finDeSemana = hoy.plusDays(7)
+                sociosBuscados.filter {
+                    val fecha = tryParseDate(it.cuota_hasta)
+                    fecha != null && !fecha.isBefore(hoy) && !fecha.isAfter(finDeSemana)
+                }
+            }
+        }
+        _socios.postValue(resultadoFinal)
+    }
+
+    private fun tryParseDate(dateStr: String?): LocalDate? {
+        return if (dateStr.isNullOrEmpty()) {
+            null
+        } else {
+            try {
+                LocalDate.parse(dateStr, formatter)
+            } catch (e: DateTimeParseException) {
+                null
+            }
         }
     }
 }

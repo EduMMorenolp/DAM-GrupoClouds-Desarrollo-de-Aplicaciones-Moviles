@@ -1,4 +1,4 @@
-package com.example.grupoclouds.db
+ package com.example.grupoclouds.db
 
 import android.content.Context
 import androidx.room.Database
@@ -78,10 +78,9 @@ abstract class AppDatabase : RoomDatabase() {
             val adminJack = Administrador(0, "jack", "1234", "2025-10-26", 0)
             insertarAdmin(db, personaJack, adminJack)
 
-            // --- INICIO DE LA CORRECCIÓN DE INYECCIÓN DE SOCIOS ---
             // 1. Socio con CUOTA VENCIDA
             val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val personaSocioVencido = Persona(0, "Ana", "García", "87654321B", "ana.garcia@email.com", "1985-11-20")
+            val personaSocioVencido = Persona(0, "Ana", "García", "87654321", "ana.garcia@email.com", "1985-11-20")
             val calVenc = Calendar.getInstance()
             calVenc.add(Calendar.MONTH, -1)
             val cuotaVencida = formatter.format(calVenc.time)
@@ -89,7 +88,6 @@ abstract class AppDatabase : RoomDatabase() {
             calAltaVenc.add(Calendar.MONTH, -6)
             val fechaAltaVencido = formatter.format(calAltaVenc.time)
 
-            // CORRECCIÓN: Se usan parámetros con nombre para mayor claridad y se pasan todos los argumentos requeridos.
             val socioVencido = Socio(
                 id = 0,
                 idPersona = 0, // Se asignará correctamente en `insertarSocioDePrueba`
@@ -101,7 +99,7 @@ abstract class AppDatabase : RoomDatabase() {
             insertarSocioDePrueba(db, personaSocioVencido, socioVencido, "Socio Vencido")
 
             // 2. Socio NUEVO (sin pago registrado)
-            val personaSocioNuevo = Persona(0, "Juan", "Pérez", "12345678C", "juan.perez@email.com", "1990-05-15")
+            val personaSocioNuevo = Persona(0, "Juan", "Pérez", "12345678", "juan.perez@email.com", "1990-05-15")
             val fechaAltaNuevo = formatter.format(Calendar.getInstance().time)
 
             // CORRECCIÓN: Se usan parámetros con nombre y se asignan los valores correctos a cada campo.
@@ -115,7 +113,27 @@ abstract class AppDatabase : RoomDatabase() {
             )
             insertarSocioDePrueba(db, personaSocioNuevo, socioNuevo, "Socio Nuevo")
 
-            // --- FIN DE LA CORRECCIÓN ---
+            // 3. Socio con CUOTA QUE VENCE HOY
+            val personaSocioHoy = Persona(0, "Carlos", "Ruiz", "11223344", "carlos.ruiz@email.com", "1995-03-10")
+
+            val hoy = Calendar.getInstance().time
+            val fechaVenceHoy = formatter.format(hoy)
+
+            // Calculamos una fecha de alta, por ejemplo, hace 3 meses
+            val calAltaHoy = Calendar.getInstance()
+            calAltaHoy.add(Calendar.MONTH, -3)
+            val fechaAltaHoy = formatter.format(calAltaHoy.time)
+
+            val socioVenceHoy = Socio(
+                id = 0,
+                idPersona = 0,
+                fechaAlta = fechaAltaHoy,
+                cuotaHasta = fechaVenceHoy, // <-- La clave: la fecha de vencimiento es hoy
+                tieneCarnet = false,
+                fichaMedica = true
+            )
+            insertarSocioDePrueba(db, personaSocioHoy, socioVenceHoy, "Socio que Vence Hoy")
+
         }
         private suspend fun insertarAdmin(db: AppDatabase, persona: Persona, admin: Administrador) {
             try {

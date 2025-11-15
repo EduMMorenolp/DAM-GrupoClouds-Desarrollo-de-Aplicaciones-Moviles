@@ -340,6 +340,14 @@ class PagosActivity : AppCompatActivity() {
         val tipoPago = spinnerTipoPago.selectedItem.toString()
         val monto = montoInput.text.toString().toFloatOrNull() ?: CUOTA_MENSUAL
 
+        val formatoEntrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val formatoSalida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val fechaPagoParaDB = try {
+            val date = formatoEntrada.parse(fecha)
+            if (date != null) formatoSalida.format(date) else fecha
+        } catch (e: Exception) {
+            fecha
+        }
         val diasVencimiento = when (tipoPago) {
             "Cuota Anual" -> ConstantesPago.DIAS_PAGO_365
             else -> ConstantesPago.DIAS_PAGO_30
@@ -350,7 +358,7 @@ class PagosActivity : AppCompatActivity() {
         val cuota = Cuota(
             idSocio = socio.id,
             monto = monto,
-            fechaPago = fecha,
+            fechaPago = fechaPagoParaDB,
             fechaVence = fechaVencimiento,
             tipoPago = tipoPago,
             metodoPago = metodoPago

@@ -10,7 +10,7 @@ object ConstantesPago {
     fun calcularFechaVencimiento(dias: Int): String {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_MONTH, dias)
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return sdf.format(calendar.time)
     }
 }

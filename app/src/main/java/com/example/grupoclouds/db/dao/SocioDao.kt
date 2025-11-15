@@ -61,6 +61,27 @@ interface SocioDao {
     """)
     suspend fun getTodosLosSociosPorBusqueda(query: String): List<SocioConDetalles>
 
+    @Transaction
+    @Query("""
+    SELECT
+        p.nombre,
+        p.apellido,
+        p.dni,
+        s.id_socio,
+        s.cuota_hasta
+    FROM Socio AS s
+    INNER JOIN Persona AS p ON s.id_persona = p.id_persona
+    WHERE 
+        s.cuota_hasta IS NULL OR s.cuota_hasta <= date('now', '+7 days')
+    ORDER BY 
+        CASE WHEN s.cuota_hasta IS NULL THEN 2 
+             WHEN s.cuota_hasta < date('now') THEN 0
+             ELSE 1
+        END, 
+        s.cuota_hasta ASC
+""")
+    suspend fun getSociosConCuotasVencidasOProximas(): List<SocioConDetalles>
+
     @Query("UPDATE Socio SET cuota_hasta = :nuevaFecha WHERE id_socio = :socioId")
     suspend fun actualizarCuotaHasta(socioId: Int, nuevaFecha: String)
 }
