@@ -33,8 +33,8 @@ El objetivo es migrar la funcionalidad principal del sistema de escritorio preex
 | **Cuotas y Pagos** | Lógica de registro de pagos y consulta de vencimientos. | **✅ COMPLETADO** |
 | **Actividades** | Lógica de Alta, Baja y Modificación (CRUD) de actividades. | **✅ COMPLETADO** |
 | **Gestión de Socios** | **Registro** de nuevas personas (socios/no socios). | **✅ COMPLETADO** |
-| **Gestión de Socios** | **Consulta de Fichas** de socios existentes. | ⏳ **PENDIENTE** |
-| **Carnet Digital** | Generación y visualización del carnet de socio. | ⏳ **PENDIENTE** |
+| **Gestión de Socios** | **Consulta de Fichas** de socios existentes. | **✅ COMPLETADO** |
+| **Carnet Digital** | Generación y visualización del carnet de socio. | **✅ COMPLETADO** |
 
 -----
 
