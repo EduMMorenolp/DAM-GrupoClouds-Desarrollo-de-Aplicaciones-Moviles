@@ -18,6 +18,7 @@
     <string name="hint_name">Nombre</string>
     <string name="hint_lastname">Apellido</string>
     <string name="hint_dni">DNI</string>
+    <string name="hint_email">Email</string>
     <string name="hint_birthdate">Fecha de Nacimiento</string>
     <string name="hint_member_type">Tipo</string>
     <string name="hint_registration_date">Fecha de Registro</string>
@@ -29,32 +30,36 @@
         <item>Socio</item>
         <item>No Socio</item>
     </string-array>
-    <string name="actividades">Actividades</string>
-    <string name="search">Search</string>
-    <string name="tipoDeActividad">Tipo de actividad</string>
+    <string name="actividades">Actividades Y Servicios</string>
+    <string name="search">Buscar</string>
+    <string name="tipoDeActividad">Tipo de actividad o serivcio</string>
     <string name="instructor">Instructor</string>
     <string name="diaDeLaSemana">Dia de la semana</string>
-    <string name="nombreActividad">Nombre de la actividad</string>
+    <string name="nombreActividad">Nombre de la actividad o servicio</string>
     <string name="precio">Precio</string>
 
-    <string name="nuevaActividad">Nueva Actividad</string>
+    <string name="nuevaActividad">Nueva Actividad Y Servicio</string>
     <string name="horario">Horario</string>
     <string name="capacidad">Capacidad</string>
     <string name="costo">Costo</string>
-    <string name="guardarActividad">Guardar Actividad</string>
+    <string name="guardarActividad">Guardar Actividad o Servicio</string>
+    <string name="agregar_actividad">Agregar actividad o Servicio</string>
 
-    <!--<string name="actividades">Actividades</string>
-    <string name="search">Search</string>
-    <string name="tipoDeActividad">Tipo de actividad</string>
-    <string name="instructor">Instructor</string>
-    <string name="diaDeLaSemana">Dia de la semana</string>
-    <string name="nombreActividad">Nombre de la actividad</string>
-    <string name="precio">Precio</string>-->
+    <string name="ejemplo_nombre_actividad">Yoga Flow</string>
+    <string name="ejemplo_instructor">Instructor: Ezequiel Rodriguez</string>
+    <string name="ejemplo_tipo">Tipo: Cardio</string>
+    <string name="ejemplo_horario">Horario: Lun 18:00</string>
+    <string name="ejemplo_capacidad">Capacidad: 20</string>
+    <string name="ejemplo_precio">$25</string>
 
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar_actividad">Editar Actividad</string>
+    <string name="guardar_cambios">Guardar Cambios</string>
+    <string name="confirmar_eliminacion">¿Confirmar eliminación?</string>
 
-
-
-
-
-
+    <!-- Cadenas añadidas para ActividadesActivity -->
+    <string name="confirmar_eliminar_actividad">¿Desea eliminar esta actividad?</string>
+    <string name="actividad_eliminada">Actividad eliminada</string>
+    <string name="error_eliminar">Error al eliminar: %1$s</string>
 </resources>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_color">#122117</color> <!-- Color Background verde oscuro -->
+    <color name="lightgreenbg_color">#264532</color> <!-- Color background verde claro-->
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="button_A_background">#38E07A</color>
+    <color name="button_A_background">#264532</color> <!-- #264532 //  #38E07A-->
     <color name="button_A_text">#122117</color>
 
-    <color name="input_background">#264533</color> <!-- Color Background verde claro -->
+    <color name="input_background">#FFFFFFFF</color> <!-- Color Background verde claro -->
     <color name="input_stroke">#3A5F5F</color>
 
     <color name="switch_track_color">#40FFFFFF</color> <!-- Blanco semitransparente apagado -->
@@ -18,6 +19,24 @@
     <color name="switch_track_off">#2D2D2D</color>
 
     <color name="smalltext_color">#96c5a9</color>  <!-- Color Letra pequeña verde claro -->
-    <color name="radio_button_selected_background">#1A2B21</color>
+    <color name="radio_button_selected_background">#1A2B21</color> <!-- Asumo que tienes algo así -->
 
+    <color name="btn_edit_background">#32CD32</color>
+    <color name="btn_delete_background">#F44336</color>
+    <color name="btn_verde">#264533</color>
+
+    <!-- Colores para el estado de las cuotas -->
+    <color name="red">#F44336</color>
+    <color name="orange">#FF9800</color>
+    <color name="green">#4CAF50</color>
+
+
+    <!-- ▼▼▼ AÑADE ESTA LÍNEA ▼▼▼ -->
+    <!-- Puedes elegir el color que prefieras. #FF9800 es un naranja material design. -->
+    <color name="warning_color">#FF9800</color>
+
+
+    <!-- <color name="input_background">#2C2C2E</color> -->
+ <!-- Asumo que tienes algo así -->
+    <!-- <color name="smalltext_color">#AEAEB2</color> -->
 </resources>

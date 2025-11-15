@@ -8,29 +8,29 @@
     android:background="@color/background_color"
     tools:context=".PagosActivity">
 
+
+    <!-- Barra de herramientas superior (AppBar) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Registrar Pago"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
+
     <ImageView
         android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:src="@drawable/ic_flecha"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
         app:tint="@color/white" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pagos"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/back_arrow" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -46,98 +46,147 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <RadioGroup
+                android:id="@+id/radio_group_tipo_usuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- CORRECCIÓN 1: Texto cambiado a "Socio" -->
+                <RadioButton
+                    android:id="@+id/radio_socio_si"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Socio"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="24dp" />
+
+                <!-- CORRECCIÓN 2: Texto cambiado a "No Socio" -->
+                <RadioButton
+                    android:id="@+id/radio_socio_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Socio"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </RadioGroup>
+
+            <!-- Campo DNI (solo visible para socios) -->
+            <TextView
+                android:id="@+id/dni_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="DNI del Socio"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radio_group_tipo_usuario" />
+
+
             <EditText
-                android:id="@+id/search_bar"
+                android:id="@+id/dni_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_bg"
                 android:backgroundTint="@color/input_background"
-                android:drawableStart="@android:drawable/ic_menu_search"
-                android:drawablePadding="8dp"
-                android:hint="Search"
-                android:inputType="text"
+                android:hint="Ingrese DNI"
+                android:inputType="number"
+                android:imeOptions="actionSearch"
                 android:padding="12dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="@color/smalltext_color"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/dni_label" />
 
+            <!-- Información del socio encontrado -->
             <TextView
-                android:id="@+id/tipo_pago_label"
+                android:id="@+id/socio_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="12dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:text="Ingrese DNI para buscar socio"
+                android:textColor="@color/smalltext_color"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dni_input" />
+
+            <!-- Selector de actividad (solo para NO SOCIOS) -->
+            <TextView
+                android:id="@+id/actividad_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Actividad"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/socio_info" />
+
+            <Spinner
+                android:id="@+id/spinner_actividades"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:padding="12dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/actividad_label" />
+
+            <!-- Información de cuota mensual (solo para SOCIOS) -->
+            <TextView
+                android:id="@+id/cuota_mensual_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Tipo de Pago"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+                app:layout_constraintTop_toBottomOf="@+id/socio_info" />
 
-            <RadioGroup
-                android:id="@+id/payment_type_group"
+            <Spinner
+                android:id="@+id/spinner_tipo_pago"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_bg"
                 android:backgroundTint="@color/input_background"
-                android:orientation="horizontal"
+                android:padding="12dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tipo_pago_label">
+                app:layout_constraintTop_toBottomOf="@+id/cuota_mensual_label" />
 
-                <RadioButton
-                    android:id="@+id/cuota_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/radio_button_selector"
-                    android:button="@null"
-                    android:checked="true"
-                    android:gravity="center"
-                    android:padding="12dp"
-                    android:text="Cuota"
-                    android:textColor="@color/radio_button_text_selector"
-                    />
-
-                <RadioButton
-                    android:id="@+id/actividad_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/radio_button_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="12dp"
-                    android:text="Actividad"
-                    android:textColor="@color/radio_button_text_selector"
-                     />
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/fecha_label"
+            <!-- Barrier para que monto_label se ancle correctamente a cualquier spinner visible -->
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_spinners"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Fecha"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/payment_type_group" />
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="spinner_tipo_pago,spinner_actividades" />
 
-            <EditText
-                android:id="@+id/fecha_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/rounded_bg"
-                android:backgroundTint="@color/input_background"
-                android:inputType="date"
-                android:padding="12dp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fecha_label" />
-
+            <!-- Monto (editable) -->
             <TextView
                 android:id="@+id/monto_label"
                 android:layout_width="wrap_content"
@@ -145,8 +194,9 @@
                 android:layout_marginTop="16dp"
                 android:text="Monto"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fecha_input" />
+                app:layout_constraintTop_toBottomOf="@+id/barrier_spinners" />
 
             <EditText
                 android:id="@+id/monto_input"
@@ -155,24 +205,56 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_bg"
                 android:backgroundTint="@color/input_background"
-                android:hint="0.00"
+                android:hint="Ingrese el monto"
                 android:inputType="numberDecimal"
                 android:padding="12dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="@color/smalltext_color"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/monto_label" />
 
+            <!-- Fecha -->
+            <TextView
+                android:id="@+id/fecha_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Fecha de Pago"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monto_input" />
+
+            <EditText
+                android:id="@+id/fecha_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/input_background"
+                android:hint="dd/mm/yyyy"
+                android:focusable="false"
+                android:clickable="true"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/smalltext_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fecha_label" />
+
+            <!-- Método de pago -->
             <TextView
                 android:id="@+id/metodo_pago_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Metodo de Pago"
+                android:text="Método de Pago"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/monto_input" />
+                app:layout_constraintTop_toBottomOf="@+id/fecha_input" />
 
             <EditText
                 android:id="@+id/metodo_pago_input"
@@ -181,129 +263,52 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_bg"
                 android:backgroundTint="@color/input_background"
+                android:hint="Efectivo, Tarjeta, Transferencia, etc."
+                android:inputType="text"
                 android:padding="12dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textColorHint="@color/smalltext_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/metodo_pago_label" />
 
+            <!-- Botón confirmar pago -->
             <Button
                 android:id="@+id/confirmar_pago_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:backgroundTint="@color/button_A_background"
+                android:backgroundTint="@color/lightgreenbg_color"
                 android:padding="16dp"
-                android:text="Confirma el Pago"
-                android:textColor="@color/button_A_text"
+                android:text="Confirmar Pago"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:cornerRadius="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/metodo_pago_input" />
 
-            <TextView
-                android:id="@+id/pagos_vencidos_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Pagos Vencidos"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/confirmar_pago_button" />
-
-            <HorizontalScrollView
-                android:id="@+id/filters_scroll"
+            <!-- Botón ver cuotas a vencer -->
+            <Button
+                android:id="@+id/ver_cuotas_vencer_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:scrollbars="none"
+                android:backgroundTint="@color/lightgreenbg_color"
+                android:padding="16dp"
+                android:text="Ver Cuotas a Vencer"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:cornerRadius="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pagos_vencidos_title">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/filter_hoy_button"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/radio_button_selector"
-                        android:textColor="@color/radio_button_text_selector"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="Hoy"
-                        android:textAllCaps="false"
-                        app:cornerRadius="16dp"
-                        android:checked="true" />
-
-                    <CheckBox
-                        android:id="@+id/filter_semana_button"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/radio_button_selector"
-                        android:textColor="@color/radio_button_text_selector"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="Ult. Semana"
-                        android:textAllCaps="false"
-                        app:cornerRadius="16dp" />
-
-                    <CheckBox
-                        android:id="@+id/filter_socio_button"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/radio_button_selector"
-                        android:textColor="@color/radio_button_text_selector"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="Socio"
-                        android:textAllCaps="false"
-                        app:cornerRadius="16dp" />
-
-                    <CheckBox
-                        android:id="@+id/filter_actividad_button"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/radio_button_selector"
-                        android:textColor="@color/radio_button_text_selector"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="Actividad"
-                        android:textAllCaps="false"
-                        app:cornerRadius="16dp" />
-                </LinearLayout>
-            </HorizontalScrollView>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pagos_vencidos_recycler"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/filters_scroll"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_pago_vencido" />
-
+                app:layout_constraintTop_toBottomOf="@+id/confirmar_pago_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-    <!-- Aquí incluimos nuestro componente reutilizable -->
+    <!-- Bottom Navigation -->
     <include
         android:id="@+id/bottom_navigation"
         layout="@layout/component_botton_nav"

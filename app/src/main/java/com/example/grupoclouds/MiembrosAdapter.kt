@@ -1,52 +1,3 @@
-/*
-package com.example.grupoclouds  // Tu paquete
-
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.compose.animation.with
-import androidx.compose.ui.semantics.text
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide // Importante: librería para cargar imágenes
-import com.example.dam_grupoclouds_desarrollo_de_aplicaciones_moviles.databinding.ItemMiembroBinding // Importa el ViewBinding del ítem
-
-class MiembrosAdapter(private val miembros: List<Miembro>) : RecyclerView.Adapter<MiembrosAdapter.MiembroViewHolder>() {
-
-    // 1. ViewHolder: Mantiene las referencias a las vistas de un solo ítem (item_miembro.xml)
-    inner class MiembroViewHolder(val binding: ItemMiembroBinding) : RecyclerView.ViewHolder(binding.root)
-
-    // 2. onCreateViewHolder: Se llama cuando el RecyclerView necesita crear un nuevo ViewHolder.
-    // Infla el layout del ítem (item_miembro.xml) y lo devuelve.
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MiembroViewHolder {
-        val binding = ItemMiembroBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MiembroViewHolder(binding)
-    }
-
-    // 3. getItemCount: Devuelve el número total de ítems en la lista.
-    override fun getItemCount(): Int {
-        return miembros.size
-    }
-
-    // 4. onBindViewHolder: Conecta los datos de un miembro específico con las vistas del ViewHolder.
-    // Se llama para cada ítem visible en la pantalla.
-    override fun onBindViewHolder(holder: MiembroViewHolder, position: Int) {
-        val miembroActual = miembros[position] // Obtiene el miembro de la lista
-
-        holder.binding.apply {
-            // Asigna los datos a las vistas correspondientes
-            tvNombreMiembro.text = miembroActual.nombre
-            tvIdMiembro.text = "ID: ${miembroActual.id}"
-
-            // Usamos Glide para cargar la imagen desde una URL en el ImageView
-            Glide.with(holder.itemView.context)
-                .load(miembroActual.urlFoto)
-                .circleCrop() // Para que la imagen sea circular
-                .into(ivProfile)
-        }
-    }
-}
-
-*/
-
 package com.example.grupoclouds
 
 import android.view.LayoutInflater
@@ -55,24 +6,28 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.example.grupoclouds.db.model.MiembroCompleto
 
-class MiembrosAdapter(private val listaMiembros: List<Miembro>) :
+class MiembrosAdapter(private val listaMiembros: List<MiembroCompleto>) :
     RecyclerView.Adapter<MiembrosAdapter.MiembroViewHolder>() {
 
     /**
      * El ViewHolder describe una vista de un ítem y sus metadatos dentro del RecyclerView.
      */
     inner class MiembroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // Obtenemos las referencias a las vistas dentro de item_miembro.xml
-        val imagenPerfil: ImageView = itemView.findViewById(R.id.iv_profile)
+        // Obtenemos las referencias a las vistas dentro de item_miembro2.xml
         val textoNombre: TextView = itemView.findViewById(R.id.tv_nombre_miembro)
         val textoId: TextView = itemView.findViewById(R.id.tv_id_miembro)
+        val textoEmail: TextView = itemView.findViewById(R.id.tv_email)
+        val textoTipoMiembro: TextView = itemView.findViewById(R.id.tv_tipo_miembro)
+        val textoFechaNacimiento: TextView = itemView.findViewById(R.id.tv_fecha_nacimiento)
+        val textoEstadoInfo: TextView = itemView.findViewById(R.id.tv_estado_info)
+        val textoFichaMedica: TextView = itemView.findViewById(R.id.tv_ficha_medica)
+        val textoEstadoCarnet: TextView = itemView.findViewById(R.id.tv_estado_carnet)
     }
 
     /**
      * Se llama cuando el RecyclerView necesita un nuevo ViewHolder para representar un ítem.
-     * Aquí "inflamos" (creamos) la vista de la fila desde el XML.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MiembroViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -89,20 +44,75 @@ class MiembrosAdapter(private val listaMiembros: List<Miembro>) :
 
     /**
      * Se llama para mostrar los datos en una posición específica.
-     * Aquí conectamos los datos del 'Miembro' con las vistas del 'ViewHolder'.
      */
     override fun onBindViewHolder(holder: MiembroViewHolder, position: Int) {
         val miembroActual = listaMiembros[position]
 
         // Asignamos los datos del miembro a las vistas
-        holder.textoNombre.text = miembroActual.nombre
-        holder.textoId.text = "ID: ${miembroActual.idSocio}"
+        holder.textoNombre.text = miembroActual.nombreCompleto()
 
-        // Usamos la librería Glide para cargar la imagen desde la URL de forma eficiente
-        Glide.with(holder.itemView.context)
-            .load(miembroActual.urlImagen)
-            .circleCrop() // Aplica una máscara circular a la imagen
-            .into(holder.imagenPerfil)
+        // Siempre mostramos el DNI, independientemente del tipo de miembro
+        holder.textoId.text = "DNI: ${miembroActual.dni}"
+
+        // Configuramos el tipo de miembro
+        if (miembroActual.esSocio) {
+            holder.textoTipoMiembro.text = "SOCIO"
+        } else {
+            holder.textoTipoMiembro.text = "NO-SOCIO"
+        }
+
+        // Mostramos email si está disponible
+        if (!miembroActual.email.isNullOrEmpty()) {
+            holder.textoEmail.text = miembroActual.email
+            holder.textoEmail.visibility = View.VISIBLE
+        } else {
+            holder.textoEmail.visibility = View.GONE
+        }
+
+        // Mostramos fecha de nacimiento si está disponible
+        val fechaNacimiento = miembroActual.getFechaNacimientoFormateada()
+        if (fechaNacimiento != null) {
+            holder.textoFechaNacimiento.text = fechaNacimiento
+            holder.textoFechaNacimiento.visibility = View.VISIBLE
+        } else {
+            holder.textoFechaNacimiento.visibility = View.GONE
+        }
+
+        // Mostramos información de estado (cuota, carnet, etc.)
+        val estadoInfo = miembroActual.getEstadoInfo()
+        if (estadoInfo != null) {
+            holder.textoEstadoInfo.text = estadoInfo
+            holder.textoEstadoInfo.visibility = View.VISIBLE
+        } else {
+            holder.textoEstadoInfo.visibility = View.GONE
+        }
+
+        // Mostramos el estado de la ficha médica con color dinámico
+        holder.textoFichaMedica.text = miembroActual.getEstadoFichaMedica()
+
+        // Configuramos el color según si tiene o no la ficha médica
+        val colorFichaMedica = if (miembroActual.fichaMedica) {
+            android.graphics.Color.parseColor("#4CAF50") // Verde si tiene ficha
+        } else {
+            android.graphics.Color.parseColor("#F44336") // Rojo si no tiene ficha
+        }
+        holder.textoFichaMedica.setTextColor(colorFichaMedica)
+
+        // Mostramos el estado del carnet solo para socios
+        val estadoCarnet = miembroActual.getEstadoCarnet()
+        if (estadoCarnet != null && miembroActual.esSocio) {
+            holder.textoEstadoCarnet.text = estadoCarnet
+            holder.textoEstadoCarnet.visibility = View.VISIBLE
+
+            // Configuramos el color según si tiene o no carnet
+            val colorCarnet = if (miembroActual.tieneCarnet) {
+                android.graphics.Color.parseColor("#4CAF50") // Verde si tiene carnet
+            } else {
+                android.graphics.Color.parseColor("#FF9800") // Naranja si no tiene carnet
+            }
+            holder.textoEstadoCarnet.setTextColor(colorCarnet)
+        } else {
+            holder.textoEstadoCarnet.visibility = View.GONE // Ocultar para no-socios
+        }
     }
 }
-

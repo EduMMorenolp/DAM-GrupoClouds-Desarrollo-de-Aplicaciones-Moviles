@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="?android:attr/windowBackground"
+    android:background="#1C3024"
+    app:itemIconTint="#96C4A8"
+    app:itemTextColor="#96C4A8"
     app:menu="@menu/bottom_nav_menu"
-    app:labelVisibilityMode="labeled" /> <!-- ESTA LÍNEA ES LA SOLUCIÓN -->
+    app:labelVisibilityMode="labeled" />

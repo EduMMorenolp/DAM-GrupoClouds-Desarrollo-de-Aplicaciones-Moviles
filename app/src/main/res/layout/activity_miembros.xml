@@ -13,8 +13,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#252525"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
         app:title="Miembros"
         app:titleCentered="true"
         app:titleTextColor="@android:color/white" />
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_add"
+        android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="@id/toolbar"
         app:layout_constraintTop_toTopOf="@id/toolbar"
@@ -41,7 +41,7 @@
         android:background="@drawable/rounded_edittext_bg"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="12dp"
-        android:hint="Search"
+        android:hint="Buscar por nombre, apellido o DNI"
         android:padding="12dp"
         android:textColor="@android:color/white"
         android:textColorHint="#A0A0A0"
@@ -49,20 +49,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <!-- Botones de Filtro (Socios / No-Socios) -->
+    <!-- Botones de Filtro (Todos / Socios / No-Socios) -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_socios"
+        android:id="@+id/btn_todos"
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#2E5A2E"
-        android:text="Socios"
+        android:backgroundTint="#32CD32"
+        android:text="Todos"
         android:textAllCaps="false"
         app:cornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_search" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_socios"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="#2E5A2E"
+        android:text="Socios"
+        android:textAllCaps="false"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_todos"
+        app:layout_constraintStart_toEndOf="@id/btn_todos"
+        app:layout_constraintTop_toTopOf="@id/btn_todos" />
 
     <!-- Lista para mostrar los miembros -->
     <com.google.android.material.button.MaterialButton
@@ -77,8 +91,7 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="@id/btn_socios"
         app:layout_constraintStart_toEndOf="@id/btn_socios"
-        app:layout_constraintTop_toTopOf="@id/btn_socios"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@id/btn_socios" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_miembros"
@@ -89,7 +102,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav_component"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_socios"
+        app:layout_constraintTop_toBottomOf="@id/btn_todos"
         tools:itemCount="5" />
 
     <!-- Botón Flotante de Acción (FAB) -->
@@ -100,7 +113,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_upload"
         android:visibility="visible"
-        app:backgroundTint="#32CD32"
+        app:backgroundTint="@color/button_A_background"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_component"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white" />

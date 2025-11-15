@@ -7,47 +7,43 @@
     android:background="@color/background_color"
     tools:context=".DashboardActivity">
 
+    <!-- Barra de herramientas superior (AppBar) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/Dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:title="Dashboard"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
+
+    <ImageView
+        android:id="@+id/iv_settings"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="Settings"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintBottom_toBottomOf="@+id/Dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Dashboard"
+        app:tint="@android:color/white" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/Dashboard">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="16dp">
-
-            <!-- HEADER -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                tools:ignore="UseCompoundDrawables">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Dashboard"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="Settings"
-                    android:src="@drawable/ic_settings"
-                    app:tint="@android:color/white" />
-            </LinearLayout>
 
             <!-- SECCIÓN: Cuotas y Pagos -->
             <TextView
@@ -123,11 +119,12 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_ver_cuotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:backgroundTint="#264532"
-                android:text="Ver Pagos"
+                android:text="Ver Cuotas"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
@@ -395,6 +392,7 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -403,6 +401,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

@@ -4,45 +4,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="8dp">
+    android:background="@drawable/rounded_edittext_bg"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="6dp"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="16dp">
 
-    <!-- ImageView para la foto de perfil -->
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" /> <!-- Imagen de muestra para la vista previa -->
+    <!-- Icono de persona como reemplazo de la foto -->
 
     <!-- TextView para el nombre del miembro -->
     <TextView
         android:id="@+id/tv_nombre_miembro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_id_miembro"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintEnd_toStartOf="@id/tv_tipo_miembro"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Ethan Carter" /> <!-- Texto de muestra -->
+        tools:text="Eduardo Moreno" />
 
-    <!-- TextView para el ID del miembro -->
+    <!-- TextView para mostrar si es Socio o No-Socio -->
+    <TextView
+        android:id="@+id/tv_tipo_miembro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext_bg"
+        android:backgroundTint="@color/button_A_background"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="SOCIO" />
+
+    <!-- TextView para el ID/DNI del miembro -->
     <TextView
         android:id="@+id/tv_id_miembro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_nombre_miembro"
-        tools:text="ID: 123456" /> <!-- Texto de muestra -->
+        android:textColor="@color/smalltext_color"
+        android:textSize="13sp"
+
+        app:layout_constraintStart_toStartOf="@+id/tv_nombre_miembro"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nombre_miembro"
+        tools:text="DNI: 12345678Z" />
+
+    <!-- TextView para el email -->
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:textColor="@color/smalltext_color"
+        android:textSize="12sp"
+
+        app:layout_constraintStart_toStartOf="@+id/tv_id_miembro"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id_miembro"
+        tools:text="email@ejemplo.com" />
+
+    <!-- TextView para fecha de nacimiento -->
+    <TextView
+        android:id="@+id/tv_fecha_nacimiento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/smalltext_color"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_email"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email"
+        tools:text="Nacido: 1990-01-01" />
+
+    <!-- TextView para información adicional (cuota, carnet, etc.) -->
+
+    <!-- TextView para el estado de la ficha médica -->
+
+    <TextView
+        android:id="@+id/tv_estado_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/rounded_edittext_bg"
+        android:backgroundTint="@color/background_color"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/smalltext_color"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tipo_miembro"
+        tools:text="Cuota: 2025-12-31" />
+
+    <TextView
+        android:id="@+id/tv_ficha_medica"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_fecha_nacimiento"
+        app:layout_constraintTop_toBottomOf="@id/tv_fecha_nacimiento"
+        tools:text="Ficha médica" />
+
+    <!-- TextView para el estado del carnet (solo para socios) -->
+    <TextView
+        android:id="@+id/tv_estado_carnet"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="4dp"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tipo_miembro"
+        tools:text="Con carnet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

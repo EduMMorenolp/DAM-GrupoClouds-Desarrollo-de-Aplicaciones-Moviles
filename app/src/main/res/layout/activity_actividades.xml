@@ -10,20 +10,16 @@
     tools:context=".ActividadesActivity">
 
 
-<!-- titulo -->
-    <TextView
+    <!-- Barra de herramientas superior (AppBar) -->
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/TvactividadesTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="@string/actividades"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:title="Actividades"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
 
     <!-- Icono de Añadir (+)-->
        <ImageView
@@ -31,89 +27,12 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginEnd="16dp"
+           android:contentDescription="@string/agregar_actividad"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintTop_toTopOf="@+id/TvactividadesTitle"
            app:layout_constraintBottom_toBottomOf="@+id/TvactividadesTitle"
-           app:srcCompat="@android:drawable/ic_input_add"
+           android:src="@android:drawable/ic_input_add"
            app:tint="@android:color/white" />
-
-
-    <!-- Busqueda -->
-       <com.google.android.material.textfield.TextInputEditText
-
-
-           android:id="@+id/search"
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="16dp"
-           android:layout_marginTop="20dp"
-           android:layout_marginEnd="16dp"
-           android:background="#264532"
-           android:textColorHint="@color/smalltext_color"
-           android:hint="@string/search"
-           android:inputType="text"
-           android:paddingStart="12dp"
-           android:paddingTop="12dp"
-           android:paddingEnd="12dp"
-           android:paddingBottom="12dp"
-
-           android:drawableStart="?android:attr/actionModeWebSearchDrawable"
-           android:drawablePadding="12dp"
-           app:drawableTint="@color/smalltext_color"
-
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/TvactividadesTitle"
-           tools:ignore="VisualLintTextFieldSize" />
-
-
-    <!-- Botones -->
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/btn_tipoDeActividad"
-           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-           android:layout_width="172dp"
-           android:layout_height="50dp"
-           android:layout_marginStart="16dp"
-           android:layout_marginTop="16dp"
-           android:backgroundTint="#264532"
-           android:text="@string/tipoDeActividad"
-           android:textAllCaps="false"
-           app:cornerRadius="20dp"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/search" />
-
-
-
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/btn_instructor"
-           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-           android:layout_width="172dp"
-           android:layout_height="50dp"
-           android:layout_marginTop="16dp"
-           android:backgroundTint="#264532"
-           android:text="@string/instructor"
-           android:textAllCaps="false"
-           app:cornerRadius="20dp"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/search" />
-
-
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/btn_diaDeLaSemana"
-           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-           android:layout_width="172dp"
-           android:layout_height="50dp"
-           android:layout_marginTop="16dp"
-           android:layout_marginEnd="16dp"
-           android:backgroundTint="#264532"
-           android:text="@string/diaDeLaSemana"
-           android:textAllCaps="false"
-           app:cornerRadius="20dp"
-
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/search" />
-
 
 
     <!-- Lista -->
@@ -121,15 +40,14 @@
            android:id="@+id/recyclerViewActividades"
            android:layout_width="0dp"
            android:layout_height="0dp"
-           android:layout_marginTop="16dp"
-           app:layout_constraintTop_toBottomOf="@id/btn_instructor"
+           android:layout_marginTop="32dp"
+           android:layout_marginStart="16dp"
+           android:layout_marginEnd="16dp"
+           app:layout_constraintTop_toBottomOf="@+id/TvactividadesTitle"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintBottom_toTopOf="@+id/bottom_nav_component"
            tools:listitem="@layout/item_actividades" />
-
-
-
 
     <!-- Incluimos el componente de navegación inferior -->
     <include
@@ -143,5 +61,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

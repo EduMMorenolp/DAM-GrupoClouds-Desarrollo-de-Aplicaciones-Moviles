@@ -6,35 +6,33 @@
     android:layout_height="match_parent"
     android:background="@color/background_color">
 
+    <!-- Barra de herramientas superior (AppBar) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tvEntregacarnetSocioTitle"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:title="@string/entregar_carnet_socio"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white"/>
+
     <ImageView
         android:id="@+id/btn_close2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:clickable="true"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="@string/cerrar"
+        android:clickable="true"
         android:focusable="true"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.018"
+        app:layout_constraintTop_toTopOf="@+id/tvEntregacarnetSocioTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEntregacarnetSocioTitle"
         app:srcCompat="@drawable/ic_x_cross"
         app:tint="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/tvEntregacarnetSocioTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="@string/entregar_carnet_socio"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEntregacarnetSocioDniInput"
@@ -51,8 +49,9 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusBottomEnd="20dp"
-        app:boxStrokeWidth="1dp"
-        app:hintEnabled="true">
+        app:hintEnabled="true"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEntregacarnetSocioDniInput"
@@ -135,15 +134,15 @@
         />
 
     <Button
-        android:id="@+id/btnGenerarPdf"
+        android:id="@+id/btnEntregarCarnet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/button_A_background"
-        android:text="@string/generar_pdf"
-        android:textColor="@color/button_A_text"
+        android:text="Entregar Carnet"
+        android:textColor="@android:color/white"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -159,27 +158,11 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/button_A_background"
         android:text="@string/enviar_por_mail"
-        android:textColor="@color/button_A_text"
+        android:textColor="@android:color/white"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnGenerarPdf"
-        app:strokeWidth="0dp" />
-
-    <Button
-        android:id="@+id/btnCambiarSocio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/button_A_background"
-        android:text="@string/cambiar_socio"
-        android:textColor="@color/button_A_text"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnEnviarPorMail"
+        app:layout_constraintTop_toBottomOf="@id/btnEntregarCarnet"
         app:strokeWidth="0dp" />
 
     <include

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ClubDeportivoApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GrupoClouds">
+        
+        <!-- Actividades que ya tenías -->
         <activity
             android:name=".AddActividadActivity"
             android:exported="true" />
-
         <activity
             android:name=".MiembrosActivity"
             android:exported="false" />
@@ -26,7 +28,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,12 +46,15 @@
         <activity
             android:name=".ActividadesActivity"
             android:exported="false"/>
-
         <activity
             android:name=".AddMemberActivity"
-            android:exported="false" >
+            android:exported="false" />
 
-        </activity>
+        <!-- Actividades nuevas que hemos añadido -->
+        <activity
+            android:name=".CuotasVencidasActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
